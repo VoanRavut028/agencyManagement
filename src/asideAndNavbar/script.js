@@ -24,6 +24,7 @@ iconBar.addEventListener("click", () => {
   } else {
     asideDashboard.style.width = "220px";
     asideDashboard.classList.remove("hidde-aside-text");
+
     asideDashboard.classList.add("trancestion-aside-text");
     asideDashboard.style.transition = "all 0.3s ease";
     handleBodyTask.style.position = "absolute";

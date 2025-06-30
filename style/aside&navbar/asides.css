@@ -1,71 +1,103 @@
 :root {
-  --bg-aside: #0f172a;
-  --text-color: #8b9bae;
+  --bg-aside: #1e293b;
+  --text-color: #cbd5e1;
+  --text-active: #ffffff;
+  --hover-bg: #334155;
 }
-.humbergur-bar i {
-  font-size: 30px;
-  margin-left: 20px;
-}
+
 .handle-aside-dashboard {
   position: fixed;
   background-color: var(--bg-aside);
   width: 220px;
   height: 100vh;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 500;
   color: var(--text-color);
-}
-.aside-menu-top {
-  position: absolute;
-  top: 10%;
-  left: 5%;
-}
-.aside-menu-top ul li a {
-  color: var(--text-color) !important;
-}
-.aside-menu-top ul li a:hover {
-  color: white !important;
-  font-weight: 600;
-}
-.aside-menu-top ul li a i {
-  padding-right: 10px;
-  margin-left: 20px;
-}
-.aside-menu-bottom {
-  position: absolute;
-  top: 50%;
-  left: 5%;
-  color: var(--text-colors);
-}
-.aside-menu-bottom ul li a {
-  color: var(--text-color) !important;
-}
-.aside-menu-bottom ul li i {
-  margin-left: 20px;
-}
-.aside-menu-logout {
-  position: absolute;
-  top: 90%;
-  left: 5%;
-}
-.aside-menu-logout a {
-  color: var(--text-color) !important;
+  transition: all 0.3s ease;
+  overflow-x: hidden;
+  z-index: 999;
 }
 .hidde-aside-text span {
   display: none;
 }
-.trancestion-aside-text span {
-  transition: span 5s ease;
+.humbergur-bar i {
+  font-size: 24px;
+  color: white;
+  margin-left: 20px;
+  margin-top: 15px;
+  cursor: pointer;
 }
 
-.active {
-  background-color: #575a5f81;
-  border-radius: 10px;
+.aside-menu-top,
+.aside-menu-bottom {
+  padding-left: 10px;
+}
+
+.navbar-nav {
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-nav .nav-item {
+  margin-bottom: 10px;
+  list-style: none;
+}
+
+.navbar-nav .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-active);
+}
+
+.navbar-nav .nav-link i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.navbar-nav .nav-item.active .nav-link {
+  background-color: var(--hover-bg);
+  color: var(--text-active);
+  font-weight: 600;
+}
+
+.aside-menu-logout {
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
   width: 100%;
 }
-.active a span {
-  color: white !important;
+
+.aside-menu-logout .nav-link {
+  color: var(--text-color);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
 }
+
+.aside-menu-logout .nav-link:hover {
+  background-color: var(--hover-bg);
+  border-radius: 6px;
+  color: var(--text-active);
+}
+
+.hidde-aside-text span {
+  display: none;
+}
+
+.trancestion-aside-text span {
+  transition: all 0.3s ease;
+}
+
+.active a span,
 .active a i {
-  color: white !important;
+  color: var(--text-active) !important;
 }
