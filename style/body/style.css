@@ -1,0 +1,18 @@
+:root {
+  --bg-blue: #16a2ff;
+}
+thead tr th {
+  font-weight: 600;
+}
+tbody td {
+  text-align: center;
+}
+tbody span {
+  font-size: 1.3rem;
+}
+.contract-table {
+  overflow-x: auto;
+  overflow-y: scroll;
+  /* width: 600px; */
+  height: 500px;
+}

@@ -7,10 +7,14 @@ function updatehandleBodyTaskWidth() {
   const screen = window.innerWidth;
   const asideWidth = parseInt(asideDashboard.style.width || 220); // default to 220 if not set
   handleBodyTask.style.width = screen - asideWidth + "px";
+  if (screen <= 500) {
+  }
+  // alert(screen);
 }
 
 handleBodyTask.style.position = "absolute";
 handleBodyTask.style.left = "220px";
+
 updatehandleBodyTaskWidth();
 iconBar.addEventListener("click", () => {
   if (isActive) {
