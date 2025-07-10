@@ -16,3 +16,12 @@ tbody span {
   /* width: 600px; */
   height: 500px;
 }
+.error-field {
+  color: red;
+}
+.error-form {
+  border: 1px solid red;
+}
+.valid-form {
+  border: 1px solid blue;
+}

@@ -9,7 +9,8 @@
 
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css" />
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css"
+    />
     <link rel="stylesheet" href="../../style/aside&navbar/asides.css" />
     <link rel="stylesheet" href="../../style/aside&navbar/navbar.css" />
     <link rel="stylesheet" href="../../style/body/style.css" />
@@ -79,7 +80,8 @@
     <main id="handle-task-body">
       <navbar>
         <div
-          class="main-nav-navbar d-flex justify-content-between align-items-center mt-3 mx-3 mb-5">
+          class="main-nav-navbar d-flex justify-content-between align-items-center mt-3 mx-3 mb-5"
+        >
           <div>
             <h2>Setup Contract</h2>
           </div>
@@ -88,7 +90,8 @@
               class="img-fluid rounded-circle"
               style="width: 50px; height: 50px"
               src="https://i.pinimg.com/736x/ef/83/12/ef83122faee8a0c3cc1ccd1513f8fb7f.jpg"
-              alt="" />
+              alt=""
+            />
             <h1>Admin</h1>
           </div>
         </div>
@@ -99,8 +102,9 @@
           <div class="col-12 col-sm-6">
             <button
               class="btn btn-primary shadow-none my-4"
-              data-bs-target="#modalContract"
-              data-bs-toggle="modal">
+              data-bs-target="#modalContractFirst"
+              data-bs-toggle="modal"
+            >
               + Add New Contract
             </button>
           </div>
@@ -109,16 +113,18 @@
               <input
                 type="text"
                 class="form-control shadow-none"
-                placeholder="Search" />
+                placeholder="Search"
+              />
             </div>
           </div>
         </div>
 
         <div
           class="modal fade"
-          id="modalContract"
+          id="modalContractFirst"
           tabindex="-1"
-          aria-hidden="true">
+          aria-hidden="true"
+        >
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-header">
@@ -126,7 +132,8 @@
                 <button
                   class="btn-close shadow-none"
                   data-bs-dismiss="modal"
-                  aria-label="close"></button>
+                  aria-label="close"
+                ></button>
               </div>
               <div class="modal-body">
                 <div class="container-fluid">
@@ -138,21 +145,38 @@
                         type="text"
                         placeholder="Enter contract number"
                         id="contact-number"
-                        value="" />
+                        value=""
+                      />
                       <span class="contact-error error-field"></span>
                     </div>
                     <div
-                      class="col-12 col-sm-12 col-lg-6 d-flex align-items-center flex-column justify-content-end">
+                      class="col-12 col-sm-12 col-lg-6 d-flex align-items-center flex-column justify-content-end"
+                    >
                       <img
                         class="img-fluid rounded-circle my-3"
                         id="photoAddress"
-                        style="width: 100px; height: 100px"
-                        src="https://i.pinimg.com/736x/ef/83/12/ef83122faee8a0c3cc1ccd1513f8fb7f.jpg"
-                        alt="" />
+                        style="
+                          width: 100px;
+                          height: 100px;
+                          background-color: ghostwhite;
+                          object-fit: cover;
+                        "
+                        src=""
+                        alt="'"
+                      />
+                      <input
+                        hidden
+                        id="upload-photo"
+                        type="file"
+                        value=""
+                        accept="image/jpeg, image/png, image/jpg,"
+                      />
+                      <label
+                        class="btn btn-primary shadow-none"
+                        for="upload-photo"
+                        >Upload Image</label
+                      >
                       <span class="upload-img-error error-field"></span>
-                      <button class="btn btn-primary shadow-none">
-                        Upload Image
-                      </button>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
                       <label>First Name</label>
@@ -161,9 +185,11 @@
                         type="text"
                         placeholder="Enter first name"
                         id="first-name-contract"
-                        value="" />
+                        value=""
+                      />
                       <span
-                        class="first-name-contract-error error-field"></span>
+                        class="first-name-contract-error error-field"
+                      ></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
                       <label>Last Name</label>
@@ -172,7 +198,8 @@
                         type="text"
                         placeholder="Enter last name"
                         id="last-name-contract"
-                        value="" />
+                        value=""
+                      />
                       <span class="last-name-contract-error error-field"></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
@@ -182,7 +209,8 @@
                         type="text"
                         placeholder="Enter ID/Passport number"
                         id="id-passport-contract"
-                        value="" />
+                        value=""
+                      />
                       <span class="id-passport-error error-field"></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
@@ -192,16 +220,18 @@
                         type="text"
                         placeholder="Enter Signature"
                         id="signature-contract"
-                        value="" />
+                        value=""
+                      />
                       <span class="signature-error error-field"></span>
                     </div>
                   </div>
                   <div class="d-flex justify-content-end gap-4">
                     <button class="btn btn-danger">Cancel</button>
                     <button
-                      data-bs-target="#modalContract2"
                       data-bs-toggle="modal"
-                      class="btn btn-primary">
+                      id="contractInfoFirstNextBtn"
+                      class="btn btn-primary"
+                    >
                       Next
                     </button>
                   </div>
@@ -213,9 +243,10 @@
 
         <div
           class="modal fade"
-          id="modalContract2"
+          id="modalContractSecond"
           tabindex="-1"
-          aria-hidden="true">
+          aria-hidden="true"
+        >
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-header">
@@ -223,7 +254,8 @@
                 <button
                   class="btn-close shadow-none"
                   data-bs-dismiss="modal"
-                  aria-label="close"></button>
+                  aria-label="close"
+                ></button>
               </div>
               <div class="modal-body">
                 <div class="container-fluid">
@@ -235,7 +267,8 @@
                         type="text"
                         placeholder="Enter country"
                         id="country-contract"
-                        value="" />
+                        value=""
+                      />
                       <span class="country-error error-field"></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
@@ -245,7 +278,8 @@
                         type="text"
                         placeholder="Enter province"
                         id="province-contract"
-                        value="" />
+                        value=""
+                      />
                       <span class="province-error error-field"></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
@@ -255,7 +289,8 @@
                         type="text"
                         placeholder="Enter district"
                         id="district-contract"
-                        value="" />
+                        value=""
+                      />
                       <span class="district-error error-field"></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
@@ -265,55 +300,90 @@
                         type="text"
                         placeholder="Enter commune"
                         id="commune-contract"
-                        value="" />
+                        value=""
+                      />
                       <span class="commune-error error-field"></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
-                      <label>Contact Info</label>
+                      <label>Email</label>
                       <input
                         class="form-control shadow-sm"
                         type="text"
-                        placeholder="Enter contact info"
-                        id="contact-contract"
-                        value="" />
-                      <span class="contact-error error-field"></span>
+                        placeholder="Enter email"
+                        id="email-contact"
+                        value=""
+                      />
+                      <span class="email-error error-field"></span>
                     </div>
 
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
                       <label>Agreement Date</label>
-                      <input
-                        class="form-control shadow-sm"
-                        type="date"
-                        id="agreement-contract"
-                        value="" />
-                      <span class="date-error error-field"></span>
+
+                      <div class="row">
+                        <div class="col-6">
+                          <label for="">Start Date</label>
+                          <input
+                            class="form-control shadow-sm"
+                            type="date"
+                            id="start-agreement-contract"
+                            value=""
+                          />
+                          <span
+                            class="start-agreement-error error-field"
+                          ></span>
+                        </div>
+                        <div class="col-6">
+                          <label for="">End Date</label>
+                          <input
+                            class="form-control shadow-sm"
+                            type="date"
+                            id="end-agreement-contract"
+                            value=""
+                          />
+                        </div>
+                      </div>
+                      <span class="end-agreement-error error-field"></span>
                     </div>
 
                     <div
-                      class="col-12 col-sm-12 col-lg-6 my-4 d-flex flex-column">
+                      class="col-12 col-sm-12 col-lg-6 my-4 d-flex flex-column"
+                    >
                       <p>Purchase Method</p>
-                      <div>
-                        <input id="existPartner" type="radio" class="" />
-                        <label for=""> Buy from Existing Partner.</label>
-                      </div>
-                      <div>
-                        <input id="issuedShare" type="radio" class="" />
-                        <label for="">New Issued Shares. </label>
-                      </div>
-                      <span class="date-error error-field"></span>
+
+                      <select
+                        class="form-select shadow-none"
+                        id="purchaseMethod"
+                      >
+                        <option class="" selected disabled value="">
+                          --Choose Option--
+                        </option>
+                        <option
+                          id="exist"
+                          class=""
+                          value="Buy from Existing Partner"
+                        >
+                          Buy from Existing Partner
+                        </option>
+                        <option class="" id="issued" value="New Issued Shares">
+                          New Issued Shares
+                        </option>
+                      </select>
+                      <span class="purchase-error error-field"></span>
                     </div>
                   </div>
                   <div class="d-flex justify-content-end gap-4">
                     <button
-                      data-bs-target="#modalContract"
+                      data-bs-target="#modalContractFirst"
                       data-bs-toggle="modal"
-                      class="btn btn-danger">
+                      class="btn btn-danger"
+                    >
                       Back
                     </button>
                     <button
-                      data-bs-target="#modalContract3"
                       data-bs-toggle="modal"
-                      class="btn btn-primary">
+                      id="purchaseNextBtn"
+                      class="btn btn-primary"
+                    >
                       Next
                     </button>
                   </div>
@@ -325,9 +395,10 @@
 
         <div
           class="modal fade"
-          id="modalContract3"
+          id="modalContractExist"
           tabindex="-1"
-          aria-hidden="true">
+          aria-hidden="true"
+        >
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-header">
@@ -335,7 +406,8 @@
                 <button
                   class="btn-close shadow-none"
                   data-bs-dismiss="modal"
-                  aria-label="close"></button>
+                  aria-label="close"
+                ></button>
               </div>
               <div class="modal-body">
                 <div class="container-fluid">
@@ -347,9 +419,11 @@
                         type="text"
                         placeholder="Enter partner's name"
                         id="partner-p_Ename-contract"
-                        value="" />
+                        value=""
+                      />
                       <span
-                        class="partner-name-contract-error error-field"></span>
+                        class="partner-name-contract-error error-field"
+                      ></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
                       <label>ID/Passport</label>
@@ -357,10 +431,12 @@
                         class="form-control shadow-sm"
                         type="text"
                         placeholder="Enter ID/Passport"
-                        id="idPassport-p_exist-contract "
-                        value="" />
+                        id="idPassport-p_exist-contract"
+                        value=""
+                      />
                       <span
-                        class="idPassport-contract-error error-field"></span>
+                        class="idPassport-contract-error error-field"
+                      ></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
                       <label>Current %</label>
@@ -369,9 +445,11 @@
                         type="text"
                         placeholder="Enter Current Percent"
                         id="currentPercent-p_exist-contract"
-                        value="" />
+                        value=""
+                      />
                       <span
-                        class="current-percent-contract-error error-field"></span>
+                        class="current-percent-contract-error error-field"
+                      ></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
                       <label>Transfer %</label>
@@ -380,9 +458,11 @@
                         type="text"
                         placeholder="Enter Transfer Percent"
                         id="transferPercent-p_exist-contract"
-                        value="" />
+                        value=""
+                      />
                       <span
-                        class="transfer-percent-contract-error error-field"></span>
+                        class="transfer-percent-contract-error error-field"
+                      ></span>
                     </div>
                     <div class="col-12 col-sm-12 my-4">
                       <label>Paid Amount(USA)</label>
@@ -391,9 +471,11 @@
                         type="text"
                         placeholder="Enter Paid Amount "
                         id="paidAmount-p_exist-contract"
-                        value="" />
+                        value=""
+                      />
                       <span
-                        class="paid-amount-contract-error error-field"></span>
+                        class="paid-amount-contract-error error-field"
+                      ></span>
                     </div>
 
                     <div class="col-12 col-sm-12 my-4">
@@ -401,15 +483,14 @@
                       <textarea
                         class="form-control shadow-sm"
                         placeholder="Optional :Enter terms or remark here "
-                        id="noteContract-p_exist"></textarea>
+                        id="noteContract-p_exist"
+                      ></textarea>
 
                       <span class="date-error error-field"></span>
                     </div>
                   </div>
                   <div>
-                    <input
-                      type="checkbox"
-                      id="check-to-confirm-all-contract " />
+                    <input type="checkbox" id="check-to-confirm-all-contract" />
                     <label
                       >I confirm that all information provided is true and
                       agreed by all parties.</label
@@ -417,16 +498,18 @@
                   </div>
                   <div class="d-flex justify-content-end gap-4">
                     <button
-                      data-bs-target="#modalContract2"
+                      data-bs-target="#modalContractSecond"
                       data-bs-toggle="modal"
-                      class="btn btn-danger">
+                      class="btn btn-danger"
+                    >
                       Back
                     </button>
                     <button
                       data-bs-target="#previewFormContract"
                       data-bs-toggle="modal"
-                      id="save-contract-toTable"
-                      class="btn btn-primary">
+                      id="preview-data"
+                      class="btn btn-primary"
+                    >
                       Preview
                     </button>
                   </div>
@@ -438,9 +521,10 @@
 
         <div
           class="modal fade"
-          id="modalContract4"
+          id="modalContractIssued"
           tabindex="-1"
-          aria-hidden="true">
+          aria-hidden="true"
+        >
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-header">
@@ -448,7 +532,8 @@
                 <button
                   class="btn-close shadow-none"
                   data-bs-dismiss="modal"
-                  aria-label="close"></button>
+                  aria-label="close"
+                ></button>
               </div>
               <div class="modal-body">
                 <div class="container-fluid">
@@ -460,9 +545,11 @@
                         type="text"
                         placeholder="Enter Issued Amount"
                         id="issued-N_amount-contract"
-                        value="" />
+                        value=""
+                      />
                       <span
-                        class="partner-name-contract-error error-field"></span>
+                        class="partner-name-contract-error error-field"
+                      ></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
                       <label>Total Issued after shared :</label>
@@ -470,10 +557,12 @@
                         class="form-control shadow-sm"
                         type="text"
                         placeholder="Enter Total Issued After shared"
-                        id="total-N_issued-contract "
-                        value="" />
+                        id="total-N_issued-contract"
+                        value=""
+                      />
                       <span
-                        class="idPassport-contract-error error-field"></span>
+                        class="idPassport-contract-error error-field"
+                      ></span>
                     </div>
                     <div class="col-12 col-sm-12 my-4">
                       <label>Investment Amount (USD) :</label>
@@ -482,9 +571,11 @@
                         type="text"
                         placeholder="Enter Investment Amount"
                         id="Investment-N_amount-contract"
-                        value="" />
+                        value=""
+                      />
                       <span
-                        class="current-percent-contract-error error-field"></span>
+                        class="current-percent-contract-error error-field"
+                      ></span>
                     </div>
 
                     <div class="col-12 col-sm-12 my-4">
@@ -492,15 +583,14 @@
                       <textarea
                         class="form-control shadow-sm"
                         placeholder="Optional :Enter terms or remark here "
-                        id="noteContract-p_exist"></textarea>
+                        id="noteContract-p_exist"
+                      ></textarea>
 
                       <span class="date-error error-field"></span>
                     </div>
                   </div>
                   <div>
-                    <input
-                      type="checkbox"
-                      id="check-to-confirm-all-contract " />
+                    <input type="checkbox" id="check-to-confirm-all-contract" />
                     <label
                       >I confirm that all information provided is true and
                       agreed by all parties.</label
@@ -510,14 +600,15 @@
                     <button
                       data-bs-target="#modalContract2"
                       data-bs-toggle="modal"
-                      class="btn btn-danger">
+                      class="btn btn-danger"
+                    >
                       Back
                     </button>
                     <button
-                      data-bs-target="#previewFormContract"
                       data-bs-toggle="modal"
-                      id="save-contract-toTable"
-                      class="btn btn-primary">
+                      id="preview-data"
+                      class="btn btn-primary"
+                    >
                       Preview
                     </button>
                   </div>
@@ -533,7 +624,8 @@
           class="modal fade"
           id="previewFormContract"
           tabindex="-1"
-          aria-hidden="true">
+          aria-hidden="true"
+        >
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-header">
@@ -541,88 +633,11 @@
                 <button
                   class="btn-close shadow-none"
                   data-bs-dismiss="modal"
-                  aria-label="close"></button>
+                  aria-label="close"
+                ></button>
               </div>
               <div class="modal-body">
-                <div class="container-fluid">
-                  <div class="row d-flex align-items-center">
-                    <div class="col-12 col-sm-12 col-lg-6 my-4">
-                      <label>Contract Number: <span>Dara</span></label>
-                    </div>
-                    <div
-                      class="col-12 col-sm-12 col-lg-6 d-flex align-items-center flex-column justify-content-end">
-                      <img
-                        class="img-fluid rounded-circle my-3"
-                        id="photoAddress"
-                        style="width: 100px; height: 100px"
-                        src="https://i.pinimg.com/736x/ef/83/12/ef83122faee8a0c3cc1ccd1513f8fb7f.jpg"
-                        alt="" />
-                    </div>
-                    <div class="col-12 col-sm-12 col-lg-6 my-4">
-                      <label>Current %</label>
-                      <input
-                        class="form-control shadow-sm"
-                        type="text"
-                        placeholder="Enter Current Percent"
-                        id="currentPercent-p_exist-contract"
-                        value="" />
-                      <span
-                        class="current-percent-contract-error error-field"></span>
-                    </div>
-                    <div class="col-12 col-sm-12 col-lg-6 my-4">
-                      <label>Transfer %</label>
-                      <input
-                        class="form-control shadow-sm"
-                        type="text"
-                        placeholder="Enter Transfer Percent"
-                        id="transferPercent-p_exist-contract"
-                        value="" />
-                      <span
-                        class="transfer-percent-contract-error error-field"></span>
-                    </div>
-                    <div class="col-12 col-sm-12 my-4">
-                      <label>Paid Amount(USA)</label>
-                      <input
-                        class="form-control shadow-sm"
-                        type="text"
-                        placeholder="Enter Paid Amount "
-                        id="paidAmount-p_exist-contract"
-                        value="" />
-                      <span
-                        class="paid-amount-contract-error error-field"></span>
-                    </div>
-
-                    <div class="col-12 col-sm-12 my-4">
-                      <label>Additional Notes/Terms</label>
-                      <textarea
-                        class="form-control shadow-sm"
-                        placeholder="Optional :Enter terms or remark here "
-                        id="noteContract-p_exist"></textarea>
-
-                      <span class="date-error error-field"></span>
-                    </div>
-                  </div>
-                  <div>
-                    <input
-                      type="checkbox"
-                      id="check-to-confirm-all-contract " />
-                    <label
-                      >I confirm that all information provided is true and
-                      agreed by all parties.</label
-                    >
-                  </div>
-                  <div class="d-flex justify-content-end gap-4">
-                    <button
-                      data-bs-target="#modalContract2"
-                      data-bs-toggle="modal"
-                      class="btn btn-danger">
-                      Edit
-                    </button>
-                    <button id="save-contract-toTable" class="btn btn-primary">
-                      Save
-                    </button>
-                  </div>
-                </div>
+                <div id="show-preView-contract" class="row g-4"></div>
               </div>
             </div>
           </div>
@@ -630,15 +645,18 @@
 
         <div class="container contract-table">
           <table
-            class="table table-borderless table-striped align-middle text-center text-nowrap">
+            class="table table-borderless table-striped align-middle text-center text-nowrap"
+          >
             <thead class="table-dark text-light">
               <tr>
-                <th>No</th>
+                <th>ID</th>
                 <th>Contract Number</th>
                 <th>Name</th>
-                <th>Contract info</th>
+                <th>Email</th>
                 <th>Address</th>
+                <th>Purchase</th>
                 <th>Agreement Data</th>
+                <th>Action</th>
                 <th></th>
               </tr>
             </thead>
