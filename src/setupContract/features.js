@@ -1,0 +1,450 @@
+export let existPartnerDatas = [
+  {
+    contactNumber: "12233435",
+    firstName: " Chea",
+    lastName: "Sok ",
+    idPassport: 12234345,
+    email: "sokChea@gmail.com",
+    adress: {
+      country: "Cambodia",
+      province: "Siem Reap",
+      district: "kra Lanh",
+      commune: "Sen Sok",
+    },
+    agreementDate: "2025-07-28",
+    signature: "S.K.A",
+    photo: "C:Users\\voan ravut\\OneDrive\\Pictures",
+    purchase: "Buy from Existing Partner",
+    startAgreementDate: "2025-07-13",
+    endAgreementDate: "2025-07-13",
+    partnerName: "Dara",
+    pExIdPassport: 234353434,
+    pExCurrentPercent: 10,
+    pExTransferPercent: 2,
+    pExPaidAmount: 1000,
+    pExNoteContract: "The best partner ever.",
+  },
+];
+export let issuedContractDatas = [
+  {
+    contactNumber: "DSD-2233435",
+    firstName: "Oudom",
+    lastName: "Manda",
+    idPassport: 12234345,
+    email: "sokChea@gmail.com",
+    adress: {
+      country: "Cambodia",
+      province: "Siem Reap",
+      district: "kra Lanh",
+      commune: "Sen Sok",
+    },
+    startAgreementDate: "2025-07-13",
+    endAgreementDate: "2025-07-13",
+    signature: "S.K.A",
+    photo: "C:Users\\voan ravut\\OneDrive\\Pictures",
+    purchase: "New Issued Shares",
+    issuedAmount: 5,
+    ITotalContract: 500,
+    IInvestmentContract: 40,
+    Inotes: "He is a specail partner.",
+  },
+];
+export let inValidError = `<i class="ri-error-warning-line"></i> Invalid!`;
+export let emptyRequired = `<i class="ri-error-warning-line"></i> This field is required.`;
+const today = new Date();
+const tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1);
+export let endDate = tomorrow.toISOString().split("T")[0];
+
+document.addEventListener("DOMContentLoaded", function () {
+  const dateInput = document.getElementById("end-agreement-contract");
+  if (dateInput) {
+    dateInput.min = endDate;
+  }
+});
+
+export function loadDataContract() {
+  let card = ``;
+  existPartnerDatas.forEach((element) => {
+    card += `
+   <tr>
+                <td>${element.idPassport}</td>
+                <td>${element.firstName} ${element.lastName}</td>
+                <td>${element.email}</td>
+                <td>${element.adress.province}</td>
+                <td>${element.purchase}</td>
+                <td>${element.pExCurrentPercent}%</td>
+                <td>${element.startAgreementDate}</td>
+                <td class="d-flex gap-4">
+               <button class="btn btn-success">View</button>
+               <button class="btn btn-danger">Delete</button>
+               <button class="btn btn-primary">Edit</button>
+                </td>
+              </tr>
+      `;
+  });
+
+  issuedContractDatas.forEach((element) => {
+    card += `
+   <tr>
+                <td>${element.idPassport}</td>
+                 <td>${element.firstName} ${element.lastName}</td>
+                <td>${element.email}</td>
+                <td>${element.adress.province}</td>
+                <td>${element.purchase}</td>
+              <td>${element.issuedAmount}%</td>
+                <td>${element.startAgreementDate}</td>               
+                <td class="d-flex gap-4">
+               <button class="btn btn-success">View</button>
+               <button class="btn btn-danger">Delete</button>
+               <button class="btn btn-primary">Edit</button>
+                </td>
+              </tr>
+      `;
+  });
+
+  document.querySelector("#contact-table-loaddata").innerHTML = card;
+}
+export function regexPattern() {
+  return {
+    patternContractNum: /^[A-Z]{2,}-\d{2,}$/,
+    patternName: /^[A-Z]+[a-z]{1,}$/,
+    patternID: /^[A-Z0-9]{6,12}$/,
+    patternSignature: /^[A-Za-z._-]{1,}$/,
+    patternAddress: /^[A-Z]+[a-z0-9]{1,}$/,
+    patternEmail: /^[A-Za-z0-9.-_%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,}$/,
+    patternPercentage: /^(100(\.0{1,2})?|[0-9]{1,2}(\.[0-9]{1,2})?)$/,
+    patternMoney: /^[0-9]$/,
+  };
+}
+
+export function getInputFirstContract() {
+  return {
+    contractNumber: document.getElementById("contact-number"),
+    profilePicture: document.getElementById("photoAddress"),
+    uploadPhoto: document.getElementById("upload-photo"),
+    firstName: document.getElementById("first-name-contract"),
+    lastName: document.getElementById("last-name-contract"),
+    idPassport: document.getElementById("id-passport-contract"),
+    signature: document.getElementById("signature-contract"),
+  };
+}
+export function contractFirstDetail() {
+  let contractFirstObj = getInputFirstContract();
+  const {
+    contractNumber,
+    profilePicture,
+    uploadPhoto,
+    firstName,
+    lastName,
+    idPassport,
+    signature,
+  } = contractFirstObj;
+  let regex = regexPattern();
+  uploadPhoto.onchange = () => {
+    profilePicture.src = URL.createObjectURL(uploadPhoto.files[0]);
+  };
+  contractInfoFirstNextBtn.addEventListener("click", () => {
+    let isValidFirstForm = true;
+    let modal = "";
+
+    let getFirstName = firstName.value;
+    let getContractNumber = contractNumber.value;
+    let getPhotoAddress = uploadPhoto.value;
+    let getLastName = lastName.value;
+    let getIdPassport = idPassport.value;
+    let getSignature = signature.value;
+
+    let firstNameErr = document.querySelector(".first-name-contract-error");
+    let lastNameErr = document.querySelector(".last-name-contract-error");
+    let contactErr = document.querySelector(".contact-error");
+    let uploadPhototErr = document.querySelector(".upload-img-error");
+    let idErr = document.querySelector(".id-passport-error");
+    let signatureErr = document.querySelector(".signature-error");
+
+    if (!regex.patternName.test(getFirstName) && getFirstName !== "") {
+      firstNameErr.innerHTML = inValidError;
+      isValidFirstForm = false;
+      firstName.classList.add("error-form");
+      firstName.classList.remove("valid-form");
+    } else if (getFirstName === "") {
+      isValidFirstForm = false;
+      firstNameErr.innerHTML = emptyRequired;
+      firstName.classList.add("error-form");
+      firstName.classList.remove("valid-form");
+    } else {
+      firstNameErr.innerHTML = "";
+      firstName.classList.remove("error-form");
+      firstName.classList.add("valid-form");
+    }
+    if (!getPhotoAddress) {
+      uploadPhototErr.innerHTML = `<i class="ri-error-warning-line"></i> Requirement!`;
+      isValidFirstForm = false;
+    } else {
+      uploadPhototErr.innerHTML = "";
+    }
+
+    if (
+      !regex.patternContractNum.test(getContractNumber) &&
+      getContractNumber !== ""
+    ) {
+      contactErr.innerHTML = inValidError;
+      isValidFirstForm = false;
+      contractNumber.classList.add("error-form");
+      contractNumber.classList.remove("valid-form");
+    } else if (getContractNumber === "") {
+      isValidFirstForm = false;
+      contactErr.innerHTML = emptyRequired;
+      contractNumber.classList.add("error-form");
+    } else {
+      contactErr.innerHTML = "";
+      contractNumber.classList.remove("error-form");
+      contractNumber.classList.add("valid-form");
+    }
+
+    if (!regex.patternName.test(getLastName) && getLastName !== "") {
+      lastNameErr.innerHTML = inValidError;
+      isValidFirstForm = false;
+      lastName.classList.add("error-form");
+      lastName.classList.remove("valid-form");
+    } else if (getLastName === "") {
+      isValidFirstForm = false;
+      lastNameErr.innerHTML = emptyRequired;
+      lastName.classList.add("error-form");
+    } else {
+      lastNameErr.innerHTML = "";
+      lastName.classList.remove("error-form");
+      lastName.classList.add("valid-form");
+    }
+
+    if (!regex.patternID.test(getIdPassport) && getIdPassport !== "") {
+      idErr.innerHTML = inValidError;
+      isValidFirstForm = false;
+      idPassport.classList.add("error-form");
+      idPassport.classList.remove("valid-form");
+    } else if (getIdPassport === "") {
+      isValidFirstForm = false;
+      idErr.innerHTML = emptyRequired;
+      idPassport.classList.add("error-form");
+    } else {
+      idErr.innerHTML = "";
+      idPassport.classList.remove("error-form");
+      idPassport.classList.add("valid-form");
+    }
+
+    if (!regex.patternSignature.test(getSignature) && getSignature !== "") {
+      signatureErr.innerHTML = inValidError;
+      isValidFirstForm = false;
+      signature.classList.add("error-form");
+      signature.classList.remove("valid-form");
+    } else if (getSignature === "") {
+      isValidFirstForm = false;
+      signatureErr.innerHTML = emptyRequired;
+      signature.classList.add("error-form");
+    } else {
+      signatureErr.innerHTML = "";
+      signature.classList.remove("error-form");
+      signature.classList.add("valid-form");
+    }
+
+    if (isValidFirstForm) {
+      modal = "modalContractSecond";
+
+      // uploadPhoto.value = "";
+    } else {
+      modal = "modalContractFirst";
+    }
+
+    const modalElement = document.getElementById(modal);
+    const modalInstance = new bootstrap.Modal(modalElement);
+    modalInstance.show();
+  });
+}
+export function getInputContractSecond() {
+  return {
+    purchaseMethod: document.getElementById("purchase-Method"),
+    country: document.getElementById("country-contract"),
+    province: document.getElementById("province-contract"),
+    district: document.getElementById("district-contract"),
+    commune: document.getElementById("commune-contract"),
+    email: document.getElementById("email-contact"),
+    startAgreementDate: document.getElementById("start-agreement-contract"),
+    endAgreementDate: document.getElementById("end-agreement-contract"),
+  };
+}
+export function contractSecondDetail() {
+  let purchaseNextBtn = document.getElementById("purchaseNextBtn");
+
+  let isValidSecondForms = true;
+  let contractSecondObj = getInputContractSecond();
+  const {
+    country,
+    province,
+    district,
+    commune,
+    email,
+    startAgreementDate,
+    endAgreementDate,
+    purchaseMethod,
+  } = contractSecondObj;
+  let regex = regexPattern();
+  let modal = "";
+  purchaseNextBtn.addEventListener("click", () => {
+    
+    let getCountry = country.value;
+    let getProvince = province.value;
+    let getDistrict = district.value;
+    let getCommune = commune.value;
+    let getEmail = email.value;
+    let getStartAgreement = startAgreementDate.value;
+    let getEndAgreement = endAgreementDate.value;
+
+    let countryErr = document.querySelector(".country-error");
+    let provinceErr = document.querySelector(".province-error");
+    let districtErr = document.querySelector(".district-error");
+    let communeErr = document.querySelector(".commune-error");
+    let emailErr = document.querySelector(".email-error");
+    let startAgreementErr = document.querySelector(".start-agreement-error");
+    let endAgreementErr = document.querySelector(".end-agreement-error");
+
+    let getPurchaseVal = purchaseMethod.value;
+    let purchaseErr = document.querySelector(".purchase-error");
+    purchaseErr.innerHTML = "";
+
+    if (!regex.patternAddress.test(getCountry) && getCountry !== "") {
+      countryErr.innerHTML = inValidError;
+      isValidSecondForms = false;
+      country.classList.add("error-form");
+      country.classList.remove("valid-form");
+    } else if (getCountry === "") {
+      isValidSecondForms = false;
+      countryErr.innerHTML = emptyRequired;
+      country.classList.add("error-form");
+    } else {
+      countryErr.innerHTML = "";
+      country.classList.remove("error-form");
+      country.classList.add("valid-form");
+    }
+    if (!regex.patternAddress.test(getProvince) && getProvince !== "") {
+      provinceErr.innerHTML = inValidError;
+      isValidSecondForms = false;
+      province.classList.add("error-form");
+      province.classList.remove("valid-form");
+    } else if (getProvince === "") {
+      isValidSecondForms = false;
+      provinceErr.innerHTML = emptyRequired;
+      province.classList.add("error-form");
+    } else {
+      provinceErr.innerHTML = "";
+      province.classList.remove("error-form");
+      province.classList.add("valid-form");
+    }
+    if (!regex.patternAddress.test(getDistrict) && getDistrict !== "") {
+      districtErr.innerHTML = inValidError;
+      isValidSecondForms = false;
+      district.classList.add("error-form");
+      district.classList.remove("valid-form");
+    } else if (getDistrict === "") {
+      isValidSecondForms = false;
+      districtErr.innerHTML = emptyRequired;
+      district.classList.add("error-form");
+    } else {
+      districtErr.innerHTML = "";
+      district.classList.remove("error-form");
+      district.classList.add("valid-form");
+    }
+
+    if (!regex.patternAddress.test(getCommune) && getCommune !== "") {
+      communeErr.innerHTML = inValidError;
+      isValidSecondForms = false;
+      commune.classList.add("error-form");
+      commune.classList.remove("valid-form");
+    } else if (getCommune === "") {
+      communeErr.innerHTML = emptyRequired;
+      isValidSecondForms = false;
+      commune.classList.add("error-form");
+    } else {
+      communeErr.innerHTML = "";
+      commune.classList.remove("error-form");
+      commune.classList.add("valid-form");
+    }
+
+    if (!regex.patternEmail.test(getEmail) && email !== "") {
+      emailErr.innerHTML = `<i class="ri-error-warning-line"></i> Hmm...that doesn't look like an email address.`;
+      isValidSecondForms = false;
+      email.classList.add("error-form");
+      email.classList.remove("valid-form");
+    } else if (getEmail === "") {
+      emailErr.innerHTML = emptyRequired;
+      isValidSecondForms = false;
+      email.classList.add("error-form");
+    } else {
+      emailErr.innerHTML = "";
+      email.classList.remove("error-form");
+      email.classList.add("valid-form");
+    }
+
+    if (getStartAgreement === isNaN && getStartAgreement !== "") {
+      startAgreementErr.innerHTML = inValidError;
+      isValidSecondForms = false;
+      startAgreementDate.classList.add("error-form");
+      startAgreementDate.classList.remove("valid-form");
+    } else if (getStartAgreement === "") {
+      startAgreementErr.innerHTML = emptyRequired;
+      isValidSecondForms = false;
+      startAgreementDate.classList.add("error-form");
+    } else {
+      startAgreementErr.innerHTML = "";
+      startAgreementDate.classList.remove("error-form");
+      startAgreementDate.classList.add("valid-form");
+    }
+
+    if (getEndAgreement === isNaN) {
+      endAgreementErr.innerHTML = inValidError;
+      isValidSecondForms = false;
+      endAgreementDate.classList.add("error-form");
+      endAgreementDate.classList.remove("valid-form");
+    } else if (getEndAgreement === "") {
+      endAgreementErr.innerHTML = emptyRequired;
+      isValidSecondForms = false;
+    } else {
+      endAgreementErr.innerHTML = "";
+      endAgreementDate.classList.remove("error-form");
+      endAgreementDate.classList.add("valid-form");
+    }
+
+    if (getPurchaseVal === "Buy from Existing Partner") {
+      modal = "modalContractExist";
+    } else if (getPurchaseVal === "New Issued Shares") {
+      modal = "modalContractIssued";
+    } else {
+      modal = "modalContractSecond";
+      purchaseErr.innerHTML = "Please select an option!";
+      isValidSecondForms = false;
+    }
+
+    const modalElement = document.getElementById(modal);
+    if (modalElement && isValidSecondForms) {
+      new bootstrap.Modal(modalElement).show();
+    } else {
+      new bootstrap.Modal(
+        document.getElementById("modalContractSecond")
+      ).show();
+    }
+  });
+}
+
+export function getInputExist() {
+  return {
+    pExname: document.getElementById("partner-p_Ename-contract"),
+    pExIdPassport: document.getElementById("idPassport-p_exist-contract"),
+    pExCurrentPercent: document.getElementById(
+      "currentPercent-p_exist-contract"
+    ),
+    pExTransferPercent: document.getElementById(
+      "transferPercent-p_exist-contract"
+    ),
+    pExPaidAmount: document.getElementById("paidAmount-p_exist-contract"),
+    pExNoteContract: document.getElementById("noteContract-p_exist"),
+  };
+}

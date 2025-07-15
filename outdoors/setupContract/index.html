@@ -128,7 +128,7 @@
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-header">
-                <h1>Contract Info</h1>
+                <h1 class="text-primary">Contract Info</h1>
                 <button
                   class="btn-close shadow-none"
                   data-bs-dismiss="modal"
@@ -250,7 +250,7 @@
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-header">
-                <h1>Contract Info</h1>
+                <h1 class="text-primary">Contract Info</h1>
                 <button
                   class="btn-close shadow-none"
                   data-bs-dismiss="modal"
@@ -260,6 +260,7 @@
               <div class="modal-body">
                 <div class="container-fluid">
                   <div class="row d-flex align-items-center">
+                    <h4 class="text-primary">Address</h4>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
                       <label>Country</label>
                       <input
@@ -340,9 +341,9 @@
                             id="end-agreement-contract"
                             value=""
                           />
+                          <span class="end-agreement-error error-field"></span>
                         </div>
                       </div>
-                      <span class="end-agreement-error error-field"></span>
                     </div>
 
                     <div
@@ -352,7 +353,7 @@
 
                       <select
                         class="form-select shadow-none"
-                        id="purchaseMethod"
+                        id="purchase-Method"
                       >
                         <option class="" selected disabled value="">
                           --Choose Option--
@@ -402,7 +403,7 @@
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-header">
-                <h1>Existing Partner Information</h1>
+                <h1 class="text-primary">Existing Partner Information</h1>
                 <button
                   class="btn-close shadow-none"
                   data-bs-dismiss="modal"
@@ -489,13 +490,7 @@
                       <span class="date-error error-field"></span>
                     </div>
                   </div>
-                  <div>
-                    <input type="checkbox" id="check-to-confirm-all-contract" />
-                    <label
-                      >I confirm that all information provided is true and
-                      agreed by all parties.</label
-                    >
-                  </div>
+
                   <div class="d-flex justify-content-end gap-4">
                     <button
                       data-bs-target="#modalContractSecond"
@@ -505,7 +500,6 @@
                       Back
                     </button>
                     <button
-                      data-bs-target="#previewFormContract"
                       data-bs-toggle="modal"
                       id="preview-data"
                       class="btn btn-primary"
@@ -528,7 +522,7 @@
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
               <div class="modal-header">
-                <h1>New Issued Shares Information</h1>
+                <h1 class="text-primary">New Issued Shares Information</h1>
                 <button
                   class="btn-close shadow-none"
                   data-bs-dismiss="modal"
@@ -598,7 +592,7 @@
                   </div>
                   <div class="d-flex justify-content-end gap-4">
                     <button
-                      data-bs-target="#modalContract2"
+                      data-bs-target="#modalContractSecond"
                       data-bs-toggle="modal"
                       class="btn btn-danger"
                     >
@@ -626,18 +620,28 @@
           tabindex="-1"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-xl">
+          <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h1>Summary check</h1>
+                <h2 class="text-2xl font-bold text-center text-indigo-900 mb-6">
+                  Contract Summary
+                </h2>
                 <button
                   class="btn-close shadow-none"
                   data-bs-dismiss="modal"
                   aria-label="close"
                 ></button>
               </div>
-              <div class="modal-body">
-                <div id="show-preView-contract" class="row g-4"></div>
+              <div class="modal-body" id="show-preView-contract">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Corrupti totam illum, est mollitia laudantium nostrum nam.
+                Dignissimos vero atque rerum.
+                <div>
+                  <button>Edit</button>
+                  <button data-bs-dismiss="modal" id="save-contract-toTable">
+                    Save
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -650,11 +654,11 @@
             <thead class="table-dark text-light">
               <tr>
                 <th>ID</th>
-                <th>Contract Number</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Address</th>
                 <th>Purchase</th>
+                <th>Percent</th>
                 <th>Agreement Data</th>
                 <th>Action</th>
                 <th></th>

@@ -1,445 +1,279 @@
-const existPartnerDatas = [
-  {
-    id: 1,
-    contactNumber: "12233435",
-    firstName: " Chea",
-    lastName: "Sok ",
-    idPassport: 12234345,
-    contactInfo: 93438747,
-    adress: {
-      country: "Cambodia",
-      province: "Siem Reap",
-      district: "kra Lanh",
-      commune: "Sen Sok",
-    },
-    agreementDate: "2025-07-28",
-    signature: "S.K.A",
-    photo: "C:Users\\voan ravut\\OneDrive\\Pictures",
-    purchase: "Buy from Existing Partner",
-  },
-];
-let issuedDatas = [
-  {
-    id: 1,
-    contactNumber: "12233435",
-    firstName: "Oudom",
-    lastName: "Manda",
-    idPassport: 12234345,
-    contactInfo: 93438747,
-    adress: {
-      country: "Cambodia",
-      province: "Siem Reap",
-      district: "kra Lanh",
-      commune: "Sen Sok",
-    },
-    agreementDate: "2025-07-28",
-    signature: "S.K.A",
-    photo: "C:Users\\voan ravut\\OneDrive\\Pictures",
-    purchase: "New Issued Shares",
-  },
-];
+import {
+  loadDataContract,
+  contractFirstDetail,
+  contractSecondDetail,
+  issuedContractDatas,
+  existPartnerDatas,
+  endDate,
+  getInputFirstContract,
+  getInputContractSecond,
+  regexPattern,
+  getInputExist,
+  emptyRequired,
+  inValidError,
+} from "./features.js";
 
-let saveToArray = document.getElementById("save-contract-toTable");
-//  modalContractFirst
-let contractNumber = document.getElementById("contact-number");
-let profilePicture = document.getElementById("photoAddress");
-let uploadPhoto = document.getElementById("upload-photo");
-let firstName = document.getElementById("first-name-contract");
-let lastName = document.getElementById("last-name-contract");
-let idPassport = document.getElementById("id-passport-contract");
-let signature = document.getElementById("signature-contract");
-
-// modalContractSecond
-let country = document.getElementById("country-contract");
-let province = document.getElementById("province-contract");
-let district = document.getElementById("district-contract");
-let commune = document.getElementById("commune-contract");
-let email = document.getElementById("email-contact");
-let startAgreementDate = document.getElementById("start-agreement-contract");
-let endAgreementDate = document.getElementById("end-agreement-contract");
-let purchaseMethod = document.getElementById("Purchase Method");
-// modalContractExist
-let contractInfoOBJ;
-
-let pExname = document.getElementById("partner-p_Ename-contract");
-let pExIdPassport = document.getElementById("idPassport-p_exist-contract");
-let pExCurrentPercent = document.getElementById(
-  "currentPercent-p_exist-contract"
-);
-let pExTransferPercent = document.getElementById(
-  "transferPercent-p_exist-contract"
-);
-let pExPaidAmount = document.getElementById("paidAmount-p_exist-contract");
-let pExNoteContract = document.getElementById("noteContract-p_exist");
-let pExCheckContract = document.getElementById("check-to-confirm-all-contract");
-
-//modalContractIssued
-let IAmountContract = document.getElementById("issued-N_amount-contract");
-let ITotalContract = document.getElementById("total-N_issued-contract");
-let IInvestmentContract = document.getElementById(
-  "Investment-N_amount-contract"
-);
-let Inotes = document.getElementById("noteContract-p_exist");
-let ICheckContract = document.getElementById("check-to-confirm-all-contract");
-
-// regex validation
-const patternContractNum = /^[A-Z]{2,}-\d{2,}$/;
-const patternName = /^[A-Z]+[a-z]{1,}$/;
-const patternID = /[0-9]{1,}/;
-const patternSignature = /^[A-Za-z._-]{1,}$/;
-const patternAddress = /^[A-Z]+[a-z0-9]{1,}$/;
-const patternEmail = /^[A-Za-z0-9.-_%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,}$/;
-const patternPercentage = /[0-9]/;
-
-// let photoAddre = document.getElementById("");
-let purchaseNextBtn = document.getElementById("purchaseNextBtn");
-let contractInfoFirstNextBtn = document.getElementById(
-  "contractInfoFirstNextBtn"
-);
-
-let purChaseMethod = document.getElementById("purchaseMethod");
-
-let purchaseErr = document.querySelector(".purchase-error");
-
-function loadDataContract() {
-  let card = ``;
-  existPartnerDatas.forEach((element) => {
-    card += `
-   <tr>
-                <td>${element.id}</td>
-                <td>${element.contactNumber}</td>
-                <td>${element.firstName} ${element.lastName}</td>
-                <td>${element.contactInfo}</td>
-                <td>${element.adress.province}</td>
-                <td>${element.purchase}</td>
-                <td>${element.agreementDate}</td>
-               
-                <td class="d-flex gap-4">
-               <button class="btn btn-success">View</button>
-               <button class="btn btn-danger">Delete</button>
-               <button class="btn btn-primary">Edit</button>
-                </td>
-              </tr>
-      `;
-  });
-
-  issuedDatas.forEach((element) => {
-    card += `
-   <tr>
-                <td>${element.id}</td>
-                <td>${element.contactNumber}</td>
-                 <td>${element.firstName} ${element.lastName}</td>
-                <td>${element.contactInfo}</td>
-                <td>${element.adress.province}</td>
-                <td>${element.purchase}</td>
-                <td>${element.agreementDate}</td>
-               
-                <td class="d-flex gap-4">
-               <button class="btn btn-success">View</button>
-               <button class="btn btn-danger">Delete</button>
-               <button class="btn btn-primary">Edit</button>
-                </td>
-              </tr>
-      `;
-  });
-
-  document.querySelector("#contact-table-loaddata").innerHTML = card;
-}
-let contractFirstForm = [];
-let contractSecondForm = [];
 loadDataContract();
 handleDataContract();
 function handleDataContract() {
-  // uploadPhoto
+  //modalContractIssued
+  let IAmountContract = document.getElementById("issued-N_amount-contract");
+  let ITotalContract = document.getElementById("total-N_issued-contract");
+  let IInvestmentContract = document.getElementById(
+    "Investment-N_amount-contract"
+  );
+  let Inotes = document.getElementById("noteContract-p_exist");
+  let ICheckContract = document.getElementById("check-to-confirm-all-contract");
 
-  uploadPhoto.onchange = () => {
-    profilePicture.src = URL.createObjectURL(uploadPhoto.files[0]);
-  };
-  // uploadPhoto
-  // catch values
+  let contractInfoFirstNextBtn = document.getElementById(
+    "contractInfoFirstNextBtn"
+  );
 
-  let getContractNumber = contractNumber.value;
-  let getPhotoAddress = profilePicture.value;
-  let getFirstName = firstName.value;
-  let getLastName = lastName.value;
-  let getIdPassport = idPassport.value;
-  let getSignature = signature.value;
-  let getCountry = country.value;
-  let getProvince = province.value;
-  let getDistrict = district.value;
-  let getCommune = commune.value;
-  let getEmail = email.value;
-  let getStartAgreement = startAgreementDate.value;
-  let getEndAgreement = endAgreementDate.value;
-  let getPExname = pExname.value;
-  let getPExIdPassport = pExIdPassport.value;
-  let getPExCurrentPercent = pExCurrentPercent.value;
-  let getPExTransferPercent = pExTransferPercent.value;
-  let getPExPaidAmount = pExPaidAmount.value;
-  let getPExNoteContract = pExNoteContract.value;
-  let getIAmountContract = IAmountContract.value;
-  let getITotalContract = ITotalContract.value;
-  let getIInvestmentContract = IInvestmentContract.value;
-  let getInotes = Inotes.value;
-  let getPurChaseMethod = purChaseMethod.value;
-  let inValidError = `<i class="ri-error-warning-line"></i> Invalid!`;
-  let emptyRequired = `<i class="ri-error-warning-line"></i> This field is required.`;
+  contractFirstDetail();
+  contractSecondDetail();
+  let contractSecondObj = getInputContractSecond();
+  const {
+    country,
+    province,
+    district,
+    commune,
+    email,
+    startAgreementDate,
+    endAgreementDate,
+    purchaseMethod,
+  } = contractSecondObj;
+  let contractFirstObj = getInputFirstContract();
+  const {
+    contractNumber,
+    profilePicture,
+    uploadPhoto,
+    firstName,
+    lastName,
+    idPassport,
+    signature,
+  } = contractFirstObj;
+  let previewData = document.querySelectorAll("#preview-data");
 
-  // check contract info first form
-  contractInfoFirstNextBtn.addEventListener("click", () => {
-    let isValidFirstForm = true;
+  let regex = regexPattern();
+  previewData.forEach((checkPreview) => {
+    let contractExistObj = getInputExist();
     let modal = "";
+    if (purchaseMethod.value === "Buy from Existing Partner") {
+      checkPreview.addEventListener("click", () => {
+        let getPExname = contractExistObj.pExname.value;
+        let getPExIdPassport = contractExistObj.pExIdPassport.value;
+        let getPExCurrentPercent = contractExistObj.pExCurrentPercent.value;
+        let getPExTransferPercent = contractExistObj.pExTransferPercent.value;
+        let getPExPaidAmount = contractExistObj.pExPaidAmount.value;
+        let getPExNoteContract = contractExistObj.pExNoteContract.value;
+        let getPnameErr = document.querySelector(
+          ".partner-name-contract-error"
+        );
+        // let getIAmountContract = contractExistObj.IAmountContract.value;
+        // let getITotalContract = contractExistObj.ITotalContract.value;
+        // let getIInvestmentContract = contractExistObj.IInvestmentContract.value;
+        // let getInotes = contractExistObj.Inotes.value;
 
-    let getFirstName = firstName.value;
-    let getContractNumber = contractNumber.value;
-    let getPhotoAddress = uploadPhoto.value;
-    let getLastName = lastName.value;
-    let getIdPassport = idPassport.value;
-    let getSignature = signature.value;
+        let isValid = true;
+        if (
+          !regex.patternID.test(getPExIdPassport) &&
+          getPExIdPassport !== ""
+        ) {
+          document.querySelector(".idPassport-contract-error").innerHTML =
+            inValidError;
+          contractExistObj.pExIdPassport.classList.add("error-form");
+          contractExistObj.pExIdPassport.classList.remove("valid-form");
+          isValid = false;
+        } else if (getPExIdPassport === "") {
+          document.querySelector(".idPassport-contract-error").innerHTML =
+            emptyRequired;
+          contractExistObj.pExIdPassport.classList.remove("valid-form");
+          contractExistObj.pExIdPassport.classList.add("error-form");
+          isValid = false;
+        } else {
+          contractExistObj.pExIdPassport.classList.remove("error-form");
+          contractExistObj.pExIdPassport.classList.add("valid-form");
+          document.querySelector(".idPassport-contract-error").innerHTML = "";
+        }
+        if (!regex.patternName.test(getPExname) && getPExname !== "") {
+          getPnameErr.innerHTML = inValidError;
+          contractExistObj.pExname.classList.add("error-form");
+          contractExistObj.pExname.classList.remove("valid-form");
+          isValid = false;
+        } else if (getPExname === "") {
+          getPnameErr.innerHTML = emptyRequired;
+          contractExistObj.pExname.classList.remove("valid-form");
+          contractExistObj.pExname.classList.add("error-form");
+          isValid = false;
+        } else {
+          contractExistObj.pExname.classList.remove("error-form");
+          contractExistObj.pExname.classList.add("valid-form");
+          document.querySelector(".partner-name-contract-error").innerHTML = "";
+        }
+        if (
+          !regex.patternPercentage.test(getPExCurrentPercent) &&
+          getPExCurrentPercent !== ""
+        ) {
+          document.querySelector(".current-percent-contract-error").innerHTML =
+            inValidError;
+          contractExistObj.pExCurrentPercent.classList.add("error-form");
+          contractExistObj.pExCurrentPercent.classList.remove("valid-form");
+          isValid = false;
+        } else if (getPExCurrentPercent === "") {
+          document.querySelector(".current-percent-contract-error").innerHTML =
+            emptyRequired;
+          contractExistObj.pExCurrentPercent.classList.remove("valid-form");
+          contractExistObj.pExCurrentPercent.classList.add("error-form");
+          isValid = false;
+        } else {
+          contractExistObj.pExCurrentPercent.classList.remove("error-form");
+          contractExistObj.pExCurrentPercent.classList.add("valid-form");
+          document.querySelector(".current-percent-contract-error").innerHTML =
+            "";
+        }
+        if (
+          !regex.patternPercentage.test(getPExTransferPercent) &&
+          getPExTransferPercent !== ""
+        ) {
+          document.querySelector(".transfer-percent-contract-error").innerHTML =
+            inValidError;
+          contractExistObj.pExTransferPercent.classList.add("error-form");
+          contractExistObj.pExTransferPercent.classList.remove("valid-form");
+          isValid = false;
+        } else if (getPExTransferPercent === "") {
+          document.querySelector(".transfer-percent-contract-error").innerHTML =
+            emptyRequired;
+          contractExistObj.pExTransferPercent.classList.remove("valid-form");
+          contractExistObj.pExTransferPercent.classList.add("error-form");
+          isValid = false;
+        } else {
+          contractExistObj.pExTransferPercent.classList.remove("error-form");
+          contractExistObj.pExTransferPercent.classList.add("valid-form");
+          document.querySelector(".transfer-percent-contract-error").innerHTML =
+            "";
+        }
+        if (
+          !regex.patternMoney.test(getPExPaidAmount) &&
+          getPExPaidAmount !== ""
+        ) {
+          document.querySelector(".paid-amount-contract-error").innerHTML =
+            inValidError;
+          contractExistObj.pExPaidAmount.classList.add("error-form");
+          contractExistObj.pExPaidAmount.classList.remove("valid-form");
+          isValid = false;
+        } else if (getPExPaidAmount === "") {
+          document.querySelector(".paid-amount-contract-error").innerHTML =
+            emptyRequired;
+          contractExistObj.pExPaidAmount.classList.remove("valid-form");
+          contractExistObj.pExPaidAmount.classList.add("error-form");
+          isValid = false;
+        } else {
+          contractExistObj.pExPaidAmount.classList.remove("error-form");
+          contractExistObj.pExPaidAmount.classList.add("valid-form");
+          document.querySelector(".paid-amount-contract-error").innerHTML = "";
+        }
 
-    let firstNameErr = document.querySelector(".first-name-contract-error");
-    let lastNameErr = document.querySelector(".last-name-contract-error");
-    let contactErr = document.querySelector(".contact-error");
-    let uploadPhototErr = document.querySelector(".upload-img-error");
-    let idErr = document.querySelector(".id-passport-error");
-    let signatureErr = document.querySelector(".signature-error");
-
-    if (!patternName.test(getFirstName) && getFirstName !== "") {
-      firstNameErr.innerHTML = inValidError;
-      isValidFirstForm = false;
-      firstName.classList.add("error-form");
-      firstName.classList.remove("valid-form");
-    } else if (getFirstName === "") {
-      isValidFirstForm = false;
-      firstNameErr.innerHTML = emptyRequired;
-      firstName.classList.add("error-form");
-    } else {
-      firstNameErr.innerHTML = "";
-      firstName.classList.remove("error-form");
-      firstName.classList.add("valid-form");
+        if (isValid) {
+          new bootstrap.Modal(
+            document.getElementById("previewFormContract")
+          ).show();
+        } else {
+          new bootstrap.Modal(
+            document.getElementById("modalContractExist")
+          ).show();
+        }
+      });
+    } else if (purchaseMethod.value === "New Issued Shares") {
     }
-    if (!getPhotoAddress) {
-      uploadPhototErr.innerHTML = `<i class="ri-error-warning-line"></i> Requirement!`;
-      isValidFirstForm = false;
-    } else {
-      uploadPhototErr.innerHTML = "";
-    }
-
-    if (
-      !patternContractNum.test(getContractNumber) &&
-      getContractNumber !== ""
-    ) {
-      contactErr.innerHTML = inValidError;
-      isValidFirstForm = false;
-      contractNumber.classList.add("error-form");
-      contractNumber.classList.remove("valid-form");
-    } else if (getContractNumber === "") {
-      isValidFirstForm = false;
-      contactErr.innerHTML = emptyRequired;
-      contractNumber.classList.add("error-form");
-    } else {
-      contactErr.innerHTML = "";
-      contractNumber.classList.remove("error-form");
-      contractNumber.classList.add("valid-form");
-    }
-
-    if (!patternName.test(getLastName) && getLastName !== "") {
-      lastNameErr.innerHTML = inValidError;
-      isValidFirstForm = false;
-      lastName.classList.add("error-form");
-      lastName.classList.remove("valid-form");
-    } else if (getLastName === "") {
-      isValidFirstForm = false;
-      lastNameErr.innerHTML = emptyRequired;
-      lastName.classList.add("error-form");
-    } else {
-      lastNameErr.innerHTML = "";
-      lastName.classList.remove("error-form");
-      lastName.classList.add("valid-form");
-    }
-
-    if (!patternID.test(getIdPassport) && getIdPassport !== "") {
-      idErr.innerHTML = inValidError;
-      isValidFirstForm = false;
-      idPassport.classList.add("error-form");
-      idPassport.classList.remove("valid-form");
-    } else if (getIdPassport === "") {
-      isValidFirstForm = false;
-      idErr.innerHTML = emptyRequired;
-      idPassport.classList.add("error-form");
-    } else {
-      idErr.innerHTML = "";
-      idPassport.classList.remove("error-form");
-      idPassport.classList.add("valid-form");
-    }
-
-    if (!patternSignature.test(getSignature) && getSignature !== "") {
-      signatureErr.innerHTML = inValidError;
-      isValidFirstForm = false;
-      signature.classList.add("error-form");
-      signature.classList.remove("valid-form");
-    } else if (getSignature === "") {
-      isValidFirstForm = false;
-      signatureErr.innerHTML = emptyRequired;
-      signature.classList.add("error-form");
-    } else {
-      signatureErr.innerHTML = "";
-      signature.classList.remove("error-form");
-      signature.classList.add("valid-form");
-    }
-
-    if (isValidFirstForm) {
-      modal = "modalContractSecond";
-
-      // uploadPhoto.value = "";
-    } else {
-      modal = "modalContractFirst";
-    }
-
-    const modalElement = document.getElementById(modal);
-    const modalInstance = new bootstrap.Modal(modalElement);
-    modalInstance.show();
-    console.table(contractFirstForm);
+    new bootstrap.Modal(document.getElementById("previewFormContract")).show();
   });
 
-  purchaseNextBtn.addEventListener("click", () => {
-    debugger;
-    let isValidSecondForms = true;
-    let checkPurchase = false;
+  previewData.forEach((preview) => {
+    preview.addEventListener("click", () => {
+      let getPurchaseVal = purchaseMethod.value;
+      /* let summary = `
+       <div class="row g-4">
+            <div class="col-md-5 text-center">
+             <img id="summaryImage" alt="Profile" class="img-fluid rounded-3 mb-3 shadow-sm profile-img">
+              <p class="h5 fw-semibold text-dark">
+                ${firstName.value} ${lastName.value}
+              </p>
+              <p class="text-muted small">ID / Passport: ${idPassport.value}</p>
+              <p class="text-muted small">
+                Signature: ${signature.value || "—"}
+              </p>
+            </div>
+            <div class="col-md-7">
+              <h3 class="section-title">Details</h3>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <strong>Email:</strong>
+                  <span>${email.value}</span>
+                </li>
+                <li class="list-group-item">
+                  <strong>Address:</strong>
+                  <span
+                    >${commune.value}, ${district.value},<br />${
+        province.value
+      },
+                    ${country.value}</span
+                  >
+                </li>
+                <li class="list-group-item">
+                  <strong>Agreement:</strong>
+                  <span
+                    >${startAgreementDate.value} →
+                    ${endAgreementDate.value}</span
+                  >
+                </li>
+                <li class="list-group-item">
+                  <strong>Purchase Method:</strong>
+                  <span>${getPurchaseVal}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+    `;
 
-    let countryErr = document.querySelector(".country-error");
-    let provinceErr = document.querySelector(".province-error");
-    let districtErr = document.querySelector(".district-error");
-    let communeErr = document.querySelector(".commune-error");
-    let emailErr = document.querySelector(".email-error");
-    let startAgreementErr = document.querySelector(".start-agreement-error");
-    let endAgreementErr = document.querySelector(".end-agreement-error");
+      if (getPurchaseVal === "Buy from Existing Partner") {
+        summary += `
+      <div class="mt-4">
+            <h3 class="section-title">Partner Information</h3>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div>
+                  <strong>Partner Name:</strong> ${pExname.value}<br />
+                  <strong>ID/Passport:</strong> ${pExIdPassport.value}<br />
+                  <strong>Current %:</strong> ${pExCurrentPercent.value}%<br />
+                  <strong>Transfer %:</strong>
+                  ${pExTransferPercent.value}%<br />
+                  <strong>Paid:</strong> $${pExPaidAmount.value}
+                </div>
+              </li>
+            </ul>
+          </div>`;
+      } else if (getPurchaseVal === "New Issued Shares") {
+        summary += `
+        <div class="mt-4">
+            <h3 class="section-title">Share Issuance</h3>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div>
+                  <strong>Issued Amount:</strong> ${IAmountContract.value}<br />
+                  <strong>Total After Issue:</strong>
+                  ${ITotalContract.value}<br />
+                  <strong>Investment:</strong> $${IInvestmentContract.value}
+                </div>
+              </li>
+            </ul>
+          </div>`;
+      }
 
-    let getPurchaseVal = purChaseMethod.value;
-    purchaseErr.innerHTML = "";
-
-    let modal = "";
-
-    if (!patternAddress.test(getCountry) && getCountry !== "") {
-      countryErr.innerHTML = inValidError;
-      isValidSecondForms = false;
-      country.classList.add("error-form");
-      country.classList.remove("valid-form");
-    } else if (getCountry === "") {
-      isValidSecondForms = false;
-      countryErr.innerHTML = emptyRequired;
-      country.classList.add("error-form");
-    } else {
-      countryErr.innerHTML = "";
-      country.classList.remove("error-form");
-      country.classList.add("valid-form");
-    }
-    if (!patternAddress.test(getProvince) && getProvince !== "") {
-      provinceErr.innerHTML = inValidError;
-      isValidSecondForms = false;
-      province.classList.add("error-form");
-      province.classList.remove("valid-form");
-    } else if (getProvince === "") {
-      isValidSecondForms = false;
-      provinceErr.innerHTML = emptyRequired;
-      province.classList.add("error-form");
-    } else {
-      provinceErr.innerHTML = "";
-      province.classList.add("error-form");
-      province.classList.remove("valid-form");
-    }
-    if (!patternAddress.test(getDistrict) && getDistrict !== "") {
-      districtErr.innerHTML = inValidError;
-      isValidSecondForms = false;
-      district.classList.add("error-form");
-      district.classList.remove("valid-form");
-    } else if (getDistrict === "") {
-      isValidSecondForms = false;
-      districtErr.innerHTML = emptyRequired;
-      district.classList.add("error-form");
-    } else {
-      districtErr.innerHTML = "";
-      district.classList.remove("error-form");
-      district.classList.add("valid-form");
-    }
-
-    if (!patternAddress.test(getCommune) && getCommune !== "") {
-      communeErr.innerHTML = inValidError;
-      isValidSecondForms = false;
-      commune.classList.add("error-form");
-      commune.classList.remove("valid-form");
-    } else if (getCommune === "") {
-      communeErr.innerHTML = emptyRequired;
-      isValidSecondForms = false;
-      commune.classList.add("error-form");
-    } else {
-      communeErr.innerHTML = "";
-      commune.classList.remove("error-form");
-      commune.classList.add("valid-form");
-    }
-
-    if (!patternEmail.test(getEmail) && email !== "") {
-      emailErr.innerHTML = `<i class="ri-error-warning-line"></i> Hmm...that doesn't look like an email address.`;
-      isValidSecondForms = false;
-      email.classList.add("error-form");
-      email.classList.remove("valid-form");
-    } else if (getEmail === "") {
-      emailErr.innerHTML = emptyRequired;
-      isValidSecondForms = false;
-      email.classList.add("error-form");
-    } else {
-      emailErr.innerHTML = "";
-      email.classList.add("error-form");
-      email.classList.remove("valid-form");
-    }
-
-    if (!patternEmail.test(getStartAgreement) && getStartAgreement !== "") {
-      startAgreementErr.innerHTML = inValidError;
-      isValidSecondForms = false;
-      startAgreementDate.classList.add("error-form");
-      startAgreementDate.classList.remove("valid-form");
-    } else if (getStartAgreement === "") {
-      startAgreementErr.innerHTML = emptyRequired;
-      isValidSecondForms = false;
-      startAgreementDate.classList.add("error-form");
-    } else {
-      startAgreementErr.innerHTML = "";
-      startAgreementDate.classList.add("error-form");
-      startAgreementDate.classList.remove("valid-form");
-    }
-    if (!patternEmail.test(getStartAgreement) && getEndAgreement !== "") {
-      startAgreementErr.innerHTML = inValidError;
-      isValidSecondForms = false;
-      startAgreementDate.classList.add("error-form");
-      startAgreementDate.classList.remove("valid-form");
-    } else if (getStartAgreement === "") {
-      startAgreementErr.innerHTML = emptyRequired;
-      isValidSecondForms = false;
-    } else {
-      startAgreementErr.innerHTML = "";
-      startAgreementDate.classList.add("error-form");
-      startAgreementDate.classList.remove("valid-form");
-    }
-
-    if (getPurchaseVal === "Buy from Existing Partner") {
-      checkPurchase = true;
-    } else if (getPurchaseVal === "New Issued Shares") {
-      modal = "modalContractIssued";
-    } else {
-      purchaseErr.innerHTML = "Please select an option!";
-      modal = "modalContractSecond";
-      isValidSecondForms = false;
-    }
-    if (isValidSecondForms) {
-      alert(2);
-    } else {
-      console.error("Modal element not found for:", modal);
-    }
-    const modalElement = document.getElementById(modal);
-    const modalInstance = new bootstrap.Modal(modalElement);
-    modalInstance.show();
+      document.getElementById("show-preView-contract").innerHTML = summary; 
+      */
+    });
   });
-
+  /*
   contractInfoOBJ = {
     contactNumber: getContractNumber,
     firstName: getFirstName,
@@ -471,129 +305,66 @@ function handleDataContract() {
     IInvestmentContract: getIInvestmentContract,
     Inotes: getInotes,
   };
+  */
   // preView
-  let previewData = document.querySelectorAll("#preview-data");
-  previewData.forEach((preview) => {
-    preview.addEventListener("click", () => {
-      let getPurchaseVal = purChaseMethod.value;
-      let summary = `
-      <div class="col-md-5 text-center">
-        <img src="${getPhotoAddress}" alt="Profile" class="img-fluid rounded-3 mb-3 shadow-sm">
-        <p class="mb-1 fs-6 fw-medium">${getFirstName} ${getLastName}</p>
-        <p class="text-muted small mb-0">ID / Passport: ${getIdPassport}</p>
-        <p class="text-muted small">Signature: ${getSignature || "—"}</p>
-      </div>
-
-      <div class="col-md-7">
-        <ul class="list-group list-group-flush small">
-
-          <li class="list-group-item">
-            <strong>Contract #:</strong> ${getContractNumber}
-          </li>
-
-          <li class="list-group-item">
-            <strong>Email:</strong> ${getEmail}
-          </li>
-
-          <li class="list-group-item">
-            <strong>Address:</strong><br>
-            ${getCommune}, ${getDistrict},<br>
-            ${getProvince}, ${getCountry}
-          </li>
-
-          <li class="list-group-item">
-            <strong>Agreement:</strong>
-            ${getStartAgreement} → ${getEndAgreement}
-          </li>
-
-          <li class="list-group-item">
-            <strong>Purchase Method:</strong> ${purChaseMethod}
-          </li>
-       </ul>
-       </div>
-          `;
-      if (getPurchaseVal === "Buy from Existing Partner") {
-        summary = `
-          <ul>
-          <li class="list-group-item">
-          <strong>Partner Name:</strong> ${getPExname}<br>
-          <strong>ID/Passport:</strong> ${getPExIdPassport}<br>
-          <strong>Current %:</strong> ${getPExCurrentPercent}%<br>
-          <strong>Transfer %:</strong> ${getPExTransferPercent}%<br>
-          <strong>Paid:</strong> $${getPExPaidAmount}
-          </li>
-          </ul>    
-          `;
-      } else if (getPurchaseVal === "New Issued Shares") {
-        summary = ` 
-         <ul>
-         <li class="list-group-item">
-         <strong>Issued Amount:</strong> ${get}<br>
-         <strong>Total After Issue:</strong> ${d.purchase.newIssue.total}<br>
-         <strong>Investment:</strong> $${d.purchase.newIssue.investment}
-         </li>
-         </ul>
-         `;
-      }
-      document.getElementById("show-preView-contract").innerHTML = summary;
-    });
-  });
 
   // EndpreView
+  let saveToArray = document.getElementById("save-contract-toTable");
   saveToArray.addEventListener("click", (event) => {
-    if (isValid) {
-      if (getPurChaseMethod === "Buy from Existing Partner") {
-        existPartnerDatas.push({
-          contactNumber: getContractNumber,
-          firstName: getFirstName,
-          lastName: getLastName,
-          idPassport: getIdPassport,
-          signature: getSignature,
-          email: getEmail,
-          adress: {
-            country: getCountry,
-            province: getProvince,
-            district: getDistrict,
-            commune: getCommune,
-          },
-          startAgreementDate: getStartAgreement,
-          LastAgreementDate: getEndAgreement,
-          photo: getPhotoAddress,
-          partnerName: getPExname,
-          pExIdPassport: getPExIdPassport,
-          pExCurrentPercent: getPExCurrentPercent,
-          pExTransferPercent: getPExTransferPercent,
-          pExPaidAmount: getPExPaidAmount,
-          pExNoteContract: getPExNoteContract,
-        });
-      } else if (getPurChaseMethod === "New Issued Shares") {
-        issuedDatas.push({
-          contactNumber: getContractNumber,
-          firstName: getFirstName,
-          lastName: getLastName,
-          idPassport: getIdPassport,
-          signature: getSignature,
-          email: getEmail,
-          adress: {
-            country: getCountry,
-            province: getProvince,
-            district: getDistrict,
-            commune: getCommune,
-          },
-          startAgreementDate: getStartAgreement,
-          LastAgreementDate: getEndAgreement,
-          photo: getPhotoAddress,
-          IAmountContract: getIAmountContract,
-          ITotalContract: getITotalContract,
-          IInvestmentContract: getIInvestmentContract,
-          Inotes: getInotes,
-        });
-      }
+    let getPurChaseMethod = purchaseMethod.value;
+    if (getPurChaseMethod === "Buy from Existing Partner") {
+      existPartnerDatas.push({
+        contactNumber: contractNumber.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        idPassport: idPassport.value,
+        signature: signature.value,
+        purchase: getPurChaseMethod,
+        email: email.value,
+        adress: {
+          country: country.value,
+          province: province.value,
+          district: district.value,
+          commune: commune.value,
+        },
+        startAgreementDate: startAgreementDate.value,
+        endAgreementDate: endAgreementDate.value,
+        photo: uploadPhoto.value,
+        partnerName: pExname.value,
+        pExIdPassport: pExIdPassport.value,
+        pExCurrentPercent: pExCurrentPercent.value,
+        pExTransferPercent: pExTransferPercent.value,
+        pExPaidAmount: pExPaidAmount.value,
+        pExNoteContract: pExNoteContract.value,
+      });
+    } else if (getPurChaseMethod === "New Issued Shares") {
+      issuedContractDatas.push({
+        contactNumber: contractNumber.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        idPassport: idPassport.value,
+        signature: signature.value,
+        purchase: getPurChaseMethod,
+        email: email.value,
+        adress: {
+          country: country.value,
+          province: province.value,
+          district: district.value,
+          commune: commune.value,
+        },
+        startAgreementDate: startAgreementDate.value,
+        endAgreementDate: endAgreementDate.value,
+        photo: uploadPhoto.value,
+        issuedAmount: IAmountContract.value,
+        ITotalContract: ITotalContract.value,
+        IInvestmentContract: IInvestmentContract.value,
+        Inotes: Inotes.value,
+      });
     }
+
     loadDataContract();
   });
 }
-function handlePurchaseMethod(purChaseMethod, purchaseErr, purchaseNextBtn) {}
 
 function clearFieldFirtform() {
   firstName.value = "";
@@ -603,12 +374,3 @@ function clearFieldFirtform() {
   idPassport.value = "";
   signature.value = "";
 }
-
-let endDate = document.addEventListener("DOMContentLoaded", function () {
-  const dateInput = document.getElementById("end-agreement-contract");
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
-  const minDate = tomorrow.toISOString().split("T")[0];
-  dateInput.min = minDate;
-});
