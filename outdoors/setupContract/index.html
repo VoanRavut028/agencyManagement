@@ -440,7 +440,7 @@
                       ></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
-                      <label>Current %</label>
+                      <label>Current (%):</label>
                       <input
                         class="form-control shadow-sm"
                         type="text"
@@ -453,7 +453,7 @@
                       ></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
-                      <label>Transfer %</label>
+                      <label>Transfer (%):</label>
                       <input
                         class="form-control shadow-sm"
                         type="text"
@@ -466,7 +466,7 @@
                       ></span>
                     </div>
                     <div class="col-12 col-sm-12 my-4">
-                      <label>Paid Amount(USA)</label>
+                      <label>Paid Amount (USA):</label>
                       <input
                         class="form-control shadow-sm"
                         type="text"
@@ -533,7 +533,7 @@
                 <div class="container-fluid">
                   <div class="row d-flex align-items-center">
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
-                      <label>Issued Amount :</label>
+                      <label>Issued Amount (%):</label>
                       <input
                         class="form-control shadow-sm"
                         type="text"
@@ -542,11 +542,11 @@
                         value=""
                       />
                       <span
-                        class="partner-name-contract-error error-field"
+                        class="issued-amount-contract-error error-field"
                       ></span>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-6 my-4">
-                      <label>Total Issued after shared :</label>
+                      <label>Total Issued after shared (%):</label>
                       <input
                         class="form-control shadow-sm"
                         type="text"
@@ -555,11 +555,11 @@
                         value=""
                       />
                       <span
-                        class="idPassport-contract-error error-field"
+                        class="totalIssued-contract-error error-field"
                       ></span>
                     </div>
                     <div class="col-12 col-sm-12 my-4">
-                      <label>Investment Amount (USD) :</label>
+                      <label>Investment Amount (USD):</label>
                       <input
                         class="form-control shadow-sm"
                         type="text"
@@ -568,7 +568,7 @@
                         value=""
                       />
                       <span
-                        class="current-percent-contract-error error-field"
+                        class="issued-investment-contract-error error-field"
                       ></span>
                     </div>
 
@@ -579,17 +579,9 @@
                         placeholder="Optional :Enter terms or remark here "
                         id="noteContract-p_exist"
                       ></textarea>
-
-                      <span class="date-error error-field"></span>
                     </div>
                   </div>
-                  <div>
-                    <input type="checkbox" id="check-to-confirm-all-contract" />
-                    <label
-                      >I confirm that all information provided is true and
-                      agreed by all parties.</label
-                    >
-                  </div>
+
                   <div class="d-flex justify-content-end gap-4">
                     <button
                       data-bs-target="#modalContractSecond"
@@ -632,21 +624,7 @@
                   aria-label="close"
                 ></button>
               </div>
-              <div class="modal-body" id="show-preView-contract">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Corrupti totam illum, est mollitia laudantium nostrum nam.
-                Dignissimos vero atque rerum.
-                <div>
-                  <button class="btn btn-primary">Edit</button>
-                  <button
-                    class="btn btn-success"
-                    data-bs-dismiss="modal"
-                    id="save-contract-toTable"
-                  >
-                    Save
-                  </button>
-                </div>
-              </div>
+              <div class="modal-body" id="show-preView-contract"></div>
             </div>
           </div>
         </div>

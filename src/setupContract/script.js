@@ -11,8 +11,32 @@ import {
   getInputExist,
   emptyRequired,
   inValidError,
+  getInputIssued,
 } from "./features.js";
-
+let contractSecondObj = getInputContractSecond();
+const {
+  country,
+  province,
+  district,
+  commune,
+  email,
+  startAgreementDate,
+  endAgreementDate,
+  purchaseMethod,
+} = contractSecondObj;
+let contractFirstObj = getInputFirstContract();
+const {
+  contractNumber,
+  profilePicture,
+  uploadPhoto,
+  firstName,
+  lastName,
+  idPassport,
+  signature,
+} = contractFirstObj;
+let regex = regexPattern();
+let contractExistObj = getInputExist();
+let contractIssuedObj = getInputIssued();
 loadDataContract();
 handleDataContract();
 function handleDataContract() {
@@ -31,35 +55,12 @@ function handleDataContract() {
 
   contractFirstDetail();
   contractSecondDetail();
-  let contractSecondObj = getInputContractSecond();
-  const {
-    country,
-    province,
-    district,
-    commune,
-    email,
-    startAgreementDate,
-    endAgreementDate,
-    purchaseMethod,
-  } = contractSecondObj;
-  let contractFirstObj = getInputFirstContract();
-  const {
-    contractNumber,
-    profilePicture,
-    uploadPhoto,
-    firstName,
-    lastName,
-    idPassport,
-    signature,
-  } = contractFirstObj;
+
   let previewData = document.querySelectorAll("#preview-data");
-  let regex = regexPattern();
-  let contractExistObj = getInputExist();
 
   previewData.forEach((checkPreview) => {
     checkPreview.addEventListener("click", () => {
       let getPurchaseVal = purchaseMethod.value;
-
       let isValid = true;
 
       if (getPurchaseVal === "Buy from Existing Partner") {
@@ -176,6 +177,9 @@ function handleDataContract() {
         }
 
         if (isValid) {
+          new bootstrap.Modal(
+            document.getElementById("previewFormContract")
+          ).show();
           let summary = `
           <div class="row g-4">
               <div class="col-md-5 text-center">
@@ -223,83 +227,111 @@ function handleDataContract() {
                   <div class ="d-flex flex-column">
                    <p><strong>Partner Name:</strong> ${getPExname} </p>
                   <p><strong>ID/Passport:</strong> ${getPExIdPassport}</p>
-                  <p><strong>Current %:</strong> ${getPExCurrentPercent}%</p>
-                  <p><strong>Transfer %:</strong> ${getPExTransferPercent}%</p>
-                  <p><strong>Paid:</strong> $${getPExPaidAmount}</p>
-                  <p><strong>Notes:</strong> $${getPExNote}</p>
+                  <p><strong>Current (%):</strong> ${getPExCurrentPercent}%</p>
+                  <p><strong>Transfer (%):</strong> ${getPExTransferPercent}%</p>
+                  <p><strong>Paid (USA):</strong> $${getPExPaidAmount}</p>
+                  <p><strong>Notes :</strong> $${getPExNote}</p>
                   </div>
                 </li>
               </ul>
-            </div>`;
+            </div>
+             <div>
+                  <button class="btn btn-primary">Edit</button>
+                  <button
+                    class="btn btn-success"
+                    data-bs-dismiss="modal"
+                    id="save-contract-toTable"
+                    
+                  >
+                    Save
+                  </button>
+                </div>
+            `;
           document.getElementById("show-preView-contract").innerHTML = summary;
-          new bootstrap.Modal(
-            document.getElementById("previewFormContract")
-          ).show();
         } else {
           new bootstrap.Modal(
             document.getElementById("modalContractExist")
           ).show();
         }
       } else if (getPurchaseVal === "New Issued Shares") {
-        let getIAmountContract = contractExistObj.IAmountContract.value;
-        let getITotalContract = contractExistObj.ITotalContract.value;
-        let getIInvestmentContract = contractExistObj.IInvestmentContract.value;
+        let getIAmountContract = contractIssuedObj.IAmountContract.value;
+        let getITotalContract = contractIssuedObj.ITotalContract.value;
+        let getIInvestmentContract =
+          contractIssuedObj.IInvestmentContract.value;
+        let getINoteContract = contractIssuedObj.Inotes.value;
 
         if (
-          !regex.patternMoney.test(getIAmountContract) &&
+          !regex.patternPercentage.test(getIAmountContract) &&
           getIAmountContract !== ""
         ) {
           document.querySelector(".issued-amount-contract-error").innerHTML =
             inValidError;
-          contractExistObj.IAmountContract.classList.add("error-form");
+          contractIssuedObj.IAmountContract.classList.add("error-form");
+          contractIssuedObj.IAmountContract.classList.remove("valid-form");
           isValid = false;
         } else if (getIAmountContract === "") {
           document.querySelector(".issued-amount-contract-error").innerHTML =
             emptyRequired;
-          contractExistObj.IAmountContract.classList.add("error-form");
+          contractIssuedObj.IAmountContract.classList.add("error-form");
+          contractIssuedObj.IAmountContract.classList.remove("valid-form");
           isValid = false;
         } else {
-          contractExistObj.IAmountContract.classList.add("valid-form");
+          document.querySelector(".issued-amount-contract-error").innerHTML =
+            "";
+          contractIssuedObj.IAmountContract.classList.add("valid-form");
+          contractIssuedObj.IAmountContract.classList.remove("error-form");
         }
 
         if (
-          !regex.patternMoney.test(getITotalContract) &&
+          !regex.patternPercentage.test(getITotalContract) &&
           getITotalContract !== ""
         ) {
-          document.querySelector(".total-contract-error").innerHTML =
+          document.querySelector(".totalIssued-contract-error").innerHTML =
             inValidError;
-          contractExistObj.ITotalContract.classList.add("error-form");
+          contractIssuedObj.ITotalContract.classList.add("error-form");
+          contractIssuedObj.ITotalContract.classList.remove("valid-form");
           isValid = false;
         } else if (getITotalContract === "") {
-          document.querySelector(".total-contract-error").innerHTML =
+          document.querySelector(".totalIssued-contract-error").innerHTML =
             emptyRequired;
-          contractExistObj.ITotalContract.classList.add("error-form");
+          contractIssuedObj.ITotalContract.classList.add("error-form");
+          contractIssuedObj.ITotalContract.classList.remove("valid-form");
           isValid = false;
         } else {
-          contractExistObj.ITotalContract.classList.add("valid-form");
+          document.querySelector(".totalIssued-contract-error").innerHTML = "";
+          contractIssuedObj.ITotalContract.classList.add("valid-form");
+          contractIssuedObj.ITotalContract.classList.remove("error-form");
         }
 
         if (
           !regex.patternMoney.test(getIInvestmentContract) &&
           getIInvestmentContract !== ""
         ) {
-          document.querySelector(".investment-contract-error").innerHTML =
-            inValidError;
-          contractExistObj.IInvestmentContract.classList.add("error-form");
+          document.querySelector(
+            ".issued-investment-contract-error"
+          ).innerHTML = inValidError;
+          contractIssuedObj.IInvestmentContract.classList.add("error-form");
+          contractIssuedObj.IInvestmentContract.classList.remove("valid-form");
           isValid = false;
         } else if (getIInvestmentContract === "") {
-          document.querySelector(".investment-contract-error").innerHTML =
-            emptyRequired;
-          contractExistObj.IInvestmentContract.classList.add("error-form");
+          document.querySelector(
+            ".issued-investment-contract-error"
+          ).innerHTML = emptyRequired;
+          contractIssuedObj.IInvestmentContract.classList.add("error-form");
+          contractIssuedObj.IInvestmentContract.classList.remove("valid-form");
           isValid = false;
         } else {
-          contractExistObj.IInvestmentContract.classList.add("valid-form");
+          document.querySelector(
+            ".issued-investment-contract-error"
+          ).innerHTML = "";
+          contractIssuedObj.IInvestmentContract.classList.add("valid-form");
+          contractIssuedObj.IInvestmentContract.classList.remove("error-form");
         }
 
-        // --- End of validation for New Issued Shares ---
-
         if (isValid) {
-          // All validations passed for "New Issued Shares"
+          new bootstrap.Modal(
+            document.getElementById("previewFormContract")
+          ).show();
           let summary = `
           <div class="row g-4">
               <div class="col-md-5 text-center">
@@ -344,86 +376,111 @@ function handleDataContract() {
               <h3 class="section-title">Share Issuance</h3>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                  <div>
-                    <strong>Issued Amount:</strong> ${getIAmountContract}<br />
-                    <strong>Total After Issue:</strong> ${getITotalContract}<br />
-                    <strong>Investment:</strong> $${getIInvestmentContract}
+                 
+                   <div class ="d-flex flex-column">
+                   <p><strong>Issued Amount (%):</strong> ${getIAmountContract} </p>
+                  <p><strong>Total After Issue (%):</strong> ${getITotalContract}</p>
+                  <p><strong>Investment (USA):</strong> ${getIInvestmentContract}</p>
+                  <p><strong>Notes:</strong> ${getINoteContract}</p>
                   </div>
                 </li>
               </ul>
-            </div>`;
+            </div>
+             <div>
+                  <button class="btn btn-primary">Edit</button>
+                  <button
+                    class="btn btn-success"
+                    data-bs-dismiss="modal"
+                    id="save-contract-toTable"
+                    
+                    
+                  >
+                    Save
+                  </button>
+                </div>
+            `;
           document.getElementById("show-preView-contract").innerHTML = summary;
-          new bootstrap.Modal(
-            document.getElementById("previewFormContract")
-          ).show(); // Show preview modal
         } else {
-          // Validation failed, show the input modal for New Issued Shares
-          // Assuming you have a separate modal for "New Issued Shares" inputs, e.g., "modalNewIssuedShares"
           new bootstrap.Modal(
-            document.getElementById("modalNewIssuedShares")
+            document.getElementById("modalContractIssued")
           ).show();
         }
+      }
+      const saveButton = document.getElementById("save-contract-toTable");
+      if (saveButton) {
+        // Always good to check if the element exists
+        saveButton.addEventListener("click", () => {
+          // Call your saveData function here
+          saveData();
+        });
       }
     });
   });
   // EndpreView
-  let saveToArray = document.getElementById("save-contract-toTable");
-  saveToArray.addEventListener("click", (event) => {
-    let getPurChaseMethod = purchaseMethod.value;
-    if (getPurChaseMethod === "Buy from Existing Partner") {
-      existPartnerDatas.push({
-        contactNumber: contractNumber.value,
-        firstName: firstName.value,
-        lastName: lastName.value,
-        idPassport: idPassport.value,
-        signature: signature.value,
-        purchase: getPurChaseMethod,
-        email: email.value,
-        adress: {
-          country: country.value,
-          province: province.value,
-          district: district.value,
-          commune: commune.value,
-        },
-        startAgreementDate: startAgreementDate.value,
-        endAgreementDate: endAgreementDate.value,
-        photo: uploadPhoto.value,
-        partnerName: pExname.value,
-        pExIdPassport: pExIdPassport.value,
-        pExCurrentPercent: pExCurrentPercent.value,
-        pExTransferPercent: pExTransferPercent.value,
-        pExPaidAmount: pExPaidAmount.value,
-        pExNoteContract: pExNoteContract.value,
-      });
-    } else if (getPurChaseMethod === "New Issued Shares") {
-      issuedContractDatas.push({
-        contactNumber: contractNumber.value,
-        firstName: firstName.value,
-        lastName: lastName.value,
-        idPassport: idPassport.value,
-        signature: signature.value,
-        purchase: getPurChaseMethod,
-        email: email.value,
-        adress: {
-          country: country.value,
-          province: province.value,
-          district: district.value,
-          commune: commune.value,
-        },
-        startAgreementDate: startAgreementDate.value,
-        endAgreementDate: endAgreementDate.value,
-        photo: uploadPhoto.value,
-        issuedAmount: IAmountContract.value,
-        ITotalContract: ITotalContract.value,
-        IInvestmentContract: IInvestmentContract.value,
-        Inotes: Inotes.value,
-      });
-    }
-
-    loadDataContract();
-  });
 }
+// let purchaseMethod = document.getElementById("purchase-Method");
+function saveData() {
+  // let saveToArray = document.querySelectorAll("#save-contract-toTable");
+  // saveToArray.forEach((saveData) => {
+  //   saveData.addEventListener("click", () => {
+  //     debugger;
+  let getPurChaseMethod = purchaseMethod.value;
+  if (getPurChaseMethod === "Buy from Existing Partner") {
+    existPartnerDatas.push({
+      contactNumber: contractNumber.value,
+      firstName: firstName.value,
+      lastName: lastName.value,
+      idPassport: idPassport.value,
+      signature: signature.value,
+      purchase: getPurChaseMethod,
+      email: email.value,
+      adress: {
+        country: country.value,
+        province: province.value,
+        district: district.value,
+        commune: commune.value,
+      },
+      startAgreementDate: startAgreementDate.value,
+      endAgreementDate: endAgreementDate.value,
+      photo: uploadPhoto.value,
+      partnerName: contractExistObj.pExname.value,
+      pExIdPassport: contractExistObj.pExIdPassport.value,
+      pExCurrentPercent: contractExistObj.pExCurrentPercent.value,
+      pExTransferPercent: contractExistObj.pExTransferPercent.value,
+      pExPaidAmount: contractExistObj.pExPaidAmount.value,
+      pExNoteContract: contractExistObj.pExNoteContract.value,
+    });
+    console.log(existPartnerDatas);
+  } else if (getPurChaseMethod === "New Issued Shares") {
+    issuedContractDatas.push({
+      contactNumber: contractNumber.value,
+      firstName: firstName.value,
+      lastName: lastName.value,
+      idPassport: idPassport.value,
+      signature: signature.value,
+      purchase: getPurChaseMethod,
+      email: email.value,
+      adress: {
+        country: country.value,
+        province: province.value,
+        district: district.value,
+        commune: commune.value,
+      },
+      startAgreementDate: startAgreementDate.value,
+      endAgreementDate: endAgreementDate.value,
+      photo: uploadPhoto.value,
+      issuedAmount: contractIssuedObj.IAmountContract.value,
+      ITotalContract: contractIssuedObj.ITotalContract.value,
+      IInvestmentContract: contractIssuedObj.IInvestmentContract.value,
+      Inotes: contractIssuedObj.Inotes.value,
+    });
+    console.log(issuedContractDatas);
+  }
+  // });
 
+  loadDataContract();
+  // });
+}
 function clearFieldFirtform() {
   firstName.value = "";
   contractNumber.value = "";

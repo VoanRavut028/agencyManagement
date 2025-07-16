@@ -449,5 +449,12 @@ export function getInputExist() {
 }
 
 export function getInputIssued() {
-  return {};
+  return {
+    IAmountContract: document.getElementById("issued-N_amount-contract"),
+    ITotalContract: document.getElementById("total-N_issued-contract"),
+    IInvestmentContract: document.getElementById(
+      "Investment-N_amount-contract"
+    ),
+    Inotes: document.getElementById("noteContract-p_exist"),
+  };
 }
