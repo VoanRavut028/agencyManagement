@@ -74,7 +74,7 @@ function handleDataContract() {
         // let getIInvestmentContract = contractExistObj.IInvestmentContract.value;
         // let getInotes = contractExistObj.Inotes.value;
 
-        let isValid = true;
+        var isValid = true;
         if (
           !regex.patternID.test(getPExIdPassport) &&
           getPExIdPassport !== ""
@@ -173,25 +173,18 @@ function handleDataContract() {
           document.querySelector(".paid-amount-contract-error").innerHTML = "";
         }
 
-        if (isValid) {
-          new bootstrap.Modal(
-            document.getElementById("previewFormContract")
-          ).show();
-        } else {
-          new bootstrap.Modal(
-            document.getElementById("modalContractExist")
-          ).show();
-        }
+        // if (isValid) {
+        //   modal = "previewFormContract";
+        // } else {
+        //   modal = "modalContractExist";
+        // }
       });
     } else if (purchaseMethod.value === "New Issued Shares") {
+      // I wild have another form input here
+      var isValid = true;
     }
-    new bootstrap.Modal(document.getElementById("previewFormContract")).show();
-  });
-
-  previewData.forEach((preview) => {
-    preview.addEventListener("click", () => {
-      let getPurchaseVal = purchaseMethod.value;
-      /* let summary = `
+    if (isValid) {
+      let summary = `
        <div class="row g-4">
             <div class="col-md-5 text-center">
              <img id="summaryImage" alt="Profile" class="img-fluid rounded-3 mb-3 shadow-sm profile-img">
@@ -269,10 +262,17 @@ function handleDataContract() {
           </div>`;
       }
 
-      document.getElementById("show-preView-contract").innerHTML = summary; 
-      */
+      document.getElementById("show-preView-contract").innerHTML = summary;
+    } else {
+    }
+    new bootstrap.Modal(document.getElementById(modal)).show();
+  });
+  previewData.forEach((preview) => {
+    preview.addEventListener("click", () => {
+      let getPurchaseVal = purchaseMethod.value;
     });
   });
+
   /*
   contractInfoOBJ = {
     contactNumber: getContractNumber,
