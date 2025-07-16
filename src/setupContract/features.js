@@ -114,7 +114,7 @@ export function regexPattern() {
     patternAddress: /^[A-Z]+[a-z0-9]{1,}$/,
     patternEmail: /^[A-Za-z0-9.-_%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,}$/,
     patternPercentage: /^(100(\.0{1,2})?|[0-9]{1,2}(\.[0-9]{1,2})?)$/,
-    patternMoney: /^[0-9]$/,
+    patternMoney: /^[0-9]{1,}$/,
   };
 }
 
@@ -290,7 +290,6 @@ export function contractSecondDetail() {
   let regex = regexPattern();
   let modal = "";
   purchaseNextBtn.addEventListener("click", () => {
-    
     let getCountry = country.value;
     let getProvince = province.value;
     let getDistrict = district.value;
@@ -447,4 +446,8 @@ export function getInputExist() {
     pExPaidAmount: document.getElementById("paidAmount-p_exist-contract"),
     pExNoteContract: document.getElementById("noteContract-p_exist"),
   };
+}
+
+export function getInputIssued() {
+  return {};
 }
