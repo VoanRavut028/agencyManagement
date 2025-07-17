@@ -13,7 +13,8 @@ export let existPartnerDatas = [
     },
     agreementDate: "2025-07-28",
     signature: "S.K.A",
-    photo: "C:Users\\voan ravut\\OneDrive\\Pictures",
+    photo:
+      "https://i.pinimg.com/736x/69/0d/1f/690d1fceb13c958e658349519a925a1e.jpg",
     purchase: "Buy from Existing Partner",
     startAgreementDate: "2025-07-13",
     endAgreementDate: "2025-07-13",
@@ -41,7 +42,8 @@ export let issuedContractDatas = [
     startAgreementDate: "2025-07-13",
     endAgreementDate: "2025-07-13",
     signature: "S.K.A",
-    photo: "C:Users\\voan ravut\\OneDrive\\Pictures",
+    photo:
+      "https://i.pinimg.com/736x/69/0d/1f/690d1fceb13c958e658349519a925a1e.jpg",
     purchase: "New Issued Shares",
     issuedAmount: 5,
     ITotalContract: 500,
@@ -65,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 export function loadDataContract() {
   let card = ``;
-  existPartnerDatas.forEach((element) => {
+  existPartnerDatas.forEach((element, index) => {
     card += `
    <tr>
                 <td>${element.idPassport}</td>
@@ -76,15 +78,15 @@ export function loadDataContract() {
                 <td>${element.pExCurrentPercent}%</td>
                 <td>${element.startAgreementDate}</td>
                 <td class="d-flex gap-4">
-               <button class="btn btn-success">View</button>
-               <button class="btn btn-danger">Delete</button>
+               <button data-index="${index}" id="view-exist-partner" class="btn btn-success">View</button>
+               <button data-index="${index}" id="delete-exist-partner" class="btn btn-danger">Delete</button>
                <button class="btn btn-primary">Edit</button>
                 </td>
               </tr>
       `;
   });
 
-  issuedContractDatas.forEach((element) => {
+  issuedContractDatas.forEach((element, indexElement) => {
     card += `
    <tr>
                 <td>${element.idPassport}</td>
@@ -95,23 +97,42 @@ export function loadDataContract() {
               <td>${element.issuedAmount}%</td>
                 <td>${element.startAgreementDate}</td>               
                 <td class="d-flex gap-4">
-               <button class="btn btn-success">View</button>
-               <button class="btn btn-danger">Delete</button>
+               <button id="view-issued" data-index="${indexElement}" class="btn btn-success">View</button>
+               <button data-index="${indexElement}" id="delete-exist-issued" class="btn btn-danger">Delete</button>
                <button class="btn btn-primary">Edit</button>
                 </td>
               </tr>
       `;
   });
+  document.getElementById("contact-table-loaddata").innerHTML = card;
+  document.querySelectorAll("#view-issued").forEach((view) => {
+    view.addEventListener("click", () => {
+      let index = view.dataset.index;
+      veiwDetailIssued(index);
+    });
+  });
 
-  document.querySelector("#contact-table-loaddata").innerHTML = card;
+  document.querySelectorAll("#view-exist-partner").forEach((view) => {
+    view.addEventListener("click", () => {
+      let index = view.dataset.index;
+      veiwDetailExistPartner(index);
+    });
+  });
+  document.querySelectorAll("#delete-exist-issued").forEach((deleteElement) => {
+    deleteElement.addEventListener("click", () => {
+      let index = deleteElement.dataset.index;
+      deleteDataOnIssued(index);
+    });
+  });
 }
 export function regexPattern() {
   return {
     patternContractNum: /^[A-Z]{2,}-\d{2,}$/,
-    patternName: /^[A-Z]+[a-z]{1,}$/,
+    patternName: /^[A-Z]+[a-z]{1,20}$/,
+    patternPartnerName: /^[A-Z]+[a-zA-Z\s]{1,40}$/,
     patternID: /^[A-Z0-9]{6,12}$/,
     patternSignature: /^[A-Za-z._-]{1,}$/,
-    patternAddress: /^[A-Z]+[a-z0-9]{1,}$/,
+    patternAddress: /^[A-Z]+[a-zA-Z0-9\s]{1,40}$/,
     patternEmail: /^[A-Za-z0-9.-_%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,}$/,
     patternPercentage: /^(100(\.0{1,2})?|[0-9]{1,2}(\.[0-9]{1,2})?)$/,
     patternMoney: /^[0-9]{1,}$/,
@@ -457,4 +478,172 @@ export function getInputIssued() {
     ),
     Inotes: document.getElementById("noteContract-p_exist"),
   };
+}
+
+function veiwDetailIssued(index) {
+  let viewObj = issuedContractDatas[index];
+  if (viewObj) {
+    new bootstrap.Modal(document.getElementById("viewDdetail-issued")).show();
+    let summary = `
+          <div class="row g-4">
+              <div class="col-md-5 text-center">
+                 <img  src=${
+                   viewObj.photo
+                 } id="summaryImage" alt="Profile" class="img-fluid rounded-3 mb-3 shadow-sm profile-img">
+                 <p class="h5 fw-semibold text-dark">
+                   ${viewObj.firstName} ${viewObj.lastName}
+                 </p>  
+                 <p class="text-muted small">ID / Passport: ${
+                   viewObj.idPassport
+                 }</p>
+                 <p class="text-muted small">
+                   Signature: ${viewObj.signature || "—"}
+                 </p>
+              </div>
+              <div class="col-md-7">
+                <h3 class="section-title">Details</h3>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <span class="text-primary">Email:</span>
+                    <span>${viewObj.email}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="text-primary">Address:</span>
+                    <span>${viewObj.adress.commune}, ${
+      viewObj.adress.district
+    },<br />${viewObj.adress.province}, ${viewObj.adress.country}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="text-primary">Agreement:</span>
+                    <span>${viewObj.startAgreementDate} → ${
+      viewObj.endAgreementDate
+    }</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="text-primary">Purchase Method:</span>
+                    <span>${viewObj.purchase}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+             <div class="mt-4">
+              <h3 class="section-title">Share Issuance</h3>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                 
+                   <div class ="d-flex flex-column">
+                   <p><span class="text-primary">Issued Amount (%):</span> ${
+                     viewObj.issuedAmount
+                   } </p>
+                  <p><span class="text-primary">Total After Issue (%):</span> ${
+                    viewObj.ITotalContract
+                  }</p>
+                  <p><span class="text-primary">Investment (USA):</span> ${
+                    viewObj.IInvestmentContract
+                  }</p>
+                  <p><span>Notes:</span> ${viewObj.Inotes}</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+             <div class ="d-flex justify-content-end">
+                  <button data-bs-dismiss="modal" class="btn btn-danger">Close</button>
+                </div>
+            `;
+    document.getElementById("show-view-contract-issued").innerHTML = summary;
+  } else {
+    alert("Error hx");
+  }
+  loadDataContract();
+}
+function veiwDetailExistPartner(index) {
+  let viewObj = existPartnerDatas[index];
+  if (viewObj) {
+    new bootstrap.Modal(
+      document.getElementById("viewDdetail-exist-partner")
+    ).show();
+    let summary = `
+          <div class="row g-4">
+              <div class="col-md-5 text-center">
+                 <img  src=${
+                   viewObj.photo
+                 } id="summaryImage" alt="Profile" class="img-fluid rounded-3 mb-3 shadow-sm profile-img">
+                 <p class="h5 fw-semibold text-dark">
+                   ${viewObj.firstName} ${viewObj.lastName}
+                 </p>  
+                 <p class="text-muted small">ID / Passport: ${
+                   viewObj.idPassport
+                 }</p>
+                 <p class="text-muted small">
+                   Signature: ${viewObj.signature || "—"}
+                 </p>
+              </div>
+              <div class="col-md-7">
+                <h3 class="section-title text-primary">Details</h3>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <span class="text-primary">Email:</span>
+                    <span>${viewObj.email}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="text-primary">Address:</span>
+                    <span>${viewObj.adress.commune}, ${
+      viewObj.adress.district
+    },<br />${viewObj.adress.province}, ${viewObj.adress.country}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="text-primary">Agreement:</span>
+                    <span>${viewObj.startAgreementDate} → ${
+      viewObj.endAgreementDate
+    }</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="text-primary">Purchase Method:</span>
+                    <span>${viewObj.purchase}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+             <div class="mt-4">
+              <h3 class="section-title">Partner Information</h3>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <div class ="d-flex flex-column">
+                   <p><span class="text-primary">Partner Name:</span> ${
+                     viewObj.partnerName
+                   } </p>
+                  <p><span class="text-primary">ID/Passport:</span> ${
+                    viewObj.pExIdPassport
+                  }</p>
+                  <p><span class="text-primary">Current (%):</span> ${
+                    viewObj.pExCurrentPercent
+                  }%</p>
+                  <p><span class="text-primary">Transfer (%):</span> ${
+                    viewObj.pExTransferPercent
+                  }%</p>
+                  <p><span class="text-primary">Paid (USA):</span> $${
+                    viewObj.pExPaidAmount
+                  }</p>
+                  <p><span class="text-primary">Notes :</span> ${
+                    viewObj.pExNoteContract
+                  }</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+             <div class ="d-flex justify-content-end">
+                  <button data-bs-dismiss="modal" class="btn btn-danger">Close</button>
+                </div>
+            `;
+    document.getElementById("show-view-contract-exist-partner").innerHTML =
+      summary;
+  } else {
+    alert("Error hx");
+  }
+  loadDataContract();
+}
+
+function deleteDataOnIssued(index) {
+  issuedContractDatas.splice(index, 1);
+  loadDataContract();
 }

@@ -17,7 +17,7 @@ let contractSecondObj = getInputContractSecond();
 const {
   country,
   province,
-  district,
+  district, 
   commune,
   email,
   startAgreementDate,
@@ -93,7 +93,7 @@ function handleDataContract() {
           contractExistObj.pExIdPassport.classList.remove("error-form");
         }
 
-        if (!regex.patternName.test(getPExname) && getPExname !== "") {
+        if (!regex.patternPartnerName.test(getPExname) && getPExname !== "") {
           document.querySelector(".partner-name-contract-error").innerHTML =
             inValidError;
           contractExistObj.pExname.classList.add("error-form");
@@ -198,24 +198,24 @@ function handleDataContract() {
                 <h3 class="section-title">Details</h3>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
-                    <strong>Email:</strong>
+                    <span class="text-primary">Email:</span>
                     <span>${email.value}</span>
                   </li>
                   <li class="list-group-item">
-                    <strong>Address:</strong>
+                    <span class="text-primary">Address:</span>
                     <span>${commune.value}, ${district.value},<br />${
             province.value
           }, ${country.value}</span>
                   </li>
                   <li class="list-group-item">
-                    <strong>Agreement:</strong>
+                    <span class="text-primary">Agreement:</span>
                     <span>${startAgreementDate.value} → ${
             endAgreementDate.value
           }</span>
                   </li>
                   <li class="list-group-item">
-                    <strong>Purchase Method:</strong>
-                    <span>${getPurchaseVal}</span>
+                    <span class="text-primary">Purchase Method:</span>
+                    <span >${getPurchaseVal}</span>
                   </li>
                 </ul>
               </div>
@@ -225,17 +225,17 @@ function handleDataContract() {
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <div class ="d-flex flex-column">
-                   <p><strong>Partner Name:</strong> ${getPExname} </p>
-                  <p><strong>ID/Passport:</strong> ${getPExIdPassport}</p>
-                  <p><strong>Current (%):</strong> ${getPExCurrentPercent}%</p>
-                  <p><strong>Transfer (%):</strong> ${getPExTransferPercent}%</p>
-                  <p><strong>Paid (USA):</strong> $${getPExPaidAmount}</p>
-                  <p><strong>Notes :</strong> $${getPExNote}</p>
+                   <p><span>Partner Name:</span> ${getPExname} </p>
+                  <p><span class="text-primary">ID/Passport:</span> ${getPExIdPassport}</p>
+                  <p><span class="text-primary">Current (%):</span> ${getPExCurrentPercent}%</p>
+                  <p><span class="text-primary">Transfer (%):</span> ${getPExTransferPercent}%</p>
+                  <p><span class="text-primary">Paid (USA):</span> $${getPExPaidAmount}</p>
+                  <p><span class="text-primary">Notes :</span> $${getPExNote}</p>
                   </div>
                 </li>
               </ul>
             </div>
-             <div>
+             <div class="d-flex justify-content-end gap-2">
                   <button class="btn btn-primary">Edit</button>
                   <button
                     class="btn btn-success"
@@ -350,23 +350,23 @@ function handleDataContract() {
                 <h3 class="section-title">Details</h3>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
-                    <strong>Email:</strong>
+                    <span class="text-primary">Email:</span>
                     <span>${email.value}</span>
                   </li>
                   <li class="list-group-item">
-                    <strong>Address:</strong>
+                    <span class="text-primary">Address:</span>
                     <span>${commune.value}, ${district.value},<br />${
             province.value
           }, ${country.value}</span>
                   </li>
                   <li class="list-group-item">
-                    <strong>Agreement:</strong>
+                    <span class="text-primary">Agreement:</span>
                     <span>${startAgreementDate.value} → ${
             endAgreementDate.value
           }</span>
                   </li>
                   <li class="list-group-item">
-                    <strong>Purchase Method:</strong>
+                    <span class="text-primary">Purchase Method:</span>
                     <span>${getPurchaseVal}</span>
                   </li>
                 </ul>
@@ -378,15 +378,15 @@ function handleDataContract() {
                 <li class="list-group-item">
                  
                    <div class ="d-flex flex-column">
-                   <p><strong>Issued Amount (%):</strong> ${getIAmountContract} </p>
-                  <p><strong>Total After Issue (%):</strong> ${getITotalContract}</p>
-                  <p><strong>Investment (USA):</strong> ${getIInvestmentContract}</p>
-                  <p><strong>Notes:</strong> ${getINoteContract}</p>
-                  </div>
+                   <p><span class="text-primary">Issued Amount (%):</span> ${getIAmountContract} </p>
+                  <p><span class="text-primary">Total After Issue (%):</span> ${getITotalContract}</p>
+                  <p><span class="text-primary">Investment (USA):</span> ${getIInvestmentContract}</p>
+                  <p><span class="text-primary">Notes:</span> ${getINoteContract}</p>
+                  </div> 
                 </li>
               </ul>
             </div>
-             <div>
+             <div class="d-flex justify-content-end gap-2 ">
                   <button class="btn btn-primary">Edit</button>
                   <button
                     class="btn btn-success"
@@ -408,9 +408,8 @@ function handleDataContract() {
       }
       const saveButton = document.getElementById("save-contract-toTable");
       if (saveButton) {
-        // Always good to check if the element exists
         saveButton.addEventListener("click", () => {
-          // Call your saveData function here
+         
           saveData();
         });
       }
@@ -420,10 +419,6 @@ function handleDataContract() {
 }
 // let purchaseMethod = document.getElementById("purchase-Method");
 function saveData() {
-  // let saveToArray = document.querySelectorAll("#save-contract-toTable");
-  // saveToArray.forEach((saveData) => {
-  //   saveData.addEventListener("click", () => {
-  //     debugger;
   let getPurChaseMethod = purchaseMethod.value;
   if (getPurChaseMethod === "Buy from Existing Partner") {
     existPartnerDatas.push({

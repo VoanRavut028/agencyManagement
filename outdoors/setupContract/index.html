@@ -615,7 +615,7 @@
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h2 class="text-2xl font-bold text-center text-indigo-900 mb-6">
+                <h2 class="text-2xl font-bold text-center text-indigo-900 mb-6 text-primary">
                   Contract Summary
                 </h2>
                 <button
@@ -625,6 +625,59 @@
                 ></button>
               </div>
               <div class="modal-body" id="show-preView-contract"></div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="viewDdetail-issued"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2
+                  class="text-2xl font-bold text-center text-indigo-900 mb-6 text-primary"
+                >
+                  Details
+                </h2>
+                <button
+                  class="btn-close shadow-none"
+                  data-bs-dismiss="modal"
+                  aria-label="close"
+                ></button>
+              </div>
+              <div class="modal-body" id="show-view-contract-issued"></div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="viewDdetail-exist-partner"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2
+                  class="text-2xl font-bold text-center text-indigo-900 mb-6 text-primary"
+                >
+                  Details
+                </h2>
+                <button
+                  class="btn-close shadow-none"
+                  data-bs-dismiss="modal"
+                  aria-label="close"
+                ></button>
+              </div>
+              <div
+                class="modal-body"
+                id="show-view-contract-exist-partner"
+              ></div>
             </div>
           </div>
         </div>
@@ -652,7 +705,13 @@
       </section>
     </main>
     <script type="module" src="../../src/setupContract/script.js"></script>
-    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../../src/asideAndNavbar/script.js"></script>
+    <script
+      type="text/javascript"
+      src="../../bootstrap/js/bootstrap.bundle.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../../src/asideAndNavbar/script.js"
+    ></script>
   </body>
 </html>
