@@ -17,7 +17,7 @@ let contractSecondObj = getInputContractSecond();
 const {
   country,
   province,
-  district, 
+  district,
   commune,
   email,
   startAgreementDate,
@@ -40,23 +40,10 @@ let contractIssuedObj = getInputIssued();
 loadDataContract();
 handleDataContract();
 function handleDataContract() {
-  //modalContractIssued
-  let IAmountContract = document.getElementById("issued-N_amount-contract");
-  let ITotalContract = document.getElementById("total-N_issued-contract");
-  let IInvestmentContract = document.getElementById(
-    "Investment-N_amount-contract"
-  );
-  let Inotes = document.getElementById("noteContract-p_exist");
-  let ICheckContract = document.getElementById("check-to-confirm-all-contract");
-
-  let contractInfoFirstNextBtn = document.getElementById(
-    "contractInfoFirstNextBtn"
-  );
-
   contractFirstDetail();
   contractSecondDetail();
 
-  let previewData = document.querySelectorAll("#preview-data");
+  let previewData = document.querySelectorAll(".preview-data");
 
   previewData.forEach((checkPreview) => {
     checkPreview.addEventListener("click", () => {
@@ -392,8 +379,6 @@ function handleDataContract() {
                     class="btn btn-success"
                     data-bs-dismiss="modal"
                     id="save-contract-toTable"
-                    
-                    
                   >
                     Save
                   </button>
@@ -409,7 +394,6 @@ function handleDataContract() {
       const saveButton = document.getElementById("save-contract-toTable");
       if (saveButton) {
         saveButton.addEventListener("click", () => {
-         
           saveData();
         });
       }
@@ -417,7 +401,6 @@ function handleDataContract() {
   });
   // EndpreView
 }
-// let purchaseMethod = document.getElementById("purchase-Method");
 function saveData() {
   let getPurChaseMethod = purchaseMethod.value;
   if (getPurChaseMethod === "Buy from Existing Partner") {
@@ -471,10 +454,8 @@ function saveData() {
     });
     console.log(issuedContractDatas);
   }
-  // });
 
   loadDataContract();
-  // });
 }
 function clearFieldFirtform() {
   firstName.value = "";

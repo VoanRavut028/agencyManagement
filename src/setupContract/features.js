@@ -78,8 +78,8 @@ export function loadDataContract() {
                 <td>${element.pExCurrentPercent}%</td>
                 <td>${element.startAgreementDate}</td>
                 <td class="d-flex gap-4">
-               <button data-index="${index}" id="view-exist-partner" class="btn btn-success">View</button>
-               <button data-index="${index}" id="delete-exist-partner" class="btn btn-danger">Delete</button>
+               <button data-index="${index}" class="btn btn-success view-exist-partner">View</button>
+               <button data-index="${index}"  class="btn btn-danger delete-exist-partner">Delete</button>
                <button class="btn btn-primary">Edit</button>
                 </td>
               </tr>
@@ -97,33 +97,58 @@ export function loadDataContract() {
               <td>${element.issuedAmount}%</td>
                 <td>${element.startAgreementDate}</td>               
                 <td class="d-flex gap-4">
-               <button id="view-issued" data-index="${indexElement}" class="btn btn-success">View</button>
-               <button data-index="${indexElement}" id="delete-exist-issued" class="btn btn-danger">Delete</button>
-               <button class="btn btn-primary">Edit</button>
+               <button  data-index="${indexElement}" class="btn btn-success view-issued">View</button>
+               <button data-index="${indexElement}"  class="btn btn-danger delete-issued">Delete</button>
+               <button data-index="${indexElement}" class="btn btn-primary edit-issued">Edit</button>
                 </td>
               </tr>
       `;
   });
   document.getElementById("contact-table-loaddata").innerHTML = card;
-  document.querySelectorAll("#view-issued").forEach((view) => {
+  document.querySelectorAll(".view-issued").forEach((view) => {
     view.addEventListener("click", () => {
       let index = view.dataset.index;
       veiwDetailIssued(index);
     });
   });
 
-  document.querySelectorAll("#view-exist-partner").forEach((view) => {
+  document.querySelectorAll(".view-exist-partner").forEach((view) => {
     view.addEventListener("click", () => {
       let index = view.dataset.index;
       veiwDetailExistPartner(index);
     });
   });
-  document.querySelectorAll("#delete-exist-issued").forEach((deleteElement) => {
+  document.querySelectorAll(".delete-issued").forEach((deleteElement) => {
     deleteElement.addEventListener("click", () => {
       let index = deleteElement.dataset.index;
       deleteDataOnIssued(index);
     });
   });
+  document
+    .querySelectorAll(".delete-exist-partner")
+    .forEach((deleteElement) => {
+      deleteElement.addEventListener("click", () => {
+        let index = deleteElement.dataset.index;
+        deleteDataOnExistPartner(index);
+      });
+    });
+
+  document.querySelectorAll(".edit-issued").forEach((editButton) => {
+    editButton.addEventListener("click", () => {
+      new bootstrap.Modal(
+        document.getElementById("modal-edit-issued-share")
+      ).show();
+      let index = editButton.dataset.index;
+      editDataOnIssued(index);
+    });
+  });
+
+  // document.querySelectorAll(".edit-exist-partner").forEach((editButton) => {
+  //   editButton.addEventListener("click", () => {
+  //     let index = editButton.dataset.index;
+  //     editDataOnExistPartner(index); // Call the edit function
+  //   });
+  // });
 }
 export function regexPattern() {
   return {
@@ -181,7 +206,6 @@ export function contractFirstDetail() {
     let contactErr = document.querySelector(".contact-error");
     let uploadPhototErr = document.querySelector(".upload-img-error");
     let idErr = document.querySelector(".id-passport-error");
-    let signatureErr = document.querySelector(".signature-error");
 
     if (!regex.patternName.test(getFirstName) && getFirstName !== "") {
       firstNameErr.innerHTML = inValidError;
@@ -251,21 +275,6 @@ export function contractFirstDetail() {
       idErr.innerHTML = "";
       idPassport.classList.remove("error-form");
       idPassport.classList.add("valid-form");
-    }
-
-    if (!regex.patternSignature.test(getSignature) && getSignature !== "") {
-      signatureErr.innerHTML = inValidError;
-      isValidFirstForm = false;
-      signature.classList.add("error-form");
-      signature.classList.remove("valid-form");
-    } else if (getSignature === "") {
-      isValidFirstForm = false;
-      signatureErr.innerHTML = emptyRequired;
-      signature.classList.add("error-form");
-    } else {
-      signatureErr.innerHTML = "";
-      signature.classList.remove("error-form");
-      signature.classList.add("valid-form");
     }
 
     if (isValidFirstForm) {
@@ -482,9 +491,8 @@ export function getInputIssued() {
 
 function veiwDetailIssued(index) {
   let viewObj = issuedContractDatas[index];
-  if (viewObj) {
-    new bootstrap.Modal(document.getElementById("viewDdetail-issued")).show();
-    let summary = `
+  new bootstrap.Modal(document.getElementById("viewDdetail-issued")).show();
+  let summary = `
           <div class="row g-4">
               <div class="col-md-5 text-center">
                  <img  src=${
@@ -510,14 +518,14 @@ function veiwDetailIssued(index) {
                   <li class="list-group-item">
                     <span class="text-primary">Address:</span>
                     <span>${viewObj.adress.commune}, ${
-      viewObj.adress.district
-    },<br />${viewObj.adress.province}, ${viewObj.adress.country}</span>
+    viewObj.adress.district
+  },<br />${viewObj.adress.province}, ${viewObj.adress.country}</span>
                   </li>
                   <li class="list-group-item">
                     <span class="text-primary">Agreement:</span>
                     <span>${viewObj.startAgreementDate} → ${
-      viewObj.endAgreementDate
-    }</span>
+    viewObj.endAgreementDate
+  }</span>
                   </li>
                   <li class="list-group-item">
                     <span class="text-primary">Purchase Method:</span>
@@ -550,19 +558,17 @@ function veiwDetailIssued(index) {
                   <button data-bs-dismiss="modal" class="btn btn-danger">Close</button>
                 </div>
             `;
-    document.getElementById("show-view-contract-issued").innerHTML = summary;
-  } else {
-    alert("Error hx");
-  }
+  document.getElementById("show-view-contract-issued").innerHTML = summary;
+
   loadDataContract();
 }
 function veiwDetailExistPartner(index) {
   let viewObj = existPartnerDatas[index];
-  if (viewObj) {
-    new bootstrap.Modal(
-      document.getElementById("viewDdetail-exist-partner")
-    ).show();
-    let summary = `
+
+  new bootstrap.Modal(
+    document.getElementById("viewDdetail-exist-partner")
+  ).show();
+  let summary = `
           <div class="row g-4">
               <div class="col-md-5 text-center">
                  <img  src=${
@@ -588,14 +594,14 @@ function veiwDetailExistPartner(index) {
                   <li class="list-group-item">
                     <span class="text-primary">Address:</span>
                     <span>${viewObj.adress.commune}, ${
-      viewObj.adress.district
-    },<br />${viewObj.adress.province}, ${viewObj.adress.country}</span>
+    viewObj.adress.district
+  },<br />${viewObj.adress.province}, ${viewObj.adress.country}</span>
                   </li>
                   <li class="list-group-item">
                     <span class="text-primary">Agreement:</span>
                     <span>${viewObj.startAgreementDate} → ${
-      viewObj.endAgreementDate
-    }</span>
+    viewObj.endAgreementDate
+  }</span>
                   </li>
                   <li class="list-group-item">
                     <span class="text-primary">Purchase Method:</span>
@@ -635,15 +641,21 @@ function veiwDetailExistPartner(index) {
                   <button data-bs-dismiss="modal" class="btn btn-danger">Close</button>
                 </div>
             `;
-    document.getElementById("show-view-contract-exist-partner").innerHTML =
-      summary;
-  } else {
-    alert("Error hx");
-  }
+  document.getElementById("show-view-contract-exist-partner").innerHTML =
+    summary;
   loadDataContract();
 }
 
 function deleteDataOnIssued(index) {
   issuedContractDatas.splice(index, 1);
   loadDataContract();
+}
+function deleteDataOnExistPartner(index) {
+  existPartnerDatas.splice(index, 1);
+  loadDataContract();
+}
+
+export function editDataOnIssued(index) {
+  let currentObj = issuedContractDatas[index];
+  document.getElementById("firstName").value = currentObj.firstName;
 }
