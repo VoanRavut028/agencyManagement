@@ -79,8 +79,8 @@ export function loadDataContract() {
                 <td>${element.startAgreementDate}</td>
                 <td class="d-flex gap-4">
                <button data-index="${index}" class="btn btn-success view-exist-partner">View</button>
-               <button data-index="${index}"  class="btn btn-danger delete-exist-partner">Delete</button>
                <button class="btn btn-primary">Edit</button>
+               <button data-index="${index}"  class="btn btn-danger delete-exist-partner">Delete</button>
                 </td>
               </tr>
       `;
@@ -98,8 +98,8 @@ export function loadDataContract() {
                 <td>${element.startAgreementDate}</td>               
                 <td class="d-flex gap-4">
                <button  data-index="${indexElement}" class="btn btn-success view-issued">View</button>
-               <button data-index="${indexElement}"  class="btn btn-danger delete-issued">Delete</button>
                <button data-index="${indexElement}" class="btn btn-primary edit-issued">Edit</button>
+               <button data-index="${indexElement}"  class="btn btn-danger delete-issued">Delete</button>
                 </td>
               </tr>
       `;
@@ -143,12 +143,12 @@ export function loadDataContract() {
     });
   });
 
-  // document.querySelectorAll(".edit-exist-partner").forEach((editButton) => {
-  //   editButton.addEventListener("click", () => {
-  //     let index = editButton.dataset.index;
-  //     editDataOnExistPartner(index); // Call the edit function
-  //   });
-  // });
+  document.querySelectorAll(".edit-exist-partner").forEach((editButton) => {
+    editButton.addEventListener("click", () => {
+      let index = editButton.dataset.index;
+      editDataOnExistPartner(index);
+    });
+  });
 }
 export function regexPattern() {
   return {
@@ -654,8 +654,26 @@ function deleteDataOnExistPartner(index) {
   existPartnerDatas.splice(index, 1);
   loadDataContract();
 }
-
-export function editDataOnIssued(index) {
+export let currentIndex = document.getElementById("edit-index");
+function editDataOnIssued(index) {
+  debugger;
   let currentObj = issuedContractDatas[index];
   document.getElementById("firstName").value = currentObj.firstName;
+  document.getElementById("lastName").value = currentObj.lastName;
+  document.getElementById("email").value = currentObj.email;
+  document.getElementById("idPassport").value = currentObj.idPassport;
+  document.getElementById("signature").value = currentObj.signature;
+  // document.getElementById("uploadPhoto").value = currentObj.photo;
+  document.getElementById("commune").value = currentObj.adress.commune;
+  document.getElementById("district").value = currentObj.adress.district;
+  document.getElementById("province").value = currentObj.adress.province;
+  document.getElementById("country").value = currentObj.adress.country;
+  document.getElementById("startAgreementDate").value =
+    currentObj.startAgreementDate;
+  document.getElementById("endAgreementDate").value =
+    currentObj.endAgreementDate;
+
+  document.getElementById("purchaseMethod").value = currentObj.purchase;
+  currentIndex.value = index;
 }
+function editDataOnExistPartner(index) {}

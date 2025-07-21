@@ -139,6 +139,7 @@
                 <div class="container-fluid">
                   <div class="row d-flex align-items-center">
                     <div class="col-12 col-sm-12 col-lg-6">
+                      <h5 class="text-primary mb-3">Personal Details</h5>
                       <label>Contract Number</label>
                       <input
                         class="form-control shadow-sm"
@@ -705,16 +706,15 @@
               </div>
               <div id="show-edit-issued" class="modal-body py-5">
                 <div class="row">
-                  <!-- Form Section -->
                   <div class="col-lg-12">
                     <div class="form-container">
                       <h2 class="section-title">Contract Information</h2>
                       <div>
-                        <!-- Personal Information -->
                         <div class="mb-4">
                           <h5 class="text-primary mb-3">Personal Details</h5>
                           <div class="row">
                             <div class="col-md-6 mb-3">
+                              <input type="text" id="edit-index" hidden />
                               <label for="firstName" class="form-label"
                                 >First Name</label
                               >
@@ -722,7 +722,6 @@
                                 type="text"
                                 class="form-control"
                                 id="firstName"
-                                required
                               />
                             </div>
                             <div class="col-md-6 mb-3">
@@ -733,7 +732,6 @@
                                 type="text"
                                 class="form-control"
                                 id="lastName"
-                                required
                               />
                             </div>
                             <div class="col-6">
@@ -744,7 +742,6 @@
                                 type="email"
                                 class="form-control"
                                 id="email"
-                                required
                               />
                             </div>
                             <div class="col-6">
@@ -755,10 +752,9 @@
                                 type="text"
                                 class="form-control"
                                 id="idPassport"
-                                required
                               />
                             </div>
-                            <div class="mb-3">
+                            <div class="col-6 mb-3">
                               <label for="signature" class="form-label"
                                 >Signature</label
                               >
@@ -769,12 +765,12 @@
                                 placeholder="Optional"
                               />
                             </div>
-                            <div class="mb-3">
+                            <div class="col-6 mb-3">
                               <label for="uploadPhoto" class="form-label"
                                 >Profile Photo URL</label
                               >
                               <input
-                                type="url"
+                                type="file"
                                 class="form-control"
                                 id="uploadPhoto"
                                 placeholder="https://example.com/photo.jpg"
@@ -795,7 +791,6 @@
                                 type="text"
                                 class="form-control"
                                 id="commune"
-                                required
                               />
                             </div>
                             <div class="col-md-6 mb-3">
@@ -806,7 +801,6 @@
                                 type="text"
                                 class="form-control"
                                 id="district"
-                                required
                               />
                             </div>
                           </div>
@@ -819,7 +813,6 @@
                                 type="text"
                                 class="form-control"
                                 id="province"
-                                required
                               />
                             </div>
                             <div class="col-md-6 mb-3">
@@ -830,7 +823,6 @@
                                 type="text"
                                 class="form-control"
                                 id="country"
-                                required
                               />
                             </div>
                           </div>
@@ -848,7 +840,6 @@
                                 type="date"
                                 class="form-control"
                                 id="startAgreementDate"
-                                required
                               />
                             </div>
                             <div class="col-md-6 mb-3">
@@ -859,7 +850,6 @@
                                 type="date"
                                 class="form-control"
                                 id="endAgreementDate"
-                                required
                               />
                             </div>
                           </div>
@@ -868,23 +858,19 @@
                         <!-- Purchase Method -->
                         <div class="mb-4">
                           <h5 class="text-primary mb-3">Purchase Method</h5>
-                          <select
-                            class="form-select"
-                            id="purchaseMethod"
-                            required
-                          >
-                            <option value="">Select Purchase Method</option>
-                            <option value="Buy from Existing Partner">
+                          <select class="form-select" id="purchaseMethod">
+                            <option disabled value="Buy from Existing Partner">
                               Buy from Existing Partner
                             </option>
-                            <option value="New Issued Shares">
+                            <option disabled value="New Issued Shares">
                               New Issued Shares
                             </option>
                           </select>
                         </div>
 
                         <!-- Existing Partner Options -->
-                        <div
+
+                        <!-- <div
                           id="existingPartnerOptions"
                           class="purchase-options mb-4"
                         >
@@ -951,7 +937,7 @@
                               />
                             </div>
                           </div>
-                        </div>
+                        </div> -->
 
                         <!-- New Issued Shares Options -->
                         <div
@@ -999,13 +985,16 @@
                           </div>
                         </div>
 
-                        <button
-                          type="button"
-                          class="btn btn-preview w-100"
-                          id="generatePreview"
-                        >
-                          Generate Preview
-                        </button>
+                        <div class="d-flex justify-content-end gap-3">
+                          <button class="btn btn-danger">Cancel</button>
+                          <button
+                            type="button"
+                            onclick="saveData()"
+                            class="btn btn-primary save-contract-toTable"
+                          >
+                            Save Change
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>

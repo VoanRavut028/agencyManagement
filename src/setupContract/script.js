@@ -12,7 +12,10 @@ import {
   emptyRequired,
   inValidError,
   getInputIssued,
+  currentIndex,
 } from "./features.js";
+console.log(currentIndex);
+
 let contractSecondObj = getInputContractSecond();
 const {
   country,
@@ -225,10 +228,8 @@ function handleDataContract() {
              <div class="d-flex justify-content-end gap-2">
                   <button class="btn btn-primary">Edit</button>
                   <button
-                    class="btn btn-success"
-                    data-bs-dismiss="modal"
-                    id="save-contract-toTable"
-                    
+                    class="btn btn-success save-contract-toTable"
+                    data-bs-dismiss="modal"      
                   >
                     Save
                   </button>
@@ -376,9 +377,8 @@ function handleDataContract() {
              <div class="d-flex justify-content-end gap-2 ">
                   <button class="btn btn-primary">Edit</button>
                   <button
-                    class="btn btn-success"
+                    class="btn btn-success save-contract-toTable"
                     data-bs-dismiss="modal"
-                    id="save-contract-toTable"
                   >
                     Save
                   </button>
@@ -391,19 +391,36 @@ function handleDataContract() {
           ).show();
         }
       }
-      const saveButton = document.getElementById("save-contract-toTable");
-      if (saveButton) {
-        saveButton.addEventListener("click", () => {
-          saveData();
-        });
-      }
+      // const saveButton = document.querySelectorAll(".save-contract-toTable");
+      // saveButton.forEach((saveChange) => {
+      //   saveChange.addEventListener("click", () => {
+      //     saveData();
+      //   });
+      // });
     });
   });
   // EndpreView
 }
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("save-contract-toTable")) {
+    saveData();
+  }
+});
+// document.addEventListener("DOMContentLoaded", () => {
+//   document.querySelectorAll(".save-contract-toTable").forEach((btn) => {
+//     btn.addEventListener("click", saveData());
+//   });
+// });
+// document
+//   .querySelector(".save-contract-toTable")
+//   .addEventListener("click", () => {
+//     saveData();
+//   });
 function saveData() {
   let getPurChaseMethod = purchaseMethod.value;
   if (getPurChaseMethod === "Buy from Existing Partner") {
+    // if (activeIndex) {
+    // } else {
     existPartnerDatas.push({
       contactNumber: contractNumber.value,
       firstName: firstName.value,
@@ -428,30 +445,60 @@ function saveData() {
       pExPaidAmount: contractExistObj.pExPaidAmount.value,
       pExNoteContract: contractExistObj.pExNoteContract.value,
     });
+    // }
     console.log(existPartnerDatas);
   } else if (getPurChaseMethod === "New Issued Shares") {
-    issuedContractDatas.push({
-      contactNumber: contractNumber.value,
-      firstName: firstName.value,
-      lastName: lastName.value,
-      idPassport: idPassport.value,
-      signature: signature.value,
-      purchase: getPurChaseMethod,
-      email: email.value,
-      adress: {
-        country: country.value,
-        province: province.value,
-        district: district.value,
-        commune: commune.value,
-      },
-      startAgreementDate: startAgreementDate.value,
-      endAgreementDate: endAgreementDate.value,
-      photo: uploadPhoto.value,
-      issuedAmount: contractIssuedObj.IAmountContract.value,
-      ITotalContract: contractIssuedObj.ITotalContract.value,
-      IInvestmentContract: contractIssuedObj.IInvestmentContract.value,
-      Inotes: contractIssuedObj.Inotes.value,
-    });
+    debugger;
+    let activeIndex = currentIndex.value;
+    if (activeIndex !== "") {
+      issuedContractDatas[activeIndex] = {
+        contactNumber: contractNumber.value,
+        firstName: document.getElementById("firstName").value,
+        lastName: lastName.value,
+        idPassport: idPassport.value,
+        signature: signature.value,
+        purchase: getPurChaseMethod,
+        email: email.value,
+        adress: {
+          country: country.value,
+          province: province.value,
+          district: district.value,
+          commune: commune.value,
+        },
+        startAgreementDate: startAgreementDate.value,
+        endAgreementDate: endAgreementDate.value,
+        photo: uploadPhoto.value,
+        issuedAmount: contractIssuedObj.IAmountContract.value,
+        ITotalContract: contractIssuedObj.ITotalContract.value,
+        IInvestmentContract: contractIssuedObj.IInvestmentContract.value,
+        Inotes: contractIssuedObj.Inotes.value,
+      };
+
+      currentIndex.value = "";
+    } else {
+      issuedContractDatas.push({
+        contactNumber: contractNumber.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        idPassport: idPassport.value,
+        signature: signature.value,
+        purchase: getPurChaseMethod,
+        email: email.value,
+        adress: {
+          country: country.value,
+          province: province.value,
+          district: district.value,
+          commune: commune.value,
+        },
+        startAgreementDate: startAgreementDate.value,
+        endAgreementDate: endAgreementDate.value,
+        photo: uploadPhoto.value,
+        issuedAmount: contractIssuedObj.IAmountContract.value,
+        ITotalContract: contractIssuedObj.ITotalContract.value,
+        IInvestmentContract: contractIssuedObj.IInvestmentContract.value,
+        Inotes: contractIssuedObj.Inotes.value,
+      });
+    }
     console.log(issuedContractDatas);
   }
 
