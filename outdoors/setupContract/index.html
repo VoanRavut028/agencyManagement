@@ -713,6 +713,14 @@
                         <div class="mb-4">
                           <h5 class="text-primary mb-3">Personal Details</h5>
                           <div class="row">
+                            <div class="col-md-12 mb-3">
+                              <label for="">Contract Number</label>
+                              <input
+                                type="text"
+                                id="contract-number"
+                                class="form-control"
+                              />
+                            </div>
                             <div class="col-md-6 mb-3">
                               <input type="text" id="edit-index" hidden />
                               <label for="firstName" class="form-label"
@@ -990,6 +998,7 @@
                           <button
                             type="button"
                             onclick="saveData()"
+                            data-bs-dismiss="modal"
                             class="btn btn-primary save-contract-toTable"
                           >
                             Save Change

@@ -1,3 +1,5 @@
+import { saveData } from "./script.js";
+
 export let existPartnerDatas = [
   {
     contactNumber: "12233435",
@@ -69,7 +71,7 @@ export function loadDataContract() {
   let card = ``;
   existPartnerDatas.forEach((element, index) => {
     card += `
-   <tr>
+             <tr>
                 <td>${element.idPassport}</td>
                 <td>${element.firstName} ${element.lastName}</td>
                 <td>${element.email}</td>
@@ -654,9 +656,13 @@ function deleteDataOnExistPartner(index) {
   existPartnerDatas.splice(index, 1);
   loadDataContract();
 }
+document
+  .querySelector(".save-contract-toTable")
+  .addEventListener("click", () => {
+    saveData();
+  });
 export let currentIndex = document.getElementById("edit-index");
 function editDataOnIssued(index) {
-  debugger;
   let currentObj = issuedContractDatas[index];
   document.getElementById("firstName").value = currentObj.firstName;
   document.getElementById("lastName").value = currentObj.lastName;

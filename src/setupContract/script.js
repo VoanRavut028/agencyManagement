@@ -391,32 +391,32 @@ function handleDataContract() {
           ).show();
         }
       }
-      // const saveButton = document.querySelectorAll(".save-contract-toTable");
-      // saveButton.forEach((saveChange) => {
-      //   saveChange.addEventListener("click", () => {
-      //     saveData();
-      //   });
-      // });
+      const saveButton = document.querySelectorAll(".save-contract-toTable");
+      saveButton.forEach((saveChange) => {
+        saveChange.addEventListener("click", () => {
+          saveData();
+        });
+      });
     });
   });
   // EndpreView
 }
-document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("save-contract-toTable")) {
-    saveData();
-  }
-});
+// document.addEventListener("click", (e) => {
+//   if (e.target.classList.contains("save-contract-toTable")) {
+//     saveData();
+//   }
+// });
 // document.addEventListener("DOMContentLoaded", () => {
 //   document.querySelectorAll(".save-contract-toTable").forEach((btn) => {
 //     btn.addEventListener("click", saveData());
 //   });
 // });
-// document
-//   .querySelector(".save-contract-toTable")
-//   .addEventListener("click", () => {
-//     saveData();
-//   });
-function saveData() {
+document
+  .querySelector(".save-contract-toTable")
+  .addEventListener("click", () => {
+    saveData();
+  });
+export function saveData() {
   let getPurChaseMethod = purchaseMethod.value;
   if (getPurChaseMethod === "Buy from Existing Partner") {
     // if (activeIndex) {
@@ -454,19 +454,19 @@ function saveData() {
       issuedContractDatas[activeIndex] = {
         contactNumber: contractNumber.value,
         firstName: document.getElementById("firstName").value,
-        lastName: lastName.value,
-        idPassport: idPassport.value,
-        signature: signature.value,
-        purchase: getPurChaseMethod,
-        email: email.value,
+        lastName: document.getElementById("lastName").value,
+        idPassport: document.getElementById("idPassport").value,
+        signature: document.getElementById("signature").value,
+        purchase: document.getElementById("purchaseMethod").value,
+        email: document.getElementById("email").value,
         adress: {
-          country: country.value,
-          province: province.value,
-          district: district.value,
-          commune: commune.value,
+          country: document.getElementById("country").value,
+          province: document.getElementById("province").value,
+          district: document.getElementById("district").value,
+          commune: document.getElementById("commune").value,
         },
-        startAgreementDate: startAgreementDate.value,
-        endAgreementDate: endAgreementDate.value,
+        startAgreementDate: document.getElementById("startAgreementDate").value,
+        endAgreementDate: document.getElementById("endAgreementDate").value,
         photo: uploadPhoto.value,
         issuedAmount: contractIssuedObj.IAmountContract.value,
         ITotalContract: contractIssuedObj.ITotalContract.value,
