@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Setup Partner</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css"
+    />
+    <link rel="stylesheet" href="../../style/aside&navbar/asides.css" />
+    <link rel="stylesheet" href="../../style/aside&navbar/navbar.css" />
+    <link rel="stylesheet" href="../../style/partner/style.css" />
+  </head>
+  <body>
+    <aside>
+      <div class="handle-aside-dashboard" id="handle-aside-dashboard">
+        <div class="logo">
+          <div class="humbergur-bar">
+            <i class="ri-menu-3-line hamburger-bar-icon"></i>
+          </div>
+          <!-- <i class="ri-angularjs-fill"></i> -->
+        </div>
+        <div class="aside-menu-top">
+          <ul class="navbar-nav text-nowrap">
+            <li class="nav-item active">
+              <a class="nav-link" href="../../index.html">
+                <i class="ri-dashboard-fill"></i>
+                <span> Dashboard </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="../../outdoors/setupContract/index.html"
+              >
+                <i class="ri-contract-line"></i> <span>Setup Contract</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="ri-hotel-fill"></i><span> Setup Company</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="ri-stairs-line"></i> <span>Setup Hierarchy</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="ri-team-fill"></i> <span>Setup Partner</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="aside-menu-bottom">
+          <ul class="navbar-nav text-nowrap">
+            <li class="nav-item fs-6"><span>HELP & SUPPORT</span></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"
+                ><i class="ri-error-warning-line"></i>
+                <span>Help & Center</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"
+                ><i class="ri-settings-5-fill"></i><span> Settings</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="aside-menu-logout text-nowrap">
+          <a class="nav-link" href="#"
+            ><i class="ri-logout-circle-line"></i><span> Log Out</span></a
+          >
+        </div>
+      </div>
+    </aside>
+    
+    <main class="container" id="handle-task-body">
+      <navbar>
+        <div class="main-nav-navbar">
+          <div>
+            <h2>Setup Partner</h2>
+          </div>
+          <div>
+            <h1>Admin</h1>
+          </div>
+        </div>
+      </navbar>
+      <hr />
+      <section class="section">
+        <div class="p-4 gap-5">
+          <div class="row">
+            <button
+              class="btn btn-primary col-lg-2 col-md-12 col-sm-12 col-12"
+              data-bs-target="#mainPopup"
+              data-bs-toggle="modal"
+            >
+              +Add New Partners
+            </button>
+            <div class="w-75 col-lg-10 col-md-12 col-sm-12 col-12">
+              <form class="d-flex gap-2" id="searchForm">
+                <input
+                  type="text"
+                  id="searchInput"
+                  class="form-control"
+                  autocomplete="off"
+                  placeholder="Search by Name or Email"
+                />
+                <button type="submit" class="btn btn-primary w-25">
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="mainPopup"
+          aria-hidden="true"
+          aria-labelledby="exampleModalToggleLabel"
+          tabindex="-1"
+        >
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1
+                  class="modal-title text-start fs-5"
+                  id="exampleModalToggleLabel"
+                >
+                  &#10687; Setup Partner
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div>
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-3">
+                        <label for="exampleInputEmail1" class="form-label"
+                          >Partner Name :</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control shadow-sm"
+                          id="inputPartner"
+                          aria-describedby="emailHelp"
+                        />
+                        <div id="partnernamevalidation"></div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-3">
+                        <label for="exampleInputEmail1" class="form-label"
+                          >Email :</label
+                        >
+                        <input
+                          type="email"
+                          class="form-control shadow-sm"
+                          id="inputEmail"
+                          aria-describedby="emailHelp"
+                          value=""
+                        />
+                        <div id="emailvalidation"></div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-3">
+                        <label for="exampleInputEmail1" class="form-label"
+                          >Phone Number :</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control shadow-sm"
+                          id="inputPhoneNumber"
+                          aria-describedby="emailHelp"
+                        />
+                        <div id="phonenumbervalidation"></div>
+                      </div>
+                    </div>
+                    <h4>&#10687; Address</h4>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-3">
+                      <label for="exampleInputEmail1" class="form-label"
+                        >Commune:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control shadow-sm"
+                        id="inputCommune"
+                        aria-describedby="emailHelp"
+                      />
+                      <div id="commuevalidation"></div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-3">
+                      <label for="exampleInputEmail1" class="form-label"
+                        >District:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control shadow-sm"
+                        id="inputDistrict"
+                        aria-describedby="emailHelp"
+                      />
+                      <div id="districtvalidation"></div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-3">
+                      <label for="exampleInputEmail1" class="form-label"
+                        >Province:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control shadow-sm"
+                        id="inputProvince"
+                        aria-describedby="emailHelp"
+                      />
+                      <div id="provincevalidation"></div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-3">
+                      <label for="exampleInputEmail1" class="form-label"
+                        >Country:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control shadow-sm"
+                        id="inputCountry"
+                        aria-describedby="emailHelp"
+                      />
+                      <div id="countryvalidation"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                  &#10687; Partnership Proposal
+                </h1>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+                      <label for="exampleInputEmail1" class="form-label"
+                        >Type of Partnership :</label
+                      >
+                      <select
+                        class="form-select shadow-sm"
+                        id="inputTypeOfPartnership"
+                        aria-label="Default select example"
+                        required
+                      >
+                        <option value="">-- Select Type --</option>
+                        <option selected>General Partnership</option>
+                        <option value="Limited Partnership">
+                          Limited Partnership
+                        </option>
+                        <option value="Limited Liability Partnership">
+                          Limited Liability Partnership
+                        </option>
+                        <option value="Limited Liability Limited Partnership">
+                          Limited Liability Limited Partnership
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+                      <label for="exampleInputEmail1" class="form-label"
+                        >Proposal Details :</label
+                      >
+                      <div class="form-floating">
+                        <textarea
+                          class="form-control shadow-sm"
+                          placeholder="Leave a comment here"
+                          id="inputComment"
+                        ></textarea>
+                        <label for="floatingTextarea">Comments</label>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  id="next-button-first-form"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="exampleModalToggleTwo"
+          aria-hidden="true"
+          aria-labelledby="exampleModalToggleLabel2"
+          tabindex="-1"
+        >
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">
+                  Share & Ownership Agreement
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-3">
+                      <label for="exampleInputEmail1" class="form-label"
+                        >Ownership Share (%):</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control shadow-sm"
+                        id="inputOwnership"
+                        aria-describedby="emailHelp"
+                      />
+                      <div id="ownershipValidetion"></div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-3">
+                      <label for="exampleInputEmail1" class="form-label"
+                        >Capital Investment ($):</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control shadow-sm"
+                        id="inputCapital"
+                        aria-describedby="emailHelp"
+                      />
+                      <div id="capitalinvestmentvalidation"></div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+                      <label for="exampleInputEmail1" class="form-label"
+                        >Profit Share (%) :</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control shadow-sm"
+                        id="inputProfit"
+                        aria-describedby="emailHelp"
+                      />
+                      <div id="profitsharevalidation"></div>
+                    </div>
+                  </div>
+                </form>
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    Partnership Proposal
+                  </h1>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+                        <label for="exampleInputEmail1" class="form-label"
+                          >Partnership Start Date :</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control shadow-sm"
+                          id="inputDate"
+                          aria-describedby="emailHelp"
+                        />
+                        <div id="datevalidation"></div>
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+                        <label for="exampleInputEmail1" class="form-label"
+                          >Chose File :</label
+                        >
+                        <input
+                          type="file"
+                          class="form-control shadow-sm"
+                          id="inputFile"
+                          aria-describedby="emailHelp"
+                        />
+                        <div id="filevalidation"></div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  class="btn btn-danger"
+                  data-bs-target="#mainPopup"
+                  data-bs-toggle="modal"
+                >
+                  Back
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="preview-button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#summary"
+                >
+                  Preview
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- summary -->
+        <div
+          class="modal fade"
+          id="summary"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5 fw-bold text-warning" id="exampleModalLabel">
+                  Check Your Summary
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body" id="checksummary"></div>
+              <div class="modal-footer">
+                <button
+                  class="btn btn-danger"
+                  data-bs-target="#exampleModalToggleTwo"
+                  data-bs-toggle="modal"
+                >
+                  Back
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-success text-light"
+                  data-bs-dismiss="modal"
+                  id="add-data-on-table"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- new edit -->
+        <div
+          class="modal fade"
+          id="exampleModalToggle3"
+          aria-hidden="true"
+          aria-labelledby="exampleModalToggleLabel2"
+          tabindex="-1"
+        >
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1
+                  class="modal-title text-primary fs-5"
+                  id="exampleModalToggleLabel2"
+                >
+                  Edit Summary
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body" id="editpartner-to-save"></div>
+              <div class="modal-footer"></div>
+            </div>
+          </div>
+        </div>
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+
+
+        <div class="container card-section">
+          <table class="table table-secondary table-striped text-nowrap">
+            <thead class="table-dark">
+              <tr class="text-center">
+                <th>No</th>
+                <th>Partnername</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phonenumber</th>
+                <th>Ownership(%)</th>
+                <th>Capitalinvesment($)</th>
+                <th>profitshare(%)</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="dataTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../src/asideAndNavbar/script.js"></script>
+    <script src="../../src/asideAndNavbar/partner.js"></script>
+  </body>
+</html>
+

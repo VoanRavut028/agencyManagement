@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contract Preview Generator</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .preview-container {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .form-container {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      .profile-img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+      .section-title {
+        color: #495057;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .purchase-options {
+        display: none;
+      }
+      .purchase-options.active {
+        display: block;
+      }
+      .btn-preview {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+      .btn-preview:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        color: white;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <div class="container py-5">
+      <div class="row">
+        <!-- Form Section -->
+        <div class="col-lg-6">
+          <div class="form-container">
+            <h2 class="section-title">Contract Information</h2>
+            <form id="contractForm">
+              <!-- Personal Information -->
+              <div class="mb-4">
+                <h5 class="text-primary mb-3">Personal Details</h5>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="firstName"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="lastName"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="idPassport" class="form-label"
+                    >ID / Passport</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="idPassport"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="signature" class="form-label">Signature</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="signature"
+                    placeholder="Optional"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="uploadPhoto" class="form-label"
+                    >Profile Photo URL</label
+                  >
+                  <input
+                    type="url"
+                    class="form-control"
+                    id="uploadPhoto"
+                    placeholder="https://example.com/photo.jpg"
+                  />
+                </div>
+
+              </div>
+
+              <!-- Address Information -->
+              <div class="mb-4">
+                <h5 class="text-primary mb-3">Address</h5>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="commune" class="form-label">Commune</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="commune"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="district" class="form-label">District</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="district"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="province" class="form-label">Province</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="province"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="country" class="form-label">Country</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="country"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Agreement Dates -->
+              <div class="mb-4">
+                <h5 class="text-primary mb-3">Agreement Period</h5>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="startAgreementDate" class="form-label"
+                      >Start Date</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="startAgreementDate"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="endAgreementDate" class="form-label"
+                      >End Date</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="endAgreementDate"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Purchase Method -->
+              <div class="mb-4">
+                <h5 class="text-primary mb-3">Purchase Method</h5>
+                <select class="form-select" id="purchaseMethod" required>
+                  <option value="">Select Purchase Method</option>
+                  <option value="Buy from Existing Partner">
+                    Buy from Existing Partner
+                  </option>
+                  <option value="New Issued Shares">New Issued Shares</option>
+                </select>
+              </div>
+
+              <!-- Existing Partner Options -->
+              <div id="existingPartnerOptions" class="purchase-options mb-4">
+                <h5 class="text-success mb-3">Existing Partner Details</h5>
+                <div class="mb-3">
+                  <label for="pExname" class="form-label">Partner Name</label>
+                  <input type="text" class="form-control" id="pExname" />
+                </div>
+                <div class="mb-3">
+                  <label for="pExIdPassport" class="form-label"
+                    >Partner ID/Passport</label
+                  >
+                  <input type="text" class="form-control" id="pExIdPassport" />
+                </div>
+                <div class="row">
+                  <div class="col-md-4 mb-3">
+                    <label for="pExCurrentPercent" class="form-label"
+                      >Current %</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="pExCurrentPercent"
+                      min="0"
+                      max="100"
+                      step="0.01"
+                    />
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="pExTransferPercent" class="form-label"
+                      >Transfer %</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="pExTransferPercent"
+                      min="0"
+                      max="100"
+                      step="0.01"
+                    />
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="pExPaidAmount" class="form-label"
+                      >Paid Amount ($)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="pExPaidAmount"
+                      min="0"
+                      step="0.01"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- New Issued Shares Options -->
+              <div id="newSharesOptions" class="purchase-options mb-4">
+                <h5 class="text-info mb-3">New Issued Shares Details</h5>
+                <div class="mb-3">
+                  <label for="IAmountContract" class="form-label"
+                    >Issued Amount</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="IAmountContract"
+                    min="0"
+                    step="0.01"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="ITotalContract" class="form-label"
+                    >Total After Issue</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="ITotalContract"
+                    min="0"
+                    step="0.01"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="IInvestmentContract" class="form-label"
+                    >Investment Amount ($)</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="IInvestmentContract"
+                    min="0"
+                    step="0.01"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-preview w-100"
+                id="generatePreview"
+              >
+                Generate Preview
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="col-lg-6">
+          <div class="preview-container">
+            <h2 class="section-title">Contract Preview</h2>
+            <div id="show-preView-contract">
+              <div class="text-center text-muted py-5">
+                <i class="fas fa-file-contract fa-3x mb-3"></i>
+                <p>
+                  Fill out the form and click "Generate Preview" to see your
+                  contract summary
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Form elements
+      const form = document.getElementById("contractForm");
+      const purchaseMethod = document.getElementById("purchaseMethod");
+      const existingPartnerOptions = document.getElementById(
+        "existingPartnerOptions"
+      );
+      const newSharesOptions = document.getElementById("newSharesOptions");
+      const generateBtn = document.getElementById("generatePreview");
+
+      // Purchase method change handler
+      purchaseMethod.addEventListener("change", function () {
+        const selectedMethod = this.value;
+
+        // Hide all options first
+        existingPartnerOptions.classList.remove("active");
+        newSharesOptions.classList.remove("active");
+
+        // Show relevant options
+        if (selectedMethod === "Buy from Existing Partner") {
+          existingPartnerOptions.classList.add("active");
+        } else if (selectedMethod === "New Issued Shares") {
+          newSharesOptions.classList.add("active");
+        }
+      });
+
+      // Generate preview function
+      generateBtn.addEventListener("click", function () {
+        // Get form values
+        const firstName = document.getElementById("firstName");
+        const lastName = document.getElementById("lastName");
+        const email = document.getElementById("email");
+        const idPassport = document.getElementById("idPassport");
+        const signature = document.getElementById("signature");
+        const uploadPhoto = document.getElementById("uploadPhoto");
+        const commune = document.getElementById("commune");
+        const district = document.getElementById("district");
+        const province = document.getElementById("province");
+        const country = document.getElementById("country");
+        const startAgreementDate =
+          document.getElementById("startAgreementDate");
+        const endAgreementDate = document.getElementById("endAgreementDate");
+
+        // Existing partner elements
+        const pExname = document.getElementById("pExname");
+        const pExIdPassport = document.getElementById("pExIdPassport");
+        const pExCurrentPercent = document.getElementById("pExCurrentPercent");
+        const pExTransferPercent =
+          document.getElementById("pExTransferPercent");
+        const pExPaidAmount = document.getElementById("pExPaidAmount");
+
+        // New shares elements
+        const IAmountContract = document.getElementById("IAmountContract");
+        const ITotalContract = document.getElementById("ITotalContract");
+        const IInvestmentContract = document.getElementById(
+          "IInvestmentContract"
+        );
+
+        const getPurchaseVal = purchaseMethod.value;
+
+        // Validate required fields
+        if (
+          !firstName.value ||
+          !lastName.value ||
+          !email.value ||
+          !idPassport.value ||
+          !commune.value ||
+          !district.value ||
+          !province.value ||
+          !country.value ||
+          !startAgreementDate.value ||
+          !endAgreementDate.value ||
+          !getPurchaseVal
+        ) {
+          alert("Please fill in all required fields");
+          return;
+        }
+
+        // Generate summary
+        let summary = ``;
+        const photoUrl =
+          uploadPhoto.value ||
+          "https://via.placeholder.com/150x150?text=No+Photo";
+        summary = `
+                <div class="row g-4">
+                    <div class="col-md-5 text-center">
+                        <img src="https://i.pinimg.com/736x/91/a4/5d/91a45d0b6e9594f0e60056a4d4ad69bb.jpg" alt="Profile" class="img-fluid rounded-3 mb-3 shadow-sm profile-img">
+                        <p class="mb-1 fs-6 fw-medium">${firstName.value} ${
+          lastName.value
+        }</p>
+                        <p class="text-muted small mb-0">ID / Passport: ${
+                          idPassport.value
+                        }</p>
+                        <p class="text-muted small">Signature: ${
+                          signature.value || "—"
+                        }</p>
+                    </div>
+                    <div class="col-md-7">
+                        <ul class="list-group list-group-flush small">
+                            <li class="list-group-item"><strong>Email:</strong> ${
+                              email.value
+                            }</li>
+                            <li class="list-group-item"><strong>Address:</strong><br>
+                               <span class = "text-nowrap"> ${commune.value}, ${
+          district.value
+        },
+                                ${province.value}, ${country.value}</span>
+                            </li>
+                            <li class="list-group-item"><strong>Agreement:</strong> ${
+                              startAgreementDate.value
+                            } → ${endAgreementDate.value}</li>
+                            <li class="list-group-item"><strong>Purchase Method:</strong> ${getPurchaseVal}</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+        if (getPurchaseVal === "Buy from Existing Partner") {
+          summary += `
+                    <div class="mt-4">
+                        <h6 class="text-success mb-3">Existing Partner Transaction</h6>
+                        <ul class="list-group list-group-flush small">
+                            <li class="list-group-item">
+                                <strong>Partner Name:</strong> ${pExname.value}<br>
+                                <strong>ID/Passport:</strong> ${pExIdPassport.value}<br>
+                                <strong>Current %:</strong> ${pExCurrentPercent.value}%<br>
+                                <strong>Transfer %:</strong> ${pExTransferPercent.value}%<br>
+                                <strong>Paid:</strong> $${pExPaidAmount.value}
+                            </li>
+                        </ul>
+                    </div>`;
+        } else if (getPurchaseVal === "New Issued Shares") {
+          summary += `
+                    <div class="mt-4">
+                        <h6 class="text-info mb-3">New Issued Shares</h6>
+                        <ul class="list-group list-group-flush small">
+                            <li class="list-group-item">
+                                <strong>Issued Amount:</strong> ${IAmountContract.value}<br>
+                                <strong>Total After Issue:</strong> ${ITotalContract.value}<br>
+                                <strong>Investment:</strong> $${IInvestmentContract.value}
+                            </li>
+                        </ul>
+                    </div>`;
+        }
+
+        document.getElementById("show-preView-contract").innerHTML = summary;
+      });
+
+      // Auto-generate preview on form changes (optional)
+      form.addEventListener("input", function () {
+        // You can uncomment this if you want real-time preview updates
+        // generateBtn.click();
+      });
+    </script>
+  </body>
+</html>

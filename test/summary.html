@@ -1,0 +1,234 @@
+VOAN RAVUT - វន់ រ៉ាវុត, [7/15/2025 12:34 AM]
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contract Summary</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        background: linear-gradient(to bottom, #e9ecef, #f8f9fa);
+        min-height: 100vh;
+        font-family: "Segoe UI", sans-serif;
+      }
+      .summary-card {
+        max-width: 700px;
+        margin: 3rem auto;
+        background: #ffffff;
+        border-radius: 0.75rem;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+      .summary-card:hover {
+        transform: translateY(-5px);
+      }
+      .profile-img {
+        max-width: 180px;
+        object-fit: cover;
+        border: 4px solid #dee2e6;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+      }
+      .profile-img:hover {
+        transform: scale(1.05);
+      }
+      .list-group-item {
+        border: none;
+        background-color: #f8f9fa;
+        border-radius: 0.5rem;
+        margin-bottom: 0.5rem;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .list-group-item:hover {
+        background-color: #e9ecef;
+      }
+      .list-group-item strong {
+        flex: 0 0 40%;
+        color: #0d6efd;
+      }
+      .section-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #0d6efd;
+        border-bottom: 2px solid #dee2e6;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="summary-card">
+      <div class="p-4 p-md-5">
+        <h2 class="text-center text-primary mb-4">Contract Summary</h2>
+        <div id="show-preView-contract">
+          <div class="row g-4">
+            <div class="col-md-5 text-center">
+              <img
+                src="${uploadPhoto}"
+                alt="Profile"
+                class="profile-img mb-3"
+              />
+                <p class="h5 fw-semibold text-dark">${partner.partner}</p>
+              <p class="text-muted small">ID : ${partner.id}</p>
+              
+            </div>
+            <div class="col-md-7">
+              <h3 class="section-title">Details</h3>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <strong>Email:</strong>
+                  <span>${partner.email}</span>
+                </li>
+                <li class="list-group-item">
+                  <strong>Address:</strong>
+                  <span
+                    >${commune.value}, ${district.value},<br />${province.value},
+                    ${country.value}</span
+                  >
+                </li>
+                <li class="list-group-item">
+                  <strong>PhoneNumber:</strong>
+                  <span>${partner.phonenumber}</span
+                  >
+                </li>
+                <li class="list-group-item">
+                  <strong>TypeOfPartnerShip:</strong>
+                  <span>${partner.typeofpartnership}</</span>
+                </li>
+                <li class="list-group-item">
+                  <strong>Comment:</strong>
+                  <span> ${partner.comment}</</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3 class="section-title">Partner Information</h3>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div>
+                  <strong>Ownership:</strong> ${partner.ownership || "N/A" }<br />
+                  <strong>Capital Investment ($):</strong> ${partner.capitalinvesment || "N/A"}<br />
+                  <strong>Profit Share (%):</strong> ${partner.profitshare || "N/A"}%<br />
+                  <strong>Partnership Start Date:</strong>${partner.date || "N/A"}<br />
+                  <strong>Chosen File:</strong> ${partner.chosefile || "N/A"}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // Sample data for demonstration (replace with actual values)
+      const uploadPhoto = "https://via.placeholder.com/200";
+      const firstName = { value: "John" };
+      const lastName = { value: "Doe" };
+      const idPassport = { value: "123456789" };
+      const signature = { value: "John Doe" };
+      const email = { value: "john.doe@example.com" };
+      const commune = { value: "Central Commune" };
+      const district = { value: "Downtown District" };
+      const province = { value: "Capital Province" };
+      const country = { value: "Country" };
+      const startAgreementDate = { value: "2025-01-01" };
+      const endAgreementDate = { value: "2026-01-01" };
+      const getPurchaseVal = "Buy from Existing Partner"; // or "New Issued Shares"
+      const pExname = { value: "Jane Smith" };
+      const pExIdPassport = { value: "987654321" };
+      const pExCurrentPercent = { value: "50" };
+      const pExTransferPercent = { value: "25" };
+      const pExPaidAmount = { value: "10000" };
+      const IAmountContract = { value: "1000" };
+      const ITotalContract = { value: "5000" };
+      const IInvestmentContract = { value: "20000" };
+
+      let summary = `
+      <div class="row g-4">
+        <div class="col-md-5 text-center">
+          <img src="${uploadPhoto}" alt="Profile" class="profile-img mb-3">
+          <p><strong>Partner Name:</strong> ${partner.partner}</p>
+          
+          <p class="text-muted small">ID / Passport: ${idPassport.value}</p>
+          <p class="text-muted small">Signature: ${signature.value || "—"}</p>
+        </div>
+        <div class="col-md-7">
+          <h3 class="section-title">Details</h3>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <strong>Email:</strong>
+              <span>${email.value}</span>
+            </li>
+            <li class="list-group-item">
+              <strong>Address:</strong>
+              <span>${commune.value}, ${district.value},<br>${
+        province.value
+      }, ${country.value}</span>
+            </li>
+            <li class="list-group-item">
+              <strong>Agreement:</strong>
+              <span>${startAgreementDate.value} → ${
+        endAgreementDate.value
+      }</span>
+            </li>
+            <li class="list-group-item">
+              <strong>Purchase Method:</strong>
+              <span>${getPurchaseVal}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    `;
+
+      if (getPurchaseVal === "Buy from Existing Partner") {
+        summary += `
+        <div class="mt-4">
+          <h3 class="section-title">Partner Information</h3>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div>
+                <strong>Partner Name:</strong> ${pExname.value}<br>
+                <strong>ID/Passport:</strong> ${pExIdPassport.value}<br>
+                <strong>Current %:</strong> ${pExCurrentPercent.value}%<br>
+                <strong>Transfer %:</strong> ${pExTransferPercent.value}%<br>
+                <strong>Paid:</strong> $${pExPaidAmount.value}
+              </div>
+            </li>
+          </ul>
+        </div>`;
+      } else if (getPurchaseVal === "New Issued Shares") {
+        summary += `
+        <div class="mt-4">
+          <h3 class="section-title">Share Issuance</h3>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div>
+                <strong>Issued Amount:</strong> ${IAmountContract.value}<br>
+                <strong>Total After Issue:</strong> ${ITotalContract.value}<br>
+                <strong>Investment:</strong> $${IInvestmentContract.value}
+              </div>
+            </li>
+          </ul>
+        </div>
+        `;
+      }
+
+      document.getElementById("show-preView-contract").innerHTML = summary;
+    </script>
+  </body>
+</html>

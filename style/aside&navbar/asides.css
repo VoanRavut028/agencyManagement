@@ -1,0 +1,71 @@
+:root {
+  --bg-aside: #0f172a;
+  --text-color: #8b9bae;
+}
+.humbergur-bar i {
+  font-size: 30px;
+  margin-left: 20px;
+}
+.handle-aside-dashboard {
+  position: fixed;
+  background-color: var(--bg-aside);
+  width: 220px;
+  height: 100vh;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+.aside-menu-top {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+}
+.aside-menu-top ul li a {
+  color: var(--text-color) !important;
+}
+.aside-menu-top ul li a:hover {
+  color: white !important;
+  font-weight: 600;
+}
+.aside-menu-top ul li a i {
+  padding-right: 10px;
+  margin-left: 20px;
+}
+.aside-menu-bottom {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  color: var(--text-colors);
+}
+.aside-menu-bottom ul li a {
+  color: var(--text-color) !important;
+}
+.aside-menu-bottom ul li i {
+  margin-left: 20px;
+}
+.aside-menu-logout {
+  position: absolute;
+  top: 90%;
+  left: 5%;
+}
+.aside-menu-logout a {
+  color: var(--text-color) !important;
+}
+.hidde-aside-text span {
+  display: none;
+}
+.trancestion-aside-text span {
+  transition: span 5s ease;
+}
+
+.active {
+  background-color: #575a5f81;
+  border-radius: 10px;
+  width: 100%;
+}
+.active a span {
+  color: white !important;
+}
+.active a i {
+  color: white !important;
+}
