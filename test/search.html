@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product List (No Popup)</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      .product-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px; /* Add some space below the list */
+      }
+
+      .product-item {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .product-item h2 {
+        margin-top: 0;
+        color: #333;
+      }
+
+      .product-item p {
+        color: #666;
+      }
+
+      .view-details-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        margin-top: 10px;
+      }
+
+      .view-details-btn:hover {
+        background-color: #0056b3;
+      }
+
+      /* New styles for the display area */
+      #selected-product-details {
+        background-color: #e9f7ef; /* Light green background */
+        border: 1px solid #c8e6c9; /* Green border */
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        margin: 20px auto;
+        max-width: 600px;
+        text-align: left;
+      }
+
+      #selected-product-details h2 {
+        color: #28a745; /* Darker green for heading */
+        border-bottom: 2px solid #28a745;
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+
+      #selected-product-details p {
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      #selected-product-details span {
+        font-weight: bold;
+        color: #0056b3; /* Blue for the actual data */
+      }
+    </style>
+
+    <h1>Our Products</h1>
+
+    <div class="product-list">
+      <div class="product-item" data-product-id="1">
+        <h2>Product A</h2>
+        <p>Price: $10.00</p>
+        <button class="view-details-btn">View Details</button>
+      </div>
+      <div class="product-item" data-product-id="2">
+        <h2>Product B</h2>
+        <p>Price: $25.50</p>
+        <button class="view-details-btn">View Details</button>
+      </div>
+      <div class="product-item" data-product-id="3">
+        <h2>Product C</h2>
+        <p>Price: $5.75</p>
+        <button class="view-details-btn">View Details</button>
+      </div>
+    </div>
+
+    <div id="selected-product-details">
+      <h2>Selected Product Details:</h2>
+      <p>Name: <span id="display-product-name">N/A</span></p>
+      <p>Price: <span id="display-product-price">N/A</span></p>
+      <p>Description: <span id="display-product-description">N/A</span></p>
+      <p>ID: <span id="display-product-id">N/A</span></p>
+    </div>
+
+    <script>
+      // Sample Dataset (still the same, can come from API/database)
+      const products = [
+        {
+          id: 1,
+          name: "Product A",
+          price: "10.00",
+          description:
+            "This is a detailed description for Product A. It's a fantastic item!",
+        },
+        {
+          id: 2,
+          name: "Product B",
+          price: "25.50",
+          description:
+            "Product B offers great value and performance. A must-have!",
+        },
+        {
+          id: 3,
+          name: "Product C",
+          price: "5.75",
+          description:
+            "Simple yet effective, Product C is perfect for everyday use.",
+        },
+      ];
+
+      // Get elements for displaying product details
+      const productItems = document.querySelectorAll(".product-item");
+      const displayProductName = document.getElementById(
+        "display-product-name"
+      );
+      const displayProductPrice = document.getElementById(
+        "display-product-price"
+      );
+      const displayProductDescription = document.getElementById(
+        "display-product-description"
+      );
+      const displayProductId = document.getElementById("display-product-id");
+
+      // Function to display product details in the dedicated section
+      function showProductDetails(productId) {
+        const product = products.find((p) => p.id === productId);
+
+        if (product) {
+          displayProductName.textContent = product.name;
+          displayProductPrice.textContent = `$${product.price}`;
+          displayProductDescription.textContent = product.description;
+          displayProductId.textContent = product.id;
+
+          // Optional: Scroll to the details section after update
+          document
+            .getElementById("")
+            .scrollIntoView({ behavior: "smooth" });
+
+          // Or simply log to console instead of updating HTML:
+          // console.log("Product Details:", product);
+        } else {
+          console.error("Product not found for ID:", productId);
+          // Clear previous data if no product found
+          displayProductName.textContent = "N/A";
+          displayProductPrice.textContent = "N/A";
+          displayProductDescription.textContent = "N/A";
+          displayProductId.textContent = "N/A";
+        }
+      }
+
+      // Add event listeners to each "View Details" button
+      productItems.forEach((item) => {
+        const productId = parseInt(item.dataset.productId); // Get product ID from data-product-id
+        const viewDetailsBtn = item.querySelector(".view-details-btn");
+
+        viewDetailsBtn.addEventListener("click", () => {
+          showProductDetails(productId);
+        });
+      });
+
+      // Initial clear or default text for the display area
+      // This is good practice to ensure it's clean on page load
+      displayProductName.textContent = "None selected";
+      displayProductPrice.textContent = "None selected";
+      displayProductDescription.textContent = "None selected";
+      displayProductId.textContent = "None selected";
+    </script>
+  </body>
+</html>
