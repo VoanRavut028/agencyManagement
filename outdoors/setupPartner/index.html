@@ -93,6 +93,7 @@
         </div>
       </navbar>
       <hr />
+      
       <section class="section">
         <div class="p-4 gap-5">
           <div class="row">
@@ -119,7 +120,6 @@
             </div>
           </div>
         </div>
-
         <div
           class="modal fade"
           id="mainPopup"
@@ -488,7 +488,22 @@
         </div>
 
 
-<!-- Button trigger modal -->
+<!-- view when search data -->
+<div class="modal fade" id="view-check" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#view-check"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-success" id="exampleModalLabel">View Detail</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="view-detail"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <!-- Modal -->
@@ -518,7 +533,7 @@
 
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../src/asideAndNavbar/script.js"></script>
-    <script src="../../src/asideAndNavbar/partner.js"></script>
+    <script src="../../src/scripts/partner.js"></script>
   </body>
 </html>
 
