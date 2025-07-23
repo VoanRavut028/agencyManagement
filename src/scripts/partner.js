@@ -10,9 +10,9 @@ let firtPartnerInfos = [
     country: "Cambodia",
     typeofpartnership: "General Partner",
     comment: "comments.....",
-    ownership: "50%",
-    capitalinvesment: "$ 60,000",
-    profitshare: "40%",
+    ownership: "50",
+    capitalinvesment: "6,0000",
+    profitshare: "20",
     date: "2025-07-14",
     chosefile: "file.pdf",
   },
@@ -27,10 +27,44 @@ let firtPartnerInfos = [
     country: "Cambodia",
     typeofpartnership: "General Partner",
     comment: "Marketing collaboration",
-    ownership: "10%",
-    capitalinvesment: "$ 20,000",
-    profitshare: "15%",
+    ownership: "10",
+    capitalinvesment: "2,0000",
+    profitshare: "50",
     date: "2024-11-20",
+    chosefile: "mou.pdf",
+  },
+  {
+    id: 3,
+    partner: "Lina Lorm",
+    email: "lina.LM@example.com",
+    phonenumber: "097 45 67 433",
+    commune: "Sla Kram",
+    district: " Soutr Nikom",
+    province: "Battambang",
+    country: "Siem Reap",
+    typeofpartnership: "General Partner",
+    comment: "Marketing collaboration",
+    ownership: "50",
+    capitalinvesment: "5,0000",
+    profitshare: "15",
+    date: "2025-07-20",
+    chosefile: "mou.pdf",
+  },
+  {
+    id: 4,
+    partner: "Dara Keo",
+    email: "dara.ko@example.com",
+    phonenumber: "081 65 45 89",
+    commune: " Batheay",
+    district: "Svay Teab",
+    province: "Kompong Cham",
+    country: "Cambodia",
+    typeofpartnership: "General Partner",
+    comment: "Marketing collaboration",
+    ownership: "50",
+    capitalinvesment: "8,0000",
+    profitshare: "20",
+    date: "2025-10-26",
     chosefile: "mou.pdf",
   },
 ];
@@ -57,9 +91,9 @@ function renderTable() {
             <td> ${partner.country}</td>
             <td>${partner.email}</td>
             <td>${partner.phonenumber}</td>
-            <td>${partner.ownership || ""}</td>
-            <td>${partner.capitalinvesment || ""}</td>
-            <td>${partner.profitshare || ""}</td>
+            <td>${partner.ownership || ""}%</td>
+            <td>$ ${partner.capitalinvesment || ""}</td>
+            <td>${partner.profitshare || ""}%</td>
             <td>${partner.date || ""}</td>
             <td>
                 <button class="btn btn-info btn-sm me-1 view-detials-btn" data-bs-toggle="modal" data-bs-target="#view-check" data-id="${
@@ -88,11 +122,91 @@ function renderTable() {
                 </div>
               </div>
             </div>
+
+        `;
+    dataTable.appendChild(row);
+  });
+  
+// search data from table
+document.getElementById("searchForm").addEventListener("submit", function (e) {
+  e.preventDefault(); 
+
+  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+
+  const filteredPartners = firtPartnerInfos.filter((partner) => {
+    return (
+      partner.partner.toLowerCase().includes(query) ||
+      partner.email.toLowerCase().includes(query)
+    );
+  });
+
+  renderFilteredTable(filteredPartners);
+});
+
+function renderFilteredTable(partners) {
+  dataTable.innerHTML = "";
+
+  if (partners.length === 0) {
+    dataTable.innerHTML =
+      '<tr><td colspan="10" class="text-center">No matching partners found.</td></tr>';
+    return;
+  }
+
+  partners.forEach((partner, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+            <td>${partner.id}</td>
+            <td>${partner.partner}</td>
+            <td> ${partner.country}</td>
+            <td>${partner.email}</td>
+            <td>${partner.phonenumber}</td>
+            <td>${partner.ownership || ""}%</td>
+            <td>$ ${partner.capitalinvesment || ""}</td>
+            <td>${partner.profitshare || ""}%</td>
+            <td>${partner.date || ""}</td>
+            <td>
+                <button class="btn btn-info btn-sm me-1 view-detials-btn" data-bs-toggle="modal" data-bs-target="#view-check" data-id="${
+                  partner.id
+                }">View</button>
+                <button class="btn btn-warning btn-sm edit-btn me-1" data-id="${
+                  partner.id
+                }">Edit</button>
+                <button class="btn btn-danger btn-sm delete-btn" data-id="${
+                  partner.id
+                }">Delete</button>
+            </td>
         `;
     dataTable.appendChild(row);
   });
 
+<<<<<<< HEAD:src/asideAndNavbar/partner.js
   // Attach event listeners for dynamically created buttons
+=======
+  // Re-attach the event listeners to new elements
+  document.querySelectorAll(".view-detials-btn").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const id = parseInt(event.target.dataset.id);
+      viewdails(id);
+    });
+  });
+
+  document.querySelectorAll(".edit-btn").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const id = parseInt(event.target.dataset.id);
+      editPartner(id);
+    });
+  });
+
+  document.querySelectorAll(".delete-btn").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const id = parseInt(event.target.dataset.id);
+      deletePartner(id);
+    });
+  });
+}
+
+  //  created buttons
+>>>>>>> 6925484d74936b155ede75d3a8db3640b62aa559:src/scripts/partner.js
 
   document.querySelectorAll(".view-detials-btn").forEach((button) => {
     button.addEventListener("click", (event) => {
@@ -114,6 +228,31 @@ function renderTable() {
       deletePartner(id);
     });
   });
+}
+
+// view when search data
+function viewdails(id) {
+  const partner = firtPartnerInfos.find((p) => p.id === id);
+  if (!partner) return;
+
+  const detailHtml = `
+    <p><strong>Partner:</strong> ${partner.partner}</p>
+    <p><strong>Email:</strong> ${partner.email}</p>
+    <p><strong>Phone Number:</strong> ${partner.phonenumber}</p>
+    <p><strong>Commune:</strong> ${partner.commune}</p>
+    <p><strong>District:</strong> ${partner.district}</p>
+    <p><strong>Province:</strong> ${partner.province}</p>
+    <p><strong>Country:</strong> ${partner.country}</p>
+    <p><strong>Type of Partnership:</strong> ${partner.typeofpartnership}</p>
+    <p><strong>Comment:</strong> ${partner.comment}</p>
+    <p><strong>Ownership:</strong> ${partner.ownership}</p>
+    <p><strong>Capital Investment:</strong> ${partner.capitalinvesment}</p>
+    <p><strong>Profit Share:</strong> ${partner.profitshare}</p>
+    <p><strong>Date:</strong> ${partner.date}</p>
+    <p><strong>File:</strong> ${partner.chosefile}</p>
+  `;
+
+  document.getElementById("view-detail").innerHTML = detailHtml;
 }
 
 // add new item in table validation
@@ -252,15 +391,15 @@ function viewPartner(id) {
                   </li>
                   <li class="list-group-item">
                     <strong>OwnerShip:</strong>
-                    <span>${partner.ownership}</span>
+                    <span>${partner.ownership}%</span>
                   </li>
                   <li class="list-group-item">
                     <strong>Capitalinvesment:</strong>
-                    <span>${partner.capitalinvesment}</span>
+                    <span>$${partner.capitalinvesment}</span>
                   </li>
                   <li class="list-group-item">
                     <strong>profitshare:</strong>
-                    <span>${partner.profitshare}</span>
+                    <span>${partner.profitshare}%</span>
                   </li>
                   <li class="list-group-item">
                     <strong>Partnership Start Date:</strong>
@@ -1001,4 +1140,8 @@ document.getElementById("add-data-on-table").addEventListener("click", () => {
 
 document.addEventListener("DOMContentLoaded", renderTable);
 
+<<<<<<< HEAD:src/asideAndNavbar/partner.js
 //  search data from table
+=======
+
+>>>>>>> 6925484d74936b155ede75d3a8db3640b62aa559:src/scripts/partner.js
