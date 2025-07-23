@@ -108,13 +108,21 @@
               + Add New Contract
             </button>
           </div>
-          <div class="col-12 col-sm-6">
+          <div class="col-12 col-sm-3">
             <div>
               <input
                 type="text"
                 class="form-control shadow-none"
                 placeholder="Search"
               />
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div>
+              <select class="form-select" id="">
+                <option value="">Recently Exist Partner</option>
+                <option value="">Recently New Issued</option>
+              </select>
             </div>
           </div>
         </div>
@@ -997,7 +1005,6 @@
                           <button class="btn btn-danger">Cancel</button>
                           <button
                             type="button"
-                            onclick="saveData()"
                             data-bs-dismiss="modal"
                             class="btn btn-primary save-contract-toTable"
                           >
@@ -1008,6 +1015,61 @@
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="delete-issued-modal" tabindex="-1">
+          <div class="modal-dialog modal-md">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="text-primary">Delete Item</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <div class="delete-requirement fw-semibold"></div>
+                <input
+                  id="delete-input-issued"
+                  class="form-control shadow-md"
+                />
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">
+                  Cancel
+                </button>
+                <button
+                  class="btn btn-danger delete-issued-btn"
+                  data-bs-dismiss="modal"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="delete--modal" tabindex="-1">
+          <div class="modal-dialog modal-md">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="text-primary">Delete Item</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <div class="delete-requirement fw-semibold"></div>
+                <input id="delete-input" class="form-control shadow-md" />
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">
+                  Cancel
+                </button>
+                <button
+                  class="btn btn-danger delete-issued-btn"
+                  data-bs-dismiss="modal"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>

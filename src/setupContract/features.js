@@ -1,5 +1,3 @@
-import { saveData } from "./script.js";
-
 export let existPartnerDatas = [
   {
     contactNumber: "12233435",
@@ -68,6 +66,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 export function loadDataContract() {
+  let deleteIssuedBtn = document.querySelector(".delete-issued-btn");
+  let inputDeleteIssued = document.getElementById("delete-input-issued");
   let card = ``;
   existPartnerDatas.forEach((element, index) => {
     card += `
@@ -82,7 +82,7 @@ export function loadDataContract() {
                 <td class="d-flex gap-4">
                <button data-index="${index}" class="btn btn-success view-exist-partner">View</button>
                <button class="btn btn-primary">Edit</button>
-               <button data-index="${index}"  class="btn btn-danger delete-exist-partner">Delete</button>
+               <button data-id="${element.idPassport}"  class="btn btn-danger delete-exist-partner">Delete</button>
                 </td>
               </tr>
       `;
@@ -101,7 +101,7 @@ export function loadDataContract() {
                 <td class="d-flex gap-4">
                <button  data-index="${indexElement}" class="btn btn-success view-issued">View</button>
                <button data-index="${indexElement}" class="btn btn-primary edit-issued">Edit</button>
-               <button data-index="${indexElement}"  class="btn btn-danger delete-issued">Delete</button>
+               <button data-id="${element.idPassport}"  class="btn btn-danger delete-issued">Delete</button>
                 </td>
               </tr>
       `;
@@ -120,10 +120,29 @@ export function loadDataContract() {
       veiwDetailExistPartner(index);
     });
   });
+
   document.querySelectorAll(".delete-issued").forEach((deleteElement) => {
     deleteElement.addEventListener("click", () => {
-      let index = deleteElement.dataset.index;
-      deleteDataOnIssued(index);
+      const modal = new bootstrap.Modal(
+        document.getElementById("delete-issued-modal")
+      );
+      modal.show();
+      let idIssued = parseInt(deleteElement.dataset.id);
+      document.querySelector(".delete-requirement").innerHTML = `<p>
+          To confirm, type ID "${idIssued}" in the box
+          below
+      </p>`;
+      deleteIssuedBtn.addEventListener("click", () => {
+        if (inputDeleteIssued.value !== "") {
+          let inputDeleteIssued = parseInt(inputDelete.value);
+          if (inputDeleteIssued === idIssued) {
+            deleteDataOnIssued(idIssued);
+            inputDelete.value = "";
+          }
+        } else {
+          console.error("Not correct");
+        }
+      });
     });
   });
   document
@@ -202,7 +221,6 @@ export function contractFirstDetail() {
     let getLastName = lastName.value;
     let getIdPassport = idPassport.value;
     let getSignature = signature.value;
-
     let firstNameErr = document.querySelector(".first-name-contract-error");
     let lastNameErr = document.querySelector(".last-name-contract-error");
     let contactErr = document.querySelector(".contact-error");
@@ -453,7 +471,6 @@ export function contractSecondDetail() {
       purchaseErr.innerHTML = "Please select an option!";
       isValidSecondForms = false;
     }
-
     const modalElement = document.getElementById(modal);
     if (modalElement && isValidSecondForms) {
       new bootstrap.Modal(modalElement).show();
@@ -648,21 +665,32 @@ function veiwDetailExistPartner(index) {
   loadDataContract();
 }
 
-function deleteDataOnIssued(index) {
-  issuedContractDatas.splice(index, 1);
-  loadDataContract();
+function deleteDataOnIssued(id) {
+  let index = issuedContractDatas.findIndex(
+    (param) => parseInt(param.idPassport) === parseInt(id)
+  );
+  if (index != -1) {
+    issuedContractDatas.splice(index, 1);
+    loadDataContract();
+  } else {
+    console.error(`Can't find ID ${id}`);
+  }
 }
-function deleteDataOnExistPartner(index) {
-  existPartnerDatas.splice(index, 1);
-  loadDataContract();
+function deleteDataOnExistPartner(id) {
+  let index = existPartnerDatas.findIndex(
+    (param) => parseInt(param.idPassport) === parseInt(id)
+  );
+  if (index != -1) {
+    existPartnerDatas.splice(index, 1);
+    loadDataContract();
+  } else {
+    console.error(`Can't find ID ${id}`);
+  }
 }
-document
-  .querySelector(".save-contract-toTable")
-  .addEventListener("click", () => {
-    saveData();
-  });
+
 export let currentIndex = document.getElementById("edit-index");
 function editDataOnIssued(index) {
+  debugger;
   let currentObj = issuedContractDatas[index];
   document.getElementById("firstName").value = currentObj.firstName;
   document.getElementById("lastName").value = currentObj.lastName;
@@ -678,8 +706,8 @@ function editDataOnIssued(index) {
     currentObj.startAgreementDate;
   document.getElementById("endAgreementDate").value =
     currentObj.endAgreementDate;
-
   document.getElementById("purchaseMethod").value = currentObj.purchase;
   currentIndex.value = index;
 }
 function editDataOnExistPartner(index) {}
+console.table(issuedContractDatas);

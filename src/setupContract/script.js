@@ -14,7 +14,7 @@ import {
   getInputIssued,
   currentIndex,
 } from "./features.js";
-console.log(currentIndex);
+console.log(document.querySelectorAll(".modal"));
 
 let contractSecondObj = getInputContractSecond();
 const {
@@ -411,11 +411,12 @@ function handleDataContract() {
 //     btn.addEventListener("click", saveData());
 //   });
 // });
-document
-  .querySelector(".save-contract-toTable")
-  .addEventListener("click", () => {
-    saveData();
-  });
+// document
+//   .querySelector(".save-contract-toTable")
+//   .addEventListener("click", () => {
+
+//   });
+
 export function saveData() {
   let getPurChaseMethod = purchaseMethod.value;
   if (getPurChaseMethod === "Buy from Existing Partner") {
@@ -473,8 +474,6 @@ export function saveData() {
         IInvestmentContract: contractIssuedObj.IInvestmentContract.value,
         Inotes: contractIssuedObj.Inotes.value,
       };
-
-      currentIndex.value = "";
     } else {
       issuedContractDatas.push({
         contactNumber: contractNumber.value,

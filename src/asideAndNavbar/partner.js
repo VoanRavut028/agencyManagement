@@ -92,7 +92,6 @@ function renderTable() {
     dataTable.appendChild(row);
   });
 
-
   // Attach event listeners for dynamically created buttons
 
   document.querySelectorAll(".view-detials-btn").forEach((button) => {
@@ -1003,4 +1002,3 @@ document.getElementById("add-data-on-table").addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", renderTable);
 
 //  search data from table
-
