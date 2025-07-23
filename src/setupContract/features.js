@@ -68,6 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
 export function loadDataContract() {
   let deleteIssuedBtn = document.querySelector(".delete-issued-btn");
   let inputDeleteIssued = document.getElementById("delete-input-issued");
+  let inputDeleteExist = document.getElementById("delete-input-exist");
+  let deletExistBtn = document.querySelector(".delete-exist-btn");
   let card = ``;
   existPartnerDatas.forEach((element, index) => {
     card += `
@@ -128,16 +130,16 @@ export function loadDataContract() {
       );
       modal.show();
       let idIssued = parseInt(deleteElement.dataset.id);
-      document.querySelector(".delete-requirement").innerHTML = `<p>
+      document.querySelector(".delete-issued-show-id").innerHTML = `<p>
           To confirm, type ID "${idIssued}" in the box
           below
       </p>`;
       deleteIssuedBtn.addEventListener("click", () => {
         if (inputDeleteIssued.value !== "") {
-          let inputDeleteIssued = parseInt(inputDelete.value);
-          if (inputDeleteIssued === idIssued) {
+          let getInputDeleteIssued = parseInt(inputDeleteIssued.value);
+          if (getInputDeleteIssued === idIssued) {
             deleteDataOnIssued(idIssued);
-            inputDelete.value = "";
+            inputDeleteIssued.value = "";
           }
         } else {
           console.error("Not correct");
@@ -149,8 +151,28 @@ export function loadDataContract() {
     .querySelectorAll(".delete-exist-partner")
     .forEach((deleteElement) => {
       deleteElement.addEventListener("click", () => {
-        let index = deleteElement.dataset.index;
-        deleteDataOnExistPartner(index);
+        const modal = new bootstrap.Modal(
+          document.getElementById("delete-exist-modal")
+        );
+        modal.show();
+        console.log(deletExistBtn);
+
+        let idExist = parseInt(deleteElement.dataset.id);
+        document.querySelector(".delete-exist-show-id").innerHTML = `<p>
+          To confirm, type ID "<span class="text-danger">${idExist}</span>" in the box
+          below
+      </p>`;
+        deletExistBtn.addEventListener("click", () => {
+          if (inputDeleteExist.value !== "") {
+            let getInputDeleteExist = parseInt(inputDeleteExist.value);
+            if (getInputDeleteExist === idExist) {
+              deleteDataOnExistPartner(idExist);
+              inputDeleteExist.value = "";
+            }
+          } else {
+            console.error("Not correct");
+          }
+        });
       });
     });
 

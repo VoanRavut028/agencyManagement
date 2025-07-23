@@ -126,35 +126,40 @@ function renderTable() {
         `;
     dataTable.appendChild(row);
   });
-  
-// search data from table
-document.getElementById("searchForm").addEventListener("submit", function (e) {
-  e.preventDefault(); 
 
-  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+  // search data from table
+  document
+    .getElementById("searchForm")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
 
-  const filteredPartners = firtPartnerInfos.filter((partner) => {
-    return (
-      partner.partner.toLowerCase().includes(query) ||
-      partner.email.toLowerCase().includes(query)
-    );
-  });
+      const query = document
+        .getElementById("searchInput")
+        .value.trim()
+        .toLowerCase();
 
-  renderFilteredTable(filteredPartners);
-});
+      const filteredPartners = firtPartnerInfos.filter((partner) => {
+        return (
+          partner.partner.toLowerCase().includes(query) ||
+          partner.email.toLowerCase().includes(query)
+        );
+      });
 
-function renderFilteredTable(partners) {
-  dataTable.innerHTML = "";
+      renderFilteredTable(filteredPartners);
+    });
 
-  if (partners.length === 0) {
-    dataTable.innerHTML =
-      '<tr><td colspan="10" class="text-center">No matching partners found.</td></tr>';
-    return;
-  }
+  function renderFilteredTable(partners) {
+    dataTable.innerHTML = "";
 
-  partners.forEach((partner, index) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
+    if (partners.length === 0) {
+      dataTable.innerHTML =
+        '<tr><td colspan="10" class="text-center">No matching partners found.</td></tr>';
+      return;
+    }
+
+    partners.forEach((partner, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
             <td>${partner.id}</td>
             <td>${partner.partner}</td>
             <td> ${partner.country}</td>
@@ -176,37 +181,33 @@ function renderFilteredTable(partners) {
                 }">Delete</button>
             </td>
         `;
-    dataTable.appendChild(row);
-  });
-
-<<<<<<< HEAD:src/asideAndNavbar/partner.js
-  // Attach event listeners for dynamically created buttons
-=======
-  // Re-attach the event listeners to new elements
-  document.querySelectorAll(".view-detials-btn").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      const id = parseInt(event.target.dataset.id);
-      viewdails(id);
+      dataTable.appendChild(row);
     });
-  });
 
-  document.querySelectorAll(".edit-btn").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      const id = parseInt(event.target.dataset.id);
-      editPartner(id);
+    // Re-attach the event listeners to new elements
+    document.querySelectorAll(".view-detials-btn").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const id = parseInt(event.target.dataset.id);
+        viewdails(id);
+      });
     });
-  });
 
-  document.querySelectorAll(".delete-btn").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      const id = parseInt(event.target.dataset.id);
-      deletePartner(id);
+    document.querySelectorAll(".edit-btn").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const id = parseInt(event.target.dataset.id);
+        editPartner(id);
+      });
     });
-  });
-}
+
+    document.querySelectorAll(".delete-btn").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const id = parseInt(event.target.dataset.id);
+        deletePartner(id);
+      });
+    });
+  }
 
   //  created buttons
->>>>>>> 6925484d74936b155ede75d3a8db3640b62aa559:src/scripts/partner.js
 
   document.querySelectorAll(".view-detials-btn").forEach((button) => {
     button.addEventListener("click", (event) => {
@@ -1139,9 +1140,3 @@ document.getElementById("add-data-on-table").addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", renderTable);
-
-<<<<<<< HEAD:src/asideAndNavbar/partner.js
-//  search data from table
-=======
-
->>>>>>> 6925484d74936b155ede75d3a8db3640b62aa559:src/scripts/partner.js
