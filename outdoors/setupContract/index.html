@@ -883,130 +883,14 @@
                             </option>
                           </select>
                         </div>
-
-                        <!-- Existing Partner Options -->
-
-                        <!-- <div
-                          id="existingPartnerOptions"
-                          class="purchase-options mb-4"
-                        >
-                          <h5 class="text-success mb-3">
-                            Existing Partner Details
-                          </h5>
-                          <div class="mb-3">
-                            <label for="pExname" class="form-label"
-                              >Partner Name</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="pExname"
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label for="pExIdPassport" class="form-label"
-                              >Partner ID/Passport</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="pExIdPassport"
-                            />
-                          </div>
-                          <div class="row">
-                            <div class="col-md-4 mb-3">
-                              <label for="pExCurrentPercent" class="form-label"
-                                >Current %</label
-                              >
-                              <input
-                                type="number"
-                                class="form-control"
-                                id="pExCurrentPercent"
-                                min="0"
-                                max="100"
-                                step="0.01"
-                              />
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <label for="pExTransferPercent" class="form-label"
-                                >Transfer %</label
-                              >
-                              <input
-                                type="number"
-                                class="form-control"
-                                id="pExTransferPercent"
-                                min="0"
-                                max="100"
-                                step="0.01"
-                              />
-                            </div>
-                            <div class="col-md-4 mb-3">
-                              <label for="pExPaidAmount" class="form-label"
-                                >Paid Amount ($)</label
-                              >
-                              <input
-                                type="number"
-                                class="form-control"
-                                id="pExPaidAmount"
-                                min="0"
-                                step="0.01"
-                              />
-                            </div>
-                          </div>
-                        </div> -->
-
-                        <!-- New Issued Shares Options -->
-                        <div
-                          id="newSharesOptions"
-                          class="purchase-options mb-4"
-                        >
-                          <h5 class="text-info mb-3">
-                            New Issued Shares Details
-                          </h5>
-                          <div class="mb-3">
-                            <label for="IAmountContract" class="form-label"
-                              >Issued Amount</label
-                            >
-                            <input
-                              type="number"
-                              class="form-control"
-                              id="IAmountContract"
-                              min="0"
-                              step="0.01"
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label for="ITotalContract" class="form-label"
-                              >Total After Issue</label
-                            >
-                            <input
-                              type="number"
-                              class="form-control"
-                              id="ITotalContract"
-                              min="0"
-                              step="0.01"
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label for="IInvestmentContract" class="form-label"
-                              >Investment Amount ($)</label
-                            >
-                            <input
-                              type="number"
-                              class="form-control"
-                              id="IInvestmentContract"
-                              min="0"
-                              step="0.01"
-                            />
-                          </div>
-                        </div>
+                        <div class="display-purchase-edit-form"></div>
 
                         <div class="d-flex justify-content-end gap-3">
                           <button class="btn btn-danger">Cancel</button>
                           <button
                             type="button"
                             data-bs-dismiss="modal"
-                            class="btn btn-primary save-contract-toTable"
+                            class="btn btn-primary save-edit-to-table"
                           >
                             Save Change
                           </button>
@@ -1023,27 +907,27 @@
         <div class="modal fade" id="delete-issued-modal" tabindex="-1">
           <div class="modal-dialog modal-md">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="text-primary">Delete Item</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-              </div>
               <div class="modal-body">
+                <div class="d-flex justify-content-between">
+                  <h5 class="text-primary">Do you want to delete it?</h5>
+                  <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
                 <div class="delete-issued-show-id fw-semibold"></div>
                 <input
                   id="delete-input-issued"
                   class="form-control shadow-md"
                 />
-              </div>
-              <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">
-                  Cancel
-                </button>
-                <button
-                  class="btn btn-danger delete-issued-btn"
-                  data-bs-dismiss="modal"
-                >
-                  Delete
-                </button>
+                <div class="d-flex justify-content-end gap-2 mt-3">
+                  <button class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                  </button>
+                  <button
+                    class="btn btn-danger delete-issued-btn"
+                    data-bs-dismiss="modal"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1052,21 +936,24 @@
         <div class="modal fade" id="delete-exist-modal" tabindex="-1">
           <div class="modal-dialog modal-md">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="text-primary">Delete Item</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-              </div>
               <div class="modal-body">
+                <div class="d-flex justify-content-between">
+                  <h5 class="text-primary">Do you want to delete it?</h5>
+                  <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
                 <div class="delete-exist-show-id fw-semibold"></div>
                 <input id="delete-input-exist" class="form-control shadow-md" />
-              </div>
-              <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">
-                  Cancel
-                </button>
-                <button class="btn btn-danger delete-exist-btn" data-bs-dismiss="modal">
-                  Delete
-                </button>
+                <div class="d-flex justify-content-end my-3 gap-2">
+                  <button class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                  </button>
+                  <button
+                    class="btn btn-danger delete-exist-btn"
+                    data-bs-dismiss="modal"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>

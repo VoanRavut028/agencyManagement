@@ -401,55 +401,74 @@ function handleDataContract() {
   });
   // EndpreView
 }
-// document.addEventListener("click", (e) => {
-//   if (e.target.classList.contains("save-contract-toTable")) {
-//     saveData();
-//   }
-// });
-// document.addEventListener("DOMContentLoaded", () => {
-//   document.querySelectorAll(".save-contract-toTable").forEach((btn) => {
-//     btn.addEventListener("click", saveData());
-//   });
-// });
-// document
-//   .querySelector(".save-contract-toTable")
-//   .addEventListener("click", () => {
 
-//   });
+document.querySelectorAll(".save-edit-to-table").forEach((edit) => {
+  edit.addEventListener("click", () => {
+    debugger;
+    saveData();
+  });
+});
 
 export function saveData() {
-  let getPurChaseMethod = purchaseMethod.value;
+  debugger;
+  let getPurChaseMethod =
+    purchaseMethod.value || document.getElementById("purchaseMethod").value;
   if (getPurChaseMethod === "Buy from Existing Partner") {
-    // if (activeIndex) {
-    // } else {
-    existPartnerDatas.push({
-      contactNumber: contractNumber.value,
-      firstName: firstName.value,
-      lastName: lastName.value,
-      idPassport: idPassport.value,
-      signature: signature.value,
-      purchase: getPurChaseMethod,
-      email: email.value,
-      adress: {
-        country: country.value,
-        province: province.value,
-        district: district.value,
-        commune: commune.value,
-      },
-      startAgreementDate: startAgreementDate.value,
-      endAgreementDate: endAgreementDate.value,
-      photo: uploadPhoto.value,
-      partnerName: contractExistObj.pExname.value,
-      pExIdPassport: contractExistObj.pExIdPassport.value,
-      pExCurrentPercent: contractExistObj.pExCurrentPercent.value,
-      pExTransferPercent: contractExistObj.pExTransferPercent.value,
-      pExPaidAmount: contractExistObj.pExPaidAmount.value,
-      pExNoteContract: contractExistObj.pExNoteContract.value,
-    });
-    // }
+    let activeIndex = currentIndex.value;
+
+    if (activeIndex !== "") {
+      existPartnerDatas[activeIndex] = {
+        contactNumber: contractNumber.value,
+        firstName: document.getElementById("firstName").value,
+        lastName: document.getElementById("lastName").value,
+        idPassport: document.getElementById("idPassport").value,
+        signature: document.getElementById("signature").value,
+        purchase: document.getElementById("purchaseMethod").value,
+        email: document.getElementById("email").value,
+        adress: {
+          country: document.getElementById("country").value,
+          province: document.getElementById("province").value,
+          district: document.getElementById("district").value,
+          commune: document.getElementById("commune").value,
+        },
+        startAgreementDate: document.getElementById("startAgreementDate").value,
+        endAgreementDate: document.getElementById("endAgreementDate").value,
+        photo: uploadPhoto.value,
+        partnerName: document.getElementById("pExname").value,
+        pExIdPassport: document.getElementById("pExIdPassport").value,
+        pExCurrentPercent: document.getElementById("pExCurrentPercent").value,
+        pExTransferPercent: document.getElementById("pExTransferPercent").value,
+        pExPaidAmount: document.getElementById("pExPaidAmount").value,
+        pExNoteContract: document.getElementById("edit-note-exist").value,
+      };
+    } else {
+      existPartnerDatas.push({
+        contactNumber: contractNumber.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        idPassport: idPassport.value,
+        signature: signature.value,
+        purchase: getPurChaseMethod,
+        email: email.value,
+        adress: {
+          country: country.value,
+          province: province.value,
+          district: district.value,
+          commune: commune.value,
+        },
+        startAgreementDate: startAgreementDate.value,
+        endAgreementDate: endAgreementDate.value,
+        photo: uploadPhoto.value,
+        partnerName: contractExistObj.pExname.value,
+        pExIdPassport: contractExistObj.pExIdPassport.value,
+        pExCurrentPercent: contractExistObj.pExCurrentPercent.value,
+        pExTransferPercent: contractExistObj.pExTransferPercent.value,
+        pExPaidAmount: contractExistObj.pExPaidAmount.value,
+        pExNoteContract: contractExistObj.pExNoteContract.value,
+      });
+    }
     console.log(existPartnerDatas);
-  } else if (getPurChaseMethod === "New Issued Shares") {
-    debugger;
+  } else {
     let activeIndex = currentIndex.value;
     if (activeIndex !== "") {
       issuedContractDatas[activeIndex] = {
@@ -469,11 +488,13 @@ export function saveData() {
         startAgreementDate: document.getElementById("startAgreementDate").value,
         endAgreementDate: document.getElementById("endAgreementDate").value,
         photo: uploadPhoto.value,
-        issuedAmount: contractIssuedObj.IAmountContract.value,
-        ITotalContract: contractIssuedObj.ITotalContract.value,
-        IInvestmentContract: contractIssuedObj.IInvestmentContract.value,
-        Inotes: contractIssuedObj.Inotes.value,
+        issuedAmount: document.getElementById("IAmountContract").value,
+        ITotalContract: document.getElementById("ITotalContract").value,
+        IInvestmentContract: document.getElementById("IInvestmentContract")
+          .value,
+        Inotes: document.getElementById("edit-note-issued").value,
       };
+      currentIndex.value = "";
     } else {
       issuedContractDatas.push({
         contactNumber: contractNumber.value,

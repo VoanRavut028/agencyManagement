@@ -1,6 +1,6 @@
 export let existPartnerDatas = [
   {
-    contactNumber: "12233435",
+    contactNumber: "SAD-2343454",
     firstName: " Chea",
     lastName: "Sok ",
     idPassport: 12234345,
@@ -83,7 +83,7 @@ export function loadDataContract() {
                 <td>${element.startAgreementDate}</td>
                 <td class="d-flex gap-4">
                <button data-index="${index}" class="btn btn-success view-exist-partner">View</button>
-               <button class="btn btn-primary">Edit</button>
+               <button data-index="${index}" data-purchase="${element.purchase}" class="btn btn-primary edit-exist-partner">Update</button>
                <button data-id="${element.idPassport}"  class="btn btn-danger delete-exist-partner">Delete</button>
                 </td>
               </tr>
@@ -102,7 +102,7 @@ export function loadDataContract() {
                 <td>${element.startAgreementDate}</td>               
                 <td class="d-flex gap-4">
                <button  data-index="${indexElement}" class="btn btn-success view-issued">View</button>
-               <button data-index="${indexElement}" class="btn btn-primary edit-issued">Edit</button>
+               <button data-index="${indexElement}" data-purchase="${element.purchase}" class="btn btn-primary edit-issued">Update</button>
                <button data-id="${element.idPassport}"  class="btn btn-danger delete-issued">Delete</button>
                 </td>
               </tr>
@@ -131,7 +131,7 @@ export function loadDataContract() {
       modal.show();
       let idIssued = parseInt(deleteElement.dataset.id);
       document.querySelector(".delete-issued-show-id").innerHTML = `<p>
-          To confirm, type ID "${idIssued}" in the box
+          To confirm, type ID <span class="text-danger">"${idIssued}"</span> in the box
           below
       </p>`;
       deleteIssuedBtn.addEventListener("click", () => {
@@ -182,14 +182,20 @@ export function loadDataContract() {
         document.getElementById("modal-edit-issued-share")
       ).show();
       let index = editButton.dataset.index;
-      editDataOnIssued(index);
+      let purchaseUpdate = editButton.dataset.purchase;
+      updateDataOnEachMethod(index, purchaseUpdate);
     });
   });
 
   document.querySelectorAll(".edit-exist-partner").forEach((editButton) => {
     editButton.addEventListener("click", () => {
+      new bootstrap.Modal(
+        document.getElementById("modal-edit-issued-share")
+      ).show();
       let index = editButton.dataset.index;
-      editDataOnExistPartner(index);
+      let purchaseUpdate = editButton.dataset.purchase;
+      // editDataOnExistPartner(index);
+      updateDataOnEachMethod(index, purchaseUpdate);
     });
   });
 }
@@ -711,25 +717,182 @@ function deleteDataOnExistPartner(id) {
 }
 
 export let currentIndex = document.getElementById("edit-index");
-function editDataOnIssued(index) {
-  debugger;
-  let currentObj = issuedContractDatas[index];
-  document.getElementById("firstName").value = currentObj.firstName;
-  document.getElementById("lastName").value = currentObj.lastName;
-  document.getElementById("email").value = currentObj.email;
-  document.getElementById("idPassport").value = currentObj.idPassport;
-  document.getElementById("signature").value = currentObj.signature;
-  // document.getElementById("uploadPhoto").value = currentObj.photo;
-  document.getElementById("commune").value = currentObj.adress.commune;
-  document.getElementById("district").value = currentObj.adress.district;
-  document.getElementById("province").value = currentObj.adress.province;
-  document.getElementById("country").value = currentObj.adress.country;
-  document.getElementById("startAgreementDate").value =
-    currentObj.startAgreementDate;
-  document.getElementById("endAgreementDate").value =
-    currentObj.endAgreementDate;
-  document.getElementById("purchaseMethod").value = currentObj.purchase;
-  currentIndex.value = index;
+function updateDataOnEachMethod(index, purchaseUpdate) {
+  let currentIssuedObj = issuedContractDatas[index];
+  let currentExistObj = existPartnerDatas[index];
+  let html = ``;
+  if (purchaseUpdate === "New Issued Shares") {
+    html = `
+        <div id="newSharesOptions" class="purchase-options mb-4" >
+           <h5 class="text-info mb-3">
+             New Issued Shares Details
+           </h5>
+           <div class="mb-3">
+             <label for="IAmountContract" class="form-label"
+               >Issued Amount</label
+             >
+             <input
+               type="number"
+               class="form-control"
+               id="IAmountContract"
+             />
+           </div>
+           <div class="mb-3">
+             <label for="ITotalContract" class="form-label"
+               >Total After Issue</label
+             >
+             <input
+               type="number"
+               class="form-control"
+               id="ITotalContract"
+             />
+           </div>
+           <div class="mb-3">
+             <label for="IInvestmentContract" class="form-label"
+               >Investment Amount ($)</label
+             >
+             <input
+               type="number"
+               class="form-control"
+               id="IInvestmentContract"
+             />
+           </div>
+            <div class="col-md-12 mb-3">
+              <label>Additional Notes/Terms</label>
+                <textarea class="form-control shadow-sm"
+                  placeholder="Optional :Enter terms or remark here "
+                    id="edit-note-issued">
+                    
+                    </textarea>
+             <span class="date-error error-field"></span>
+          </div>
+         </div>
+  `;
+    document.querySelector(".display-purchase-edit-form").innerHTML = html;
+    document.getElementById("firstName").value = currentIssuedObj.firstName;
+    document.getElementById("lastName").value = currentIssuedObj.lastName;
+    document.getElementById("email").value = currentIssuedObj.email;
+    document.getElementById("idPassport").value = currentIssuedObj.idPassport;
+    document.getElementById("signature").value = currentIssuedObj.signature;
+    // document.getElementById("uploadPhoto").value = currentIssuedObj.photo;
+    document.getElementById("commune").value = currentIssuedObj.adress.commune;
+    document.getElementById("district").value =
+      currentIssuedObj.adress.district;
+    document.getElementById("province").value =
+      currentIssuedObj.adress.province;
+    document.getElementById("country").value = currentIssuedObj.adress.country;
+    document.getElementById("startAgreementDate").value =
+      currentIssuedObj.startAgreementDate;
+    document.getElementById("endAgreementDate").value =
+      currentIssuedObj.endAgreementDate;
+    document.getElementById("purchaseMethod").value = currentIssuedObj.purchase;
+    document.getElementById("IAmountContract").value =
+      currentIssuedObj.issuedAmount;
+    document.getElementById("ITotalContract").value =
+      currentIssuedObj.ITotalContract;
+    document.getElementById("IInvestmentContract").value =
+      currentIssuedObj.IInvestmentContract;
+    document.getElementById("edit-note-issued").value = currentIssuedObj.Inotes;
+    currentIndex.value = index;
+  } else {
+    html = `
+     <div id="existingPartnerOptions" class="purchase-options mb-4">
+         <h5 class="text-success mb-3">
+           Existing Partner Details
+         </h5>
+         <div class="mb-3">
+           <label for="pExname" class="form-label"
+             >Partner Name</label
+           >
+           <input
+             type="text"
+             class="form-control"
+             id="pExname"
+           />
+         </div>
+         <div class="mb-3">
+           <label for="pExIdPassport" class="form-label"
+             >Partner ID/Passport</label
+           >
+           <input
+             type="text"
+             class="form-control"
+             id="pExIdPassport"
+           />
+         </div>
+         <div class="row">
+           <div class="col-md-4 mb-3">
+             <label for="pExCurrentPercent" class="form-label"
+               >Current %</label
+             >
+             <input
+               type="number"
+               class="form-control"
+               id="pExCurrentPercent"
+             />
+           </div>
+           <div class="col-md-4 mb-3">
+             <label for="pExTransferPercent" class="form-label"
+               >Transfer %</label
+             >
+             <input
+               type="number"
+               class="form-control"
+               id="pExTransferPercent"
+             />
+           </div>
+           <div class="col-md-4 mb-3">
+             <label for="pExPaidAmount" class="form-label"
+               >Paid Amount ($)</label
+             >
+             <input
+               type="number"
+               class="form-control"
+               id="pExPaidAmount"
+             />
+           </div>
+           <div class="col-md-12 mb-3">
+              <label>Additional Notes/Terms</label>
+                <textarea class="form-control shadow-sm"
+                  placeholder="Optional :Enter terms or remark here "
+                    id="edit-note-exist">
+                    
+                    </textarea>
+             <span class="date-error error-field"></span>
+          </div>
+         </div>
+       </div>
+    `;
+    document.querySelector(".display-purchase-edit-form").innerHTML = html;
+    document.getElementById("contract-number").value =
+      currentExistObj.contactNumber;
+    document.getElementById("firstName").value = currentExistObj.firstName;
+    document.getElementById("lastName").value = currentExistObj.lastName;
+    document.getElementById("email").value = currentExistObj.email;
+    document.getElementById("idPassport").value = currentExistObj.idPassport;
+    document.getElementById("signature").value = currentExistObj.signature;
+    // document.getElementById("uploadPhoto").value = currentExistObj.photo;
+    document.getElementById("commune").value = currentExistObj.adress.commune;
+    document.getElementById("district").value = currentExistObj.adress.district;
+    document.getElementById("province").value = currentExistObj.adress.province;
+    document.getElementById("country").value = currentExistObj.adress.country;
+    document.getElementById("startAgreementDate").value =
+      currentExistObj.startAgreementDate;
+    document.getElementById("endAgreementDate").value =
+      currentExistObj.endAgreementDate;
+    document.getElementById("purchaseMethod").value = currentExistObj.purchase;
+    document.getElementById("pExname").value = currentExistObj.partnerName;
+    document.getElementById("pExIdPassport").value =
+      currentExistObj.pExIdPassport;
+    document.getElementById("pExCurrentPercent").value =
+      currentExistObj.pExCurrentPercent;
+    document.getElementById("pExTransferPercent").value =
+      currentExistObj.pExTransferPercent;
+    document.getElementById("pExPaidAmount").value =
+      currentExistObj.pExPaidAmount;
+    document.getElementById("edit-note-exist").value =
+      currentExistObj.pExNoteContract;
+
+    currentIndex.value = index;
+  }
 }
-function editDataOnExistPartner(index) {}
-console.table(issuedContractDatas);
