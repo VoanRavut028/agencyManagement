@@ -304,13 +304,11 @@ function handleDataContract() {
 
 document.querySelectorAll(".save-edit-to-table").forEach((edit) => {
   edit.addEventListener("click", () => {
-    debugger;
     saveData();
   });
 });
 
 export function saveData() {
-  debugger;
   let getPurChaseMethod =
     purchaseMethod.value || document.getElementById("purchaseMethod").value;
   if (getPurChaseMethod === "Buy from Existing Partner") {
@@ -368,9 +366,9 @@ export function saveData() {
         pExPaidAmount: getInputExist.pExPaidAmount.value,
         pExNoteContract: getInputExist.pExNoteContract.value,
       });
+      loadDataContract(existPartnerDatas, issuedContractDatas);
+      console.log(existPartnerDatas);
     }
-    console.log(existPartnerDatas);
-    loadDataContract(existPartnerDatas, issuedContractDatas);
   } else {
     let activeIndex = currentIndex.value;
     if (activeIndex !== "") {
@@ -422,9 +420,8 @@ export function saveData() {
         IInvestmentContract: getInputIssued.IInvestmentContract.value,
         Inotes: getInputIssued.Inotes.value,
       });
+      loadDataContract(existPartnerDatas, issuedContractDatas);
     }
-    console.log(issuedContractDatas);
-    loadDataContract(existPartnerDatas, issuedContractDatas);
   }
 
   loadDataContract(existPartnerDatas, issuedContractDatas);
