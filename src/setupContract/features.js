@@ -1,8 +1,10 @@
+import { regexPattern } from "../utils/pattern.js";
+import { checkValidation } from "../utils/checkValidate.js";
 export let existPartnerDatas = [
   {
     contactNumber: "SAD-2343454",
-    firstName: " Chea",
-    lastName: "Sok ",
+    firstName: "Chea",
+    lastName: "Sok",
     idPassport: 12234345,
     email: "sokChea@gmail.com",
     adress: {
@@ -23,6 +25,84 @@ export let existPartnerDatas = [
     pExCurrentPercent: 10,
     pExTransferPercent: 2,
     pExPaidAmount: 1000,
+    pExNoteContract: "The best partner ever.",
+  },
+  {
+    contactNumber: "SAD-1243454",
+    firstName: "Sok",
+    lastName: "Rithy",
+    idPassport: 23424678,
+    email: "rithysok@gmail.com",
+    adress: {
+      country: "Cambodia",
+      province: "Siem Reap",
+      district: "kra Lanh",
+      commune: "Sen Sok",
+    },
+    agreementDate: "2025-07-28",
+    signature: "",
+    photo:
+      "https://i.pinimg.com/736x/69/0d/1f/690d1fceb13c958e658349519a925a1e.jpg",
+    purchase: "Buy from Existing Partner",
+    startAgreementDate: "2025-07-13",
+    endAgreementDate: "2025-07-13",
+    partnerName: "Jan Dara",
+    pExIdPassport: 23678674,
+    pExCurrentPercent: 2,
+    pExTransferPercent: 0.7,
+    pExPaidAmount: 2000,
+    pExNoteContract: "The best partner ever.",
+  },
+  {
+    contactNumber: "SAD-1243454",
+    firstName: "Sok",
+    lastName: "Mongkol",
+    idPassport: 3456768,
+    email: "mongkolsok@gmail.com",
+    adress: {
+      country: "Cambodia",
+      province: "Siem Reap",
+      district: "kra Lanh",
+      commune: "Sen Sok",
+    },
+    agreementDate: "2025-07-28",
+    signature: "",
+    photo:
+      "https://i.pinimg.com/736x/69/0d/1f/690d1fceb13c958e658349519a925a1e.jpg",
+    purchase: "Buy from Existing Partner",
+    startAgreementDate: "2025-07-13",
+    endAgreementDate: "2025-07-13",
+    partnerName: "Jan Dara",
+    pExIdPassport: 23678674,
+    pExCurrentPercent: 1.3,
+    pExTransferPercent: 0.3,
+    pExPaidAmount: 1340,
+    pExNoteContract: "The best partner ever.",
+  },
+  {
+    contactNumber: "SAD-1243454",
+    firstName: "Voan",
+    lastName: "Ravut",
+    idPassport: 98875437,
+    email: "ravutvoan@gmail.com",
+    adress: {
+      country: "Cambodia",
+      province: "Siem Reap",
+      district: "kra Lanh",
+      commune: "Sen Sok",
+    },
+    agreementDate: "2025-07-28",
+    signature: "",
+    photo:
+      "https://i.pinimg.com/736x/69/0d/1f/690d1fceb13c958e658349519a925a1e.jpg",
+    purchase: "Buy from Existing Partner",
+    startAgreementDate: "2025-07-13",
+    endAgreementDate: "2025-07-13",
+    partnerName: "Jan Dara",
+    pExIdPassport: 23678674,
+    pExCurrentPercent: 1,
+    pExTransferPercent: 0.5,
+    pExPaidAmount: 4340,
     pExNoteContract: "The best partner ever.",
   },
 ];
@@ -50,7 +130,54 @@ export let issuedContractDatas = [
     IInvestmentContract: 40,
     Inotes: "He is a specail partner.",
   },
+  {
+    contactNumber: "DSD-2233435",
+    firstName: "Run",
+    lastName: "Bunno",
+    idPassport: 87565438,
+    email: "bunno@gmail.com",
+    adress: {
+      country: "Cambodia",
+      province: "Siem Reap",
+      district: "kra Lanh",
+      commune: "Sen Sok",
+    },
+    startAgreementDate: "2025-07-13",
+    endAgreementDate: "2025-07-13",
+    signature: "S.K.A",
+    photo:
+      "https://i.pinimg.com/736x/69/0d/1f/690d1fceb13c958e658349519a925a1e.jpg",
+    purchase: "New Issued Shares",
+    issuedAmount: 5,
+    ITotalContract: 500,
+    IInvestmentContract: 40,
+    Inotes: "He is a specail partner.",
+  },
+  {
+    contactNumber: "DSD-2273435",
+    firstName: "Ven",
+    lastName: "Panna",
+    idPassport: 77525438,
+    email: "panna@gmail.com",
+    adress: {
+      country: "Cambodia",
+      province: "Siem Reap",
+      district: "kra Lanh",
+      commune: "Sen Sok",
+    },
+    startAgreementDate: "2025-07-13",
+    endAgreementDate: "2025-07-13",
+    signature: "S.K.A",
+    photo:
+      "https://i.pinimg.com/736x/69/0d/1f/690d1fceb13c958e658349519a925a1e.jpg",
+    purchase: "New Issued Shares",
+    issuedAmount: 5,
+    ITotalContract: 500,
+    IInvestmentContract: 40,
+    Inotes: "He is a specail partner.",
+  },
 ];
+const regex = new regexPattern();
 export let inValidError = `<i class="ri-error-warning-line"></i> Invalid!`;
 export let emptyRequired = `<i class="ri-error-warning-line"></i> This field is required.`;
 const today = new Date();
@@ -64,8 +191,8 @@ document.addEventListener("DOMContentLoaded", function () {
     dateInput.min = endDate;
   }
 });
-
-export function loadDataContract() {
+loadDataContract(existPartnerDatas, issuedContractDatas);
+export function loadDataContract(existPartnerDatas, issuedContractDatas) {
   let deleteIssuedBtn = document.querySelector(".delete-issued-btn");
   let inputDeleteIssued = document.getElementById("delete-input-issued");
   let inputDeleteExist = document.getElementById("delete-input-exist");
@@ -199,33 +326,30 @@ export function loadDataContract() {
     });
   });
 }
-export function regexPattern() {
-  return {
-    patternContractNum: /^[A-Z]{2,}-\d{2,}$/,
-    patternName: /^[A-Z]+[a-z]{1,20}$/,
-    patternPartnerName: /^[A-Z]+[a-zA-Z\s]{1,40}$/,
-    patternID: /^[A-Z0-9]{6,12}$/,
-    patternSignature: /^[A-Za-z._-]{1,}$/,
-    patternAddress: /^[A-Z]+[a-zA-Z0-9\s]{1,40}$/,
-    patternEmail: /^[A-Za-z0-9.-_%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,}$/,
-    patternPercentage: /^(100(\.0{1,2})?|[0-9]{1,2}(\.[0-9]{1,2})?)$/,
-    patternMoney: /^[0-9]{1,}$/,
-  };
-}
 
-export function getInputFirstContract() {
-  return {
-    contractNumber: document.getElementById("contact-number"),
-    profilePicture: document.getElementById("photoAddress"),
-    uploadPhoto: document.getElementById("upload-photo"),
-    firstName: document.getElementById("first-name-contract"),
-    lastName: document.getElementById("last-name-contract"),
-    idPassport: document.getElementById("id-passport-contract"),
-    signature: document.getElementById("signature-contract"),
-  };
-}
+// document
+//   .getElementById("searching-contract-info-by-name")
+//   .addEventListener("keydown", function () {
+//     let inputSearchValue = this.value;
+//     console.log(inputSearchValue);
+//    var  searchContractByName(inputSearchValue,existPartnerDatas,issuedContractDatas);
+
+//   });
+
+// function searchContractByName() {
+//   var issuedShares = [];
+// }
+
+export const getInputFirstContract = {
+  contractNumber: document.getElementById("contact-number"),
+  profilePicture: document.getElementById("photoAddress"),
+  uploadPhoto: document.getElementById("upload-photo"),
+  firstName: document.getElementById("first-name-contract"),
+  lastName: document.getElementById("last-name-contract"),
+  idPassport: document.getElementById("id-passport-contract"),
+  signature: document.getElementById("signature-contract"),
+};
 export function contractFirstDetail() {
-  let contractFirstObj = getInputFirstContract();
   const {
     contractNumber,
     profilePicture,
@@ -234,8 +358,7 @@ export function contractFirstDetail() {
     lastName,
     idPassport,
     signature,
-  } = contractFirstObj;
-  let regex = regexPattern();
+  } = getInputFirstContract;
   uploadPhoto.onchange = () => {
     profilePicture.src = URL.createObjectURL(uploadPhoto.files[0]);
   };
@@ -255,77 +378,48 @@ export function contractFirstDetail() {
     let uploadPhototErr = document.querySelector(".upload-img-error");
     let idErr = document.querySelector(".id-passport-error");
 
-    if (!regex.patternName.test(getFirstName) && getFirstName !== "") {
-      firstNameErr.innerHTML = inValidError;
-      isValidFirstForm = false;
-      firstName.classList.add("error-form");
-      firstName.classList.remove("valid-form");
-    } else if (getFirstName === "") {
-      isValidFirstForm = false;
-      firstNameErr.innerHTML = emptyRequired;
-      firstName.classList.add("error-form");
-      firstName.classList.remove("valid-form");
-    } else {
-      firstNameErr.innerHTML = "";
-      firstName.classList.remove("error-form");
-      firstName.classList.add("valid-form");
-    }
+    const activeFirstName = checkValidation(
+      regex.patternName,
+      getFirstName,
+      firstNameErr,
+      firstName,
+      isValidFirstForm
+    );
+
+    const activeContractNumber = checkValidation(
+      regex.patternContractNum,
+      getContractNumber,
+      contactErr,
+      contractNumber,
+      isValidFirstForm
+    );
     if (!getPhotoAddress) {
       uploadPhototErr.innerHTML = `<i class="ri-error-warning-line"></i> Requirement!`;
       isValidFirstForm = false;
     } else {
       uploadPhototErr.innerHTML = "";
     }
+    const activeLastName = checkValidation(
+      regex.patternName,
+      getLastName,
+      lastNameErr,
+      lastName,
+      isValidFirstForm
+    );
+    const activePassId = checkValidation(
+      regex.patternID,
+      getIdPassport,
+      idErr,
+      idPassport,
+      isValidFirstForm
+    );
 
     if (
-      !regex.patternContractNum.test(getContractNumber) &&
-      getContractNumber !== ""
+      activeFirstName &&
+      activeContractNumber &&
+      activeLastName &&
+      activePassId
     ) {
-      contactErr.innerHTML = inValidError;
-      isValidFirstForm = false;
-      contractNumber.classList.add("error-form");
-      contractNumber.classList.remove("valid-form");
-    } else if (getContractNumber === "") {
-      isValidFirstForm = false;
-      contactErr.innerHTML = emptyRequired;
-      contractNumber.classList.add("error-form");
-    } else {
-      contactErr.innerHTML = "";
-      contractNumber.classList.remove("error-form");
-      contractNumber.classList.add("valid-form");
-    }
-
-    if (!regex.patternName.test(getLastName) && getLastName !== "") {
-      lastNameErr.innerHTML = inValidError;
-      isValidFirstForm = false;
-      lastName.classList.add("error-form");
-      lastName.classList.remove("valid-form");
-    } else if (getLastName === "") {
-      isValidFirstForm = false;
-      lastNameErr.innerHTML = emptyRequired;
-      lastName.classList.add("error-form");
-    } else {
-      lastNameErr.innerHTML = "";
-      lastName.classList.remove("error-form");
-      lastName.classList.add("valid-form");
-    }
-
-    if (!regex.patternID.test(getIdPassport) && getIdPassport !== "") {
-      idErr.innerHTML = inValidError;
-      isValidFirstForm = false;
-      idPassport.classList.add("error-form");
-      idPassport.classList.remove("valid-form");
-    } else if (getIdPassport === "") {
-      isValidFirstForm = false;
-      idErr.innerHTML = emptyRequired;
-      idPassport.classList.add("error-form");
-    } else {
-      idErr.innerHTML = "";
-      idPassport.classList.remove("error-form");
-      idPassport.classList.add("valid-form");
-    }
-
-    if (isValidFirstForm) {
       modal = "modalContractSecond";
 
       // uploadPhoto.value = "";
@@ -338,23 +432,20 @@ export function contractFirstDetail() {
     modalInstance.show();
   });
 }
-export function getInputContractSecond() {
-  return {
-    purchaseMethod: document.getElementById("purchase-Method"),
-    country: document.getElementById("country-contract"),
-    province: document.getElementById("province-contract"),
-    district: document.getElementById("district-contract"),
-    commune: document.getElementById("commune-contract"),
-    email: document.getElementById("email-contact"),
-    startAgreementDate: document.getElementById("start-agreement-contract"),
-    endAgreementDate: document.getElementById("end-agreement-contract"),
-  };
-}
+export const getInputContractSecond = {
+  purchaseMethod: document.getElementById("purchase-Method"),
+  country: document.getElementById("country-contract"),
+  province: document.getElementById("province-contract"),
+  district: document.getElementById("district-contract"),
+  commune: document.getElementById("commune-contract"),
+  email: document.getElementById("email-contact"),
+  startAgreementDate: document.getElementById("start-agreement-contract"),
+  endAgreementDate: document.getElementById("end-agreement-contract"),
+};
 export function contractSecondDetail() {
   let purchaseNextBtn = document.getElementById("purchaseNextBtn");
 
   let isValidSecondForms = true;
-  let contractSecondObj = getInputContractSecond();
   const {
     country,
     province,
@@ -364,8 +455,8 @@ export function contractSecondDetail() {
     startAgreementDate,
     endAgreementDate,
     purchaseMethod,
-  } = contractSecondObj;
-  let regex = regexPattern();
+  } = getInputContractSecond;
+  // let regex = regexPattern();
   let modal = "";
   purchaseNextBtn.addEventListener("click", () => {
     let getCountry = country.value;
@@ -388,79 +479,42 @@ export function contractSecondDetail() {
     let purchaseErr = document.querySelector(".purchase-error");
     purchaseErr.innerHTML = "";
 
-    if (!regex.patternAddress.test(getCountry) && getCountry !== "") {
-      countryErr.innerHTML = inValidError;
-      isValidSecondForms = false;
-      country.classList.add("error-form");
-      country.classList.remove("valid-form");
-    } else if (getCountry === "") {
-      isValidSecondForms = false;
-      countryErr.innerHTML = emptyRequired;
-      country.classList.add("error-form");
-    } else {
-      countryErr.innerHTML = "";
-      country.classList.remove("error-form");
-      country.classList.add("valid-form");
-    }
-    if (!regex.patternAddress.test(getProvince) && getProvince !== "") {
-      provinceErr.innerHTML = inValidError;
-      isValidSecondForms = false;
-      province.classList.add("error-form");
-      province.classList.remove("valid-form");
-    } else if (getProvince === "") {
-      isValidSecondForms = false;
-      provinceErr.innerHTML = emptyRequired;
-      province.classList.add("error-form");
-    } else {
-      provinceErr.innerHTML = "";
-      province.classList.remove("error-form");
-      province.classList.add("valid-form");
-    }
-    if (!regex.patternAddress.test(getDistrict) && getDistrict !== "") {
-      districtErr.innerHTML = inValidError;
-      isValidSecondForms = false;
-      district.classList.add("error-form");
-      district.classList.remove("valid-form");
-    } else if (getDistrict === "") {
-      isValidSecondForms = false;
-      districtErr.innerHTML = emptyRequired;
-      district.classList.add("error-form");
-    } else {
-      districtErr.innerHTML = "";
-      district.classList.remove("error-form");
-      district.classList.add("valid-form");
-    }
-
-    if (!regex.patternAddress.test(getCommune) && getCommune !== "") {
-      communeErr.innerHTML = inValidError;
-      isValidSecondForms = false;
-      commune.classList.add("error-form");
-      commune.classList.remove("valid-form");
-    } else if (getCommune === "") {
-      communeErr.innerHTML = emptyRequired;
-      isValidSecondForms = false;
-      commune.classList.add("error-form");
-    } else {
-      communeErr.innerHTML = "";
-      commune.classList.remove("error-form");
-      commune.classList.add("valid-form");
-    }
-
-    if (!regex.patternEmail.test(getEmail) && email !== "") {
-      emailErr.innerHTML = `<i class="ri-error-warning-line"></i> Hmm...that doesn't look like an email address.`;
-      isValidSecondForms = false;
-      email.classList.add("error-form");
-      email.classList.remove("valid-form");
-    } else if (getEmail === "") {
-      emailErr.innerHTML = emptyRequired;
-      isValidSecondForms = false;
-      email.classList.add("error-form");
-    } else {
-      emailErr.innerHTML = "";
-      email.classList.remove("error-form");
-      email.classList.add("valid-form");
-    }
-
+    const activeCountry = checkValidation(
+      regex.patternAddress,
+      getCountry,
+      countryErr,
+      country,
+      isValidSecondForms
+    );
+    const activeProvine = checkValidation(
+      regex.patternAddress,
+      getProvince,
+      provinceErr,
+      province,
+      isValidSecondForms
+    );
+    const activeDistrict = checkValidation(
+      regex.patternAddress,
+      getDistrict,
+      districtErr,
+      district,
+      isValidSecondForms
+    );
+    const activeCommune = checkValidation(
+      regex.patternAddress,
+      getCommune,
+      communeErr,
+      commune,
+      isValidSecondForms
+    );
+    const activeEmail = checkValidation(
+      regex.patternEmail,
+      getEmail,
+      emailErr,
+      email,
+      isValidSecondForms
+    );
+    const activeDate = "";
     if (getStartAgreement === isNaN && getStartAgreement !== "") {
       startAgreementErr.innerHTML = inValidError;
       isValidSecondForms = false;
@@ -500,7 +554,15 @@ export function contractSecondDetail() {
       isValidSecondForms = false;
     }
     const modalElement = document.getElementById(modal);
-    if (modalElement && isValidSecondForms) {
+    if (
+      modalElement &&
+      isValidSecondForms &&
+      activeCommune &&
+      activeDistrict &&
+      activeProvine &&
+      activeCountry &&
+      activeEmail
+    ) {
       new bootstrap.Modal(modalElement).show();
     } else {
       new bootstrap.Modal(
@@ -510,31 +572,23 @@ export function contractSecondDetail() {
   });
 }
 
-export function getInputExist() {
-  return {
-    pExname: document.getElementById("partner-p_Ename-contract"),
-    pExIdPassport: document.getElementById("idPassport-p_exist-contract"),
-    pExCurrentPercent: document.getElementById(
-      "currentPercent-p_exist-contract"
-    ),
-    pExTransferPercent: document.getElementById(
-      "transferPercent-p_exist-contract"
-    ),
-    pExPaidAmount: document.getElementById("paidAmount-p_exist-contract"),
-    pExNoteContract: document.getElementById("noteContract-p_exist"),
-  };
-}
+export const getInputExist = {
+  pExname: document.getElementById("partner-p_Ename-contract"),
+  pExIdPassport: document.getElementById("idPassport-p_exist-contract"),
+  pExCurrentPercent: document.getElementById("currentPercent-p_exist-contract"),
+  pExTransferPercent: document.getElementById(
+    "transferPercent-p_exist-contract"
+  ),
+  pExPaidAmount: document.getElementById("paidAmount-p_exist-contract"),
+  pExNoteContract: document.getElementById("noteContract-p_exist"),
+};
 
-export function getInputIssued() {
-  return {
-    IAmountContract: document.getElementById("issued-N_amount-contract"),
-    ITotalContract: document.getElementById("total-N_issued-contract"),
-    IInvestmentContract: document.getElementById(
-      "Investment-N_amount-contract"
-    ),
-    Inotes: document.getElementById("noteContract-p_exist"),
-  };
-}
+export const getInputIssued = {
+  IAmountContract: document.getElementById("issued-N_amount-contract"),
+  ITotalContract: document.getElementById("total-N_issued-contract"),
+  IInvestmentContract: document.getElementById("Investment-N_amount-contract"),
+  Inotes: document.getElementById("noteContract-p_exist"),
+};
 
 function veiwDetailIssued(index) {
   let viewObj = issuedContractDatas[index];
@@ -607,7 +661,7 @@ function veiwDetailIssued(index) {
             `;
   document.getElementById("show-view-contract-issued").innerHTML = summary;
 
-  loadDataContract();
+  loadDataContract(existPartnerDatas, issuedContractDatas);
 }
 function veiwDetailExistPartner(index) {
   let viewObj = existPartnerDatas[index];
@@ -690,7 +744,7 @@ function veiwDetailExistPartner(index) {
             `;
   document.getElementById("show-view-contract-exist-partner").innerHTML =
     summary;
-  loadDataContract();
+  loadDataContract(existPartnerDatas, issuedContractDatas);
 }
 
 function deleteDataOnIssued(id) {
@@ -699,7 +753,7 @@ function deleteDataOnIssued(id) {
   );
   if (index != -1) {
     issuedContractDatas.splice(index, 1);
-    loadDataContract();
+    loadDataContract(existPartnerDatas, issuedContractDatas);
   } else {
     console.error(`Can't find ID ${id}`);
   }
@@ -710,14 +764,16 @@ function deleteDataOnExistPartner(id) {
   );
   if (index != -1) {
     existPartnerDatas.splice(index, 1);
-    loadDataContract();
+    loadDataContract(existPartnerDatas, issuedContractDatas);
   } else {
     console.error(`Can't find ID ${id}`);
   }
 }
 
 export let currentIndex = document.getElementById("edit-index");
+currentIndex.value = "";
 function updateDataOnEachMethod(index, purchaseUpdate) {
+  debugger;
   let currentIssuedObj = issuedContractDatas[index];
   let currentExistObj = existPartnerDatas[index];
   let html = ``;

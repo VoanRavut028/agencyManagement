@@ -7,16 +7,13 @@ import {
   endDate,
   getInputFirstContract,
   getInputContractSecond,
-  regexPattern,
   getInputExist,
-  emptyRequired,
-  inValidError,
   getInputIssued,
   currentIndex,
 } from "./features.js";
-console.log(document.querySelectorAll(".modal"));
-
-let contractSecondObj = getInputContractSecond();
+import { regexPattern } from "../utils/pattern.js";
+import { checkValidation } from "../utils/checkValidate.js";
+const regex = new regexPattern();
 const {
   country,
   province,
@@ -26,8 +23,7 @@ const {
   startAgreementDate,
   endAgreementDate,
   purchaseMethod,
-} = contractSecondObj;
-let contractFirstObj = getInputFirstContract();
+} = getInputContractSecond;
 const {
   contractNumber,
   profilePicture,
@@ -36,11 +32,8 @@ const {
   lastName,
   idPassport,
   signature,
-} = contractFirstObj;
-let regex = regexPattern();
-let contractExistObj = getInputExist();
-let contractIssuedObj = getInputIssued();
-loadDataContract();
+} = getInputFirstContract;
+
 handleDataContract();
 function handleDataContract() {
   contractFirstDetail();
@@ -54,119 +47,64 @@ function handleDataContract() {
       let isValid = true;
 
       if (getPurchaseVal === "Buy from Existing Partner") {
-        let getPExname = contractExistObj.pExname.value;
-        let getPExIdPassport = contractExistObj.pExIdPassport.value;
-        let getPExCurrentPercent = contractExistObj.pExCurrentPercent.value;
-        let getPExTransferPercent = contractExistObj.pExTransferPercent.value;
-        let getPExPaidAmount = contractExistObj.pExPaidAmount.value;
-        let getPExNote = contractExistObj.pExNoteContract.value;
+        let getPExname = getInputExist.pExname.value;
+        let getPExIdPassport = getInputExist.pExIdPassport.value;
+        let getPExCurrentPercent = getInputExist.pExCurrentPercent.value;
+        let getPExTransferPercent = getInputExist.pExTransferPercent.value;
+        let getPExPaidAmount = getInputExist.pExPaidAmount.value;
+        let getPExNote = getInputExist.pExNoteContract.value;
+        const pIdErr = document.querySelector(".idPassport-contract-error");
+        const pNameErr = document.querySelector(".partner-name-contract-error");
+        const pPercentageErr = document.querySelector(
+          ".current-percent-contract-error"
+        );
+        const pTransferErr = document.querySelector(
+          ".transfer-percent-contract-error"
+        );
+        const pPaidErr = document.querySelector(".paid-amount-contract-error");
+        const activePartnerID = checkValidation(
+          regex.patternID,
+          getPExIdPassport,
+          pIdErr,
+          getInputExist.pExIdPassport,
+          isValid
+        );
+        const activePartnerName = checkValidation(
+          regex.patternPartnerName,
+          getPExname,
+          pNameErr,
+          getInputExist.pExname,
+          isValid
+        );
+        const activePartnerPercentage = checkValidation(
+          regex.patternPercentage,
+          getPExCurrentPercent,
+          pPercentageErr,
+          getInputExist.pExCurrentPercent,
+          isValid
+        );
+        const activePartnerTransfer = checkValidation(
+          regex.patternPercentage,
+          getPExTransferPercent,
+          pTransferErr,
+          getInputExist.pExTransferPercent,
+          isValid
+        );
+        const activePartnerPaid = checkValidation(
+          regex.patternMoney,
+          getPExPaidAmount,
+          pPaidErr,
+          getInputExist.pExPaidAmount,
+          isValid
+        );
 
         if (
-          !regex.patternID.test(getPExIdPassport) &&
-          getPExIdPassport !== ""
+          activePartnerName &&
+          activePartnerID &&
+          activePartnerPaid &&
+          activePartnerPercentage &&
+          activePartnerTransfer
         ) {
-          document.querySelector(".idPassport-contract-error").innerHTML =
-            inValidError;
-          contractExistObj.pExIdPassport.classList.add("error-form");
-          contractExistObj.pExIdPassport.classList.remove("valid-form");
-
-          isValid = false;
-        } else if (getPExIdPassport === "") {
-          document.querySelector(".idPassport-contract-error").innerHTML =
-            emptyRequired;
-          contractExistObj.pExIdPassport.classList.add("error-form");
-          contractExistObj.pExIdPassport.classList.remove("valid-form");
-          isValid = false;
-        } else {
-          document.querySelector(".idPassport-contract-error").innerHTML = "";
-          contractExistObj.pExIdPassport.classList.add("valid-form");
-          contractExistObj.pExIdPassport.classList.remove("error-form");
-        }
-
-        if (!regex.patternPartnerName.test(getPExname) && getPExname !== "") {
-          document.querySelector(".partner-name-contract-error").innerHTML =
-            inValidError;
-          contractExistObj.pExname.classList.add("error-form");
-          contractExistObj.pExname.classList.remove("valid-form");
-          isValid = false;
-        } else if (getPExname === "") {
-          document.querySelector(".partner-name-contract-error").innerHTML =
-            emptyRequired;
-          contractExistObj.pExname.classList.add("error-form");
-          contractExistObj.pExname.classList.remove("valid-form");
-          isValid = false;
-        } else {
-          document.querySelector(".partner-name-contract-error").innerHTML = "";
-          contractExistObj.pExname.classList.add("valid-form");
-          contractExistObj.pExname.classList.remove("error-form");
-        }
-
-        if (
-          !regex.patternPercentage.test(getPExCurrentPercent) &&
-          getPExCurrentPercent !== ""
-        ) {
-          document.querySelector(".current-percent-contract-error").innerHTML =
-            inValidError;
-          contractExistObj.pExCurrentPercent.classList.add("error-form");
-          contractExistObj.pExCurrentPercent.classList.remove("valid-form");
-          isValid = false;
-        } else if (getPExCurrentPercent === "") {
-          document.querySelector(".current-percent-contract-error").innerHTML =
-            emptyRequired;
-          contractExistObj.pExCurrentPercent.classList.add("error-form");
-          contractExistObj.pExCurrentPercent.classList.remove("valid-form");
-          isValid = false;
-        } else {
-          document.querySelector(".current-percent-contract-error").innerHTML =
-            "";
-          contractExistObj.pExCurrentPercent.classList.add("valid-form");
-          contractExistObj.pExCurrentPercent.classList.remove("error-form");
-        }
-
-        if (
-          !regex.patternPercentage.test(getPExTransferPercent) &&
-          getPExTransferPercent !== ""
-        ) {
-          document.querySelector(".transfer-percent-contract-error").innerHTML =
-            inValidError;
-          contractExistObj.pExTransferPercent.classList.add("error-form");
-          contractExistObj.pExTransferPercent.classList.remove("valid-form");
-          isValid = false;
-        } else if (getPExTransferPercent === "") {
-          document.querySelector(".transfer-percent-contract-error").innerHTML =
-            emptyRequired;
-          contractExistObj.pExTransferPercent.classList.add("error-form");
-          contractExistObj.pExTransferPercent.classList.remove("valid-form");
-          isValid = false;
-        } else {
-          document.querySelector(".transfer-percent-contract-error").innerHTML =
-            "";
-          contractExistObj.pExTransferPercent.classList.add("valid-form");
-          contractExistObj.pExTransferPercent.classList.remove("error-form");
-        }
-
-        if (
-          !regex.patternMoney.test(getPExPaidAmount) &&
-          getPExPaidAmount !== ""
-        ) {
-          document.querySelector(".paid-amount-contract-error").innerHTML =
-            inValidError;
-          contractExistObj.pExPaidAmount.classList.add("error-form");
-          contractExistObj.pExPaidAmount.classList.remove("valid-form");
-          isValid = false;
-        } else if (getPExPaidAmount === "") {
-          document.querySelector(".paid-amount-contract-error").innerHTML =
-            emptyRequired;
-          contractExistObj.pExPaidAmount.classList.add("error-form");
-          contractExistObj.pExPaidAmount.classList.remove("valid-form");
-          isValid = false;
-        } else {
-          document.querySelector(".paid-amount-contract-error").innerHTML = "";
-          contractExistObj.pExPaidAmount.classList.add("valid-form");
-          contractExistObj.pExPaidAmount.classList.remove("error-form");
-        }
-
-        if (isValid) {
           new bootstrap.Modal(
             document.getElementById("previewFormContract")
           ).show();
@@ -242,81 +180,43 @@ function handleDataContract() {
           ).show();
         }
       } else if (getPurchaseVal === "New Issued Shares") {
-        let getIAmountContract = contractIssuedObj.IAmountContract.value;
-        let getITotalContract = contractIssuedObj.ITotalContract.value;
-        let getIInvestmentContract =
-          contractIssuedObj.IInvestmentContract.value;
-        let getINoteContract = contractIssuedObj.Inotes.value;
+        let getIAmountContract = getInputIssued.IAmountContract.value;
+        let getITotalContract = getInputIssued.ITotalContract.value;
+        let getIInvestmentContract = getInputIssued.IInvestmentContract.value;
+        let getINoteContract = getInputIssued.Inotes.value;
 
-        if (
-          !regex.patternPercentage.test(getIAmountContract) &&
-          getIAmountContract !== ""
-        ) {
-          document.querySelector(".issued-amount-contract-error").innerHTML =
-            inValidError;
-          contractIssuedObj.IAmountContract.classList.add("error-form");
-          contractIssuedObj.IAmountContract.classList.remove("valid-form");
-          isValid = false;
-        } else if (getIAmountContract === "") {
-          document.querySelector(".issued-amount-contract-error").innerHTML =
-            emptyRequired;
-          contractIssuedObj.IAmountContract.classList.add("error-form");
-          contractIssuedObj.IAmountContract.classList.remove("valid-form");
-          isValid = false;
-        } else {
-          document.querySelector(".issued-amount-contract-error").innerHTML =
-            "";
-          contractIssuedObj.IAmountContract.classList.add("valid-form");
-          contractIssuedObj.IAmountContract.classList.remove("error-form");
-        }
+        const IssuedAmountErr = document.querySelector(
+          ".issued-amount-contract-error"
+        );
+        const issuedTotalErr = document.querySelector(
+          ".totalIssued-contract-error"
+        );
+        const issuedInvesment = document.querySelector(
+          ".issued-investment-contract-error"
+        );
+        const activeIssuedAmount = checkValidation(
+          regex.patternPercentage,
+          getIAmountContract,
+          IssuedAmountErr,
+          getInputIssued.IAmountContract,
+          isValid
+        );
+        const activeIssuedTotal = checkValidation(
+          regex.patternPercentage,
+          getITotalContract,
+          issuedTotalErr,
+          getInputIssued.ITotalContract,
+          isValid
+        );
+        const activeIssuedInvestment = checkValidation(
+          regex.patternMoney,
+          getIInvestmentContract,
+          issuedInvesment,
+          getInputIssued.IInvestmentContract,
+          isValid
+        );
 
-        if (
-          !regex.patternPercentage.test(getITotalContract) &&
-          getITotalContract !== ""
-        ) {
-          document.querySelector(".totalIssued-contract-error").innerHTML =
-            inValidError;
-          contractIssuedObj.ITotalContract.classList.add("error-form");
-          contractIssuedObj.ITotalContract.classList.remove("valid-form");
-          isValid = false;
-        } else if (getITotalContract === "") {
-          document.querySelector(".totalIssued-contract-error").innerHTML =
-            emptyRequired;
-          contractIssuedObj.ITotalContract.classList.add("error-form");
-          contractIssuedObj.ITotalContract.classList.remove("valid-form");
-          isValid = false;
-        } else {
-          document.querySelector(".totalIssued-contract-error").innerHTML = "";
-          contractIssuedObj.ITotalContract.classList.add("valid-form");
-          contractIssuedObj.ITotalContract.classList.remove("error-form");
-        }
-
-        if (
-          !regex.patternMoney.test(getIInvestmentContract) &&
-          getIInvestmentContract !== ""
-        ) {
-          document.querySelector(
-            ".issued-investment-contract-error"
-          ).innerHTML = inValidError;
-          contractIssuedObj.IInvestmentContract.classList.add("error-form");
-          contractIssuedObj.IInvestmentContract.classList.remove("valid-form");
-          isValid = false;
-        } else if (getIInvestmentContract === "") {
-          document.querySelector(
-            ".issued-investment-contract-error"
-          ).innerHTML = emptyRequired;
-          contractIssuedObj.IInvestmentContract.classList.add("error-form");
-          contractIssuedObj.IInvestmentContract.classList.remove("valid-form");
-          isValid = false;
-        } else {
-          document.querySelector(
-            ".issued-investment-contract-error"
-          ).innerHTML = "";
-          contractIssuedObj.IInvestmentContract.classList.add("valid-form");
-          contractIssuedObj.IInvestmentContract.classList.remove("error-form");
-        }
-
-        if (isValid) {
+        if (activeIssuedAmount && activeIssuedInvestment && activeIssuedTotal) {
           new bootstrap.Modal(
             document.getElementById("previewFormContract")
           ).show();
@@ -441,6 +341,8 @@ export function saveData() {
         pExPaidAmount: document.getElementById("pExPaidAmount").value,
         pExNoteContract: document.getElementById("edit-note-exist").value,
       };
+      currentIndex.value = "";
+      loadDataContract(existPartnerDatas, issuedContractDatas);
     } else {
       existPartnerDatas.push({
         contactNumber: contractNumber.value,
@@ -459,15 +361,16 @@ export function saveData() {
         startAgreementDate: startAgreementDate.value,
         endAgreementDate: endAgreementDate.value,
         photo: uploadPhoto.value,
-        partnerName: contractExistObj.pExname.value,
-        pExIdPassport: contractExistObj.pExIdPassport.value,
-        pExCurrentPercent: contractExistObj.pExCurrentPercent.value,
-        pExTransferPercent: contractExistObj.pExTransferPercent.value,
-        pExPaidAmount: contractExistObj.pExPaidAmount.value,
-        pExNoteContract: contractExistObj.pExNoteContract.value,
+        partnerName: getInputExist.pExname.value,
+        pExIdPassport: getInputExist.pExIdPassport.value,
+        pExCurrentPercent: getInputExist.pExCurrentPercent.value,
+        pExTransferPercent: getInputExist.pExTransferPercent.value,
+        pExPaidAmount: getInputExist.pExPaidAmount.value,
+        pExNoteContract: getInputExist.pExNoteContract.value,
       });
     }
     console.log(existPartnerDatas);
+    loadDataContract(existPartnerDatas, issuedContractDatas);
   } else {
     let activeIndex = currentIndex.value;
     if (activeIndex !== "") {
@@ -495,6 +398,7 @@ export function saveData() {
         Inotes: document.getElementById("edit-note-issued").value,
       };
       currentIndex.value = "";
+      loadDataContract(existPartnerDatas, issuedContractDatas);
     } else {
       issuedContractDatas.push({
         contactNumber: contractNumber.value,
@@ -513,16 +417,17 @@ export function saveData() {
         startAgreementDate: startAgreementDate.value,
         endAgreementDate: endAgreementDate.value,
         photo: uploadPhoto.value,
-        issuedAmount: contractIssuedObj.IAmountContract.value,
-        ITotalContract: contractIssuedObj.ITotalContract.value,
-        IInvestmentContract: contractIssuedObj.IInvestmentContract.value,
-        Inotes: contractIssuedObj.Inotes.value,
+        issuedAmount: getInputIssued.IAmountContract.value,
+        ITotalContract: getInputIssued.ITotalContract.value,
+        IInvestmentContract: getInputIssued.IInvestmentContract.value,
+        Inotes: getInputIssued.Inotes.value,
       });
     }
     console.log(issuedContractDatas);
+    loadDataContract(existPartnerDatas, issuedContractDatas);
   }
 
-  loadDataContract();
+  loadDataContract(existPartnerDatas, issuedContractDatas);
 }
 function clearFieldFirtform() {
   firstName.value = "";
