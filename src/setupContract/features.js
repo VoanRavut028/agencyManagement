@@ -327,18 +327,43 @@ export function loadDataContract(existPartnerDatas, issuedContractDatas) {
   });
 }
 
-// document
-//   .getElementById("searching-contract-info-by-name")
-//   .addEventListener("keydown", function () {
-//     let inputSearchValue = this.value;
-//     console.log(inputSearchValue);
-//    var  searchContractByName(inputSearchValue,existPartnerDatas,issuedContractDatas);
-
-//   });
-
-// function searchContractByName() {
-//   var issuedShares = [];
-// }
+document
+  .getElementById("searching-contract-info-by-name")
+  .addEventListener("input", function () {
+    let inputSearchValue = this.value;
+    console.log(inputSearchValue);
+    const { filteredExistPartners, filteredIssuedContracts } =
+      searchContractByName(
+        inputSearchValue,
+        existPartnerDatas,
+        issuedContractDatas
+      );
+    loadDataContract(filteredExistPartners, filteredIssuedContracts);
+  });
+function searchContractByName(
+  inputSearchValue,
+  allExistPartner,
+  allIssuedContract
+) {
+  const convertValueToLowerCase = inputSearchValue.toLowerCase();
+  const filteredExistPartners = allExistPartner.filter(
+    (e) =>
+      e.firstName.toLowerCase().includes(convertValueToLowerCase) ||
+      e.lastName.toLowerCase().includes(convertValueToLowerCase) ||
+      (e.firstName + " " + e.lastName)
+        .toLowerCase()
+        .includes(convertValueToLowerCase)
+  );
+  const filteredIssuedContracts = allIssuedContract.filter(
+    (e) =>
+      e.firstName.toLowerCase().includes(convertValueToLowerCase) ||
+      e.lastName.toLowerCase().includes(convertValueToLowerCase) ||
+      (e.firstName + " " + e.lastName)
+        .toLowerCase()
+        .includes(convertValueToLowerCase)
+  );
+  return { filteredExistPartners, filteredIssuedContracts };
+}
 
 export const getInputFirstContract = {
   contractNumber: document.getElementById("contact-number"),
@@ -363,13 +388,6 @@ export function contractFirstDetail() {
     profilePicture.src = URL.createObjectURL(uploadPhoto.files[0]);
   };
   contractInfoFirstNextBtn.addEventListener("click", () => {
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Your work has been saved",
-      showConfirmButton: false,
-      timer: 1500,
-    });
     let isValidFirstForm = true;
     let modal = "";
 
