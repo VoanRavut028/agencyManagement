@@ -1,6 +1,39 @@
 import { regexPattern } from "../utils/pattern.js";
 import { checkValidation } from "../utils/checkValidate.js";
+import { searchContractByName } from "./searchContract.js";
+import { veiwDetailExistPartner, veiwDetailIssued } from "./viewContract.js";
+import {
+  sortContractByPaid,
+  sortContracByName,
+  sortByID,
+} from "./sortContract.js";
 export let existPartnerDatas = [
+  {
+    contactNumber: "SAD-1243454",
+    firstName: "Mongkol",
+    lastName: "Bamama",
+    idPassport: 3456768,
+    email: "mongkolsok@gmail.com",
+    adress: {
+      country: "Cambodia",
+      province: "Siem Reap",
+      district: "kra Lanh",
+      commune: "Sen Sok",
+    },
+    agreementDate: "2025-07-28",
+    signature: "",
+    photo:
+      "https://i.pinimg.com/736x/69/0d/1f/690d1fceb13c958e658349519a925a1e.jpg",
+    purchase: "Buy from Existing Partner",
+    startAgreementDate: "2025-07-13",
+    endAgreementDate: "2025-07-13",
+    partnerName: "Jan Dara",
+    pExIdPassport: 23678674,
+    pExCurrentPercent: 1.3,
+    pExTransferPercent: 0.3,
+    pExPaidAmount: 1340,
+    pExNoteContract: "The best partner ever.",
+  },
   {
     contactNumber: "SAD-2343454",
     firstName: "Chea",
@@ -53,32 +86,7 @@ export let existPartnerDatas = [
     pExPaidAmount: 2000,
     pExNoteContract: "The best partner ever.",
   },
-  {
-    contactNumber: "SAD-1243454",
-    firstName: "Sok",
-    lastName: "Mongkol",
-    idPassport: 3456768,
-    email: "mongkolsok@gmail.com",
-    adress: {
-      country: "Cambodia",
-      province: "Siem Reap",
-      district: "kra Lanh",
-      commune: "Sen Sok",
-    },
-    agreementDate: "2025-07-28",
-    signature: "",
-    photo:
-      "https://i.pinimg.com/736x/69/0d/1f/690d1fceb13c958e658349519a925a1e.jpg",
-    purchase: "Buy from Existing Partner",
-    startAgreementDate: "2025-07-13",
-    endAgreementDate: "2025-07-13",
-    partnerName: "Jan Dara",
-    pExIdPassport: 23678674,
-    pExCurrentPercent: 1.3,
-    pExTransferPercent: 0.3,
-    pExPaidAmount: 1340,
-    pExNoteContract: "The best partner ever.",
-  },
+
   {
     contactNumber: "SAD-1243454",
     firstName: "Voan",
@@ -127,7 +135,7 @@ export let issuedContractDatas = [
     purchase: "New Issued Shares",
     issuedAmount: 5,
     ITotalContract: 500,
-    IInvestmentContract: 40,
+    IInvestmentContract: 4087,
     Inotes: "He is a specail partner.",
   },
   {
@@ -150,7 +158,7 @@ export let issuedContractDatas = [
     purchase: "New Issued Shares",
     issuedAmount: 5,
     ITotalContract: 500,
-    IInvestmentContract: 40,
+    IInvestmentContract: 0,
     Inotes: "He is a specail partner.",
   },
   {
@@ -178,19 +186,19 @@ export let issuedContractDatas = [
   },
 ];
 const regex = new regexPattern();
-export let inValidError = `<i class="ri-error-warning-line"></i> Invalid!`;
-export let emptyRequired = `<i class="ri-error-warning-line"></i> This field is required.`;
+
 const today = new Date();
 const tomorrow = new Date(today);
 tomorrow.setDate(today.getDate() + 1);
 export let endDate = tomorrow.toISOString().split("T")[0];
 
-document.addEventListener("DOMContentLoaded", function () {
-  const dateInput = document.getElementById("end-agreement-contract");
-  if (dateInput) {
-    dateInput.min = endDate;
-  }
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//   const dateInput = document.getElementById("end-agreement-contract");
+//   if (dateInput) {
+//     dateInput.min = endDate;
+//   }
+// });
+
 loadDataContract(existPartnerDatas, issuedContractDatas);
 export function loadDataContract(existPartnerDatas, issuedContractDatas) {
   let deleteIssuedBtn = document.querySelector(".delete-issued-btn");
@@ -204,14 +212,14 @@ export function loadDataContract(existPartnerDatas, issuedContractDatas) {
                 <td>${element.idPassport}</td>
                 <td>${element.firstName} ${element.lastName}</td>
                 <td>${element.email}</td>
-                <td>${element.adress.province}</td>
                 <td>${element.purchase}</td>
                 <td>${element.pExCurrentPercent}%</td>
+                <td>$${element.pExPaidAmount}</td>
                 <td>${element.startAgreementDate}</td>
                 <td class="d-flex gap-4">
-               <button data-index="${index}" class="btn btn-success view-exist-partner">View</button>
-               <button data-index="${index}" data-purchase="${element.purchase}" class="btn btn-primary edit-exist-partner">Update</button>
-               <button data-id="${element.idPassport}"  class="btn btn-danger delete-exist-partner">Delete</button>
+               <button data-Id="${element.idPassport}" class="btn btn-success view-exist-partner selector-view-btn">View</button>
+               <button data-index="${index}" data-purchase="${element.purchase}" class="btn btn-primary edit-exist-partner selector-update-btn">Update</button>
+               <button data-id="${element.idPassport}"  class="btn btn-danger delete-exist-partner selector-delete-btn">Delete</button>
                 </td>
               </tr>
       `;
@@ -223,12 +231,12 @@ export function loadDataContract(existPartnerDatas, issuedContractDatas) {
                 <td>${element.idPassport}</td>
                  <td>${element.firstName} ${element.lastName}</td>
                 <td>${element.email}</td>
-                <td>${element.adress.province}</td>
                 <td>${element.purchase}</td>
               <td>${element.issuedAmount}%</td>
+              <td>$${element.IInvestmentContract}</td>
                 <td>${element.startAgreementDate}</td>               
                 <td class="d-flex gap-4">
-               <button  data-index="${indexElement}" class="btn btn-success view-issued">View</button>
+               <button  data-Id="${element.idPassport}" class="btn btn-success view-issued">View</button>
                <button data-index="${indexElement}" data-purchase="${element.purchase}" class="btn btn-primary edit-issued">Update</button>
                <button data-id="${element.idPassport}"  class="btn btn-danger delete-issued">Delete</button>
                 </td>
@@ -238,14 +246,14 @@ export function loadDataContract(existPartnerDatas, issuedContractDatas) {
   document.getElementById("contact-table-loaddata").innerHTML = card;
   document.querySelectorAll(".view-issued").forEach((view) => {
     view.addEventListener("click", () => {
-      let index = view.dataset.index;
+      let index = view.dataset.id;
       veiwDetailIssued(index);
     });
   });
 
   document.querySelectorAll(".view-exist-partner").forEach((view) => {
     view.addEventListener("click", () => {
-      let index = view.dataset.index;
+      let index = view.dataset.id;
       veiwDetailExistPartner(index);
     });
   });
@@ -326,7 +334,6 @@ export function loadDataContract(existPartnerDatas, issuedContractDatas) {
     });
   });
 }
-
 document
   .getElementById("searching-contract-info-by-name")
   .addEventListener("input", function () {
@@ -340,30 +347,32 @@ document
       );
     loadDataContract(filteredExistPartners, filteredIssuedContracts);
   });
-function searchContractByName(
-  inputSearchValue,
-  allExistPartner,
-  allIssuedContract
-) {
-  const convertValueToLowerCase = inputSearchValue.toLowerCase();
-  const filteredExistPartners = allExistPartner.filter(
-    (e) =>
-      e.firstName.toLowerCase().includes(convertValueToLowerCase) ||
-      e.lastName.toLowerCase().includes(convertValueToLowerCase) ||
-      (e.firstName + " " + e.lastName)
-        .toLowerCase()
-        .includes(convertValueToLowerCase)
-  );
-  const filteredIssuedContracts = allIssuedContract.filter(
-    (e) =>
-      e.firstName.toLowerCase().includes(convertValueToLowerCase) ||
-      e.lastName.toLowerCase().includes(convertValueToLowerCase) ||
-      (e.firstName + " " + e.lastName)
-        .toLowerCase()
-        .includes(convertValueToLowerCase)
-  );
-  return { filteredExistPartners, filteredIssuedContracts };
-}
+document
+  .getElementById("sort-contract")
+  .addEventListener("change", function () {
+    let selectedOption = this.value;
+    console.log(selectedOption);
+
+    if (selectedOption === "sort-by-paid-invesment") {
+      let { existSort, issuedSort } = sortContractByPaid(
+        existPartnerDatas,
+        issuedContractDatas
+      );
+      loadDataContract(existSort, issuedSort);
+    } else if (selectedOption === "sort-by-name") {
+      let { existSort, issuedSort } = sortContracByName(
+        existPartnerDatas,
+        issuedContractDatas
+      );
+      loadDataContract(existSort, issuedSort);
+    } else {
+      let { existSort, issuedSort } = sortByID(
+        existPartnerDatas,
+        issuedContractDatas
+      );
+      loadDataContract(existSort, issuedSort);
+    }
+  });
 
 export const getInputFirstContract = {
   contractNumber: document.getElementById("contact-number"),
@@ -481,7 +490,6 @@ export function contractSecondDetail() {
     endAgreementDate,
     purchaseMethod,
   } = getInputContractSecond;
-  // let regex = regexPattern();
   let modal = "";
   purchaseNextBtn.addEventListener("click", () => {
     let getCountry = country.value;
@@ -614,163 +622,6 @@ export const getInputIssued = {
   IInvestmentContract: document.getElementById("Investment-N_amount-contract"),
   Inotes: document.getElementById("noteContract-p_exist"),
 };
-
-function veiwDetailIssued(index) {
-  let viewObj = issuedContractDatas[index];
-  new bootstrap.Modal(document.getElementById("viewDdetail-issued")).show();
-  let summary = `
-          <div class="row g-4">
-              <div class="col-md-5 text-center">
-                 <img  src=${
-                   viewObj.photo
-                 } id="summaryImage" alt="Profile" class="img-fluid rounded-3 mb-3 shadow-sm profile-img">
-                 <p class="h5 fw-semibold text-dark">
-                   ${viewObj.firstName} ${viewObj.lastName}
-                 </p>  
-                 <p class="text-muted small">ID / Passport: ${
-                   viewObj.idPassport
-                 }</p>
-                 <p class="text-muted small">
-                   Signature: ${viewObj.signature || "—"}
-                 </p>
-              </div>
-              <div class="col-md-7">
-                <h3 class="section-title">Details</h3>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    <span class="text-primary">Email:</span>
-                    <span>${viewObj.email}</span>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="text-primary">Address:</span>
-                    <span>${viewObj.adress.commune}, ${
-    viewObj.adress.district
-  },<br />${viewObj.adress.province}, ${viewObj.adress.country}</span>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="text-primary">Agreement:</span>
-                    <span>${viewObj.startAgreementDate} → ${
-    viewObj.endAgreementDate
-  }</span>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="text-primary">Purchase Method:</span>
-                    <span>${viewObj.purchase}</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-             <div class="mt-4">
-              <h3 class="section-title">Share Issuance</h3>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                 
-                   <div class ="d-flex flex-column">
-                   <p><span class="text-primary">Issued Amount (%):</span> ${
-                     viewObj.issuedAmount
-                   } </p>
-                  <p><span class="text-primary">Total After Issue (%):</span> ${
-                    viewObj.ITotalContract
-                  }</p>
-                  <p><span class="text-primary">Investment (USA):</span> ${
-                    viewObj.IInvestmentContract
-                  }</p>
-                  <p><span>Notes:</span> ${viewObj.Inotes}</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-             <div class ="d-flex justify-content-end">
-                  <button data-bs-dismiss="modal" class="btn btn-danger">Close</button>
-                </div>
-            `;
-  document.getElementById("show-view-contract-issued").innerHTML = summary;
-
-  loadDataContract(existPartnerDatas, issuedContractDatas);
-}
-function veiwDetailExistPartner(index) {
-  let viewObj = existPartnerDatas[index];
-
-  new bootstrap.Modal(
-    document.getElementById("viewDdetail-exist-partner")
-  ).show();
-  let summary = `
-          <div class="row g-4">
-              <div class="col-md-5 text-center">
-                 <img  src=${
-                   viewObj.photo
-                 } id="summaryImage" alt="Profile" class="img-fluid rounded-3 mb-3 shadow-sm profile-img">
-                 <p class="h5 fw-semibold text-dark">
-                   ${viewObj.firstName} ${viewObj.lastName}
-                 </p>  
-                 <p class="text-muted small">ID / Passport: ${
-                   viewObj.idPassport
-                 }</p>
-                 <p class="text-muted small">
-                   Signature: ${viewObj.signature || "—"}
-                 </p>
-              </div>
-              <div class="col-md-7">
-                <h3 class="section-title text-primary">Details</h3>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    <span class="text-primary">Email:</span>
-                    <span>${viewObj.email}</span>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="text-primary">Address:</span>
-                    <span>${viewObj.adress.commune}, ${
-    viewObj.adress.district
-  },<br />${viewObj.adress.province}, ${viewObj.adress.country}</span>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="text-primary">Agreement:</span>
-                    <span>${viewObj.startAgreementDate} → ${
-    viewObj.endAgreementDate
-  }</span>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="text-primary">Purchase Method:</span>
-                    <span>${viewObj.purchase}</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-             <div class="mt-4">
-              <h3 class="section-title">Partner Information</h3>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <div class ="d-flex flex-column">
-                   <p><span class="text-primary">Partner Name:</span> ${
-                     viewObj.partnerName
-                   } </p>
-                  <p><span class="text-primary">ID/Passport:</span> ${
-                    viewObj.pExIdPassport
-                  }</p>
-                  <p><span class="text-primary">Current (%):</span> ${
-                    viewObj.pExCurrentPercent
-                  }%</p>
-                  <p><span class="text-primary">Transfer (%):</span> ${
-                    viewObj.pExTransferPercent
-                  }%</p>
-                  <p><span class="text-primary">Paid (USA):</span> $${
-                    viewObj.pExPaidAmount
-                  }</p>
-                  <p><span class="text-primary">Notes :</span> ${
-                    viewObj.pExNoteContract
-                  }</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-             <div class ="d-flex justify-content-end">
-                  <button data-bs-dismiss="modal" class="btn btn-danger">Close</button>
-                </div>
-            `;
-  document.getElementById("show-view-contract-exist-partner").innerHTML =
-    summary;
-  loadDataContract(existPartnerDatas, issuedContractDatas);
-}
 
 function deleteDataOnIssued(id) {
   let index = issuedContractDatas.findIndex(

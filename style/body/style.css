@@ -1,3 +1,8 @@
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
 :root {
   --bg-blue: #16a2ff;
 }
@@ -7,8 +12,8 @@ thead tr th {
 tbody td {
   text-align: center;
 }
-tbody span {
-  font-size: 1.3rem;
+tbody tr {
+  font-size: 1rem;
 }
 .contract-table {
   overflow-x: auto;
@@ -24,52 +29,46 @@ tbody span {
 .valid-form {
   border: 1px solid blue;
 }
-.summary-card {
-  max-width: 700px;
-  margin: 3rem auto;
-  background: #ffffff;
-  border-radius: 0.75rem;
-  /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); */
-  transition: transform 0.3s ease;
+
+@media (min-width: 1200px) {
+  tbody tr {
+    font-size: 1rem;
+  }
+  .selector-view-btn {
+    font-size: 0.9rem;
+  }
+  .selector-update-btn {
+    font-size: 0.9rem;
+  }
+  .selector-delete-btn {
+    font-size: 0.9rem;
+  }
 }
-.summary-card:hover {
-  transform: translateY(-5px);
+@media (min-width: 900px) and (max-width: 1199px) {
+  tbody tr {
+    font-size: 12px;
+  }
+  .selector-view-btn {
+    font-size: 12px;
+  }
+  .selector-update-btn {
+    font-size: 12px;
+  }
+  .selector-delete-btn {
+    font-size: 12px;
+  }
 }
-.profile-img {
-  max-width: 180px;
-  object-fit: cover;
-  border: 4px solid #dee2e6;
-  border-radius: 50%;
-  transition: transform 0.3s ease;
-}
-.profile-img:hover {
-  transform: scale(1.05);
-}
-.list-group-item {
-  border: none;
-  /* background-color: #f8f9fa; */
-  border-radius: 0.5rem;
-  margin-bottom: 0.5rem;
-  padding: 1rem 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  font-size: 16px;
-  transition: all 0.1s ease;
-}
-.list-group-item:hover {
-  background-color: #e9ecef;
-  font-size: 18px;
-}
-.list-group-item strong {
-  flex: 0 0 40%;
-  color: #0d6efd;
-}
-.section-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #0d6efd;
-  border-bottom: 2px solid #dee2e6;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
+@media (max-width: 899px) {
+  tbody tr {
+    font-size: 10px;
+  }
+  .selector-view-btn {
+    font-size: 10px;
+  }
+  .selector-update-btn {
+    font-size: 10px;
+  }
+  .selector-delete-btn {
+    font-size: 10px;
+  }
 }

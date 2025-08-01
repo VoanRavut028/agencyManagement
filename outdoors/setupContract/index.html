@@ -124,9 +124,15 @@
           </div>
           <div class="col-sm-3">
             <div>
-              <select class="form-select" id="">
-                <option value="">Recently Exist Partner</option>
-                <option value="">Recently New Issued</option>
+              <select class="form-select" id="sort-contract">
+                <option value="disabled" selected disabled>
+                  Choose Option
+                </option>
+                <option value="sort-by-paid-invesment">
+                  Sort By Paid Investment
+                </option>
+                <option value="sort-by-name">Sort By Name</option>
+                <option value="sort-by-id">Sort By ID</option>
               </select>
             </div>
           </div>
@@ -370,9 +376,7 @@
                         class="form-select shadow-none"
                         id="purchase-Method"
                       >
-                        <option class="" selected disabled value="">
-                          --Choose Option--
-                        </option>
+                        <option selected disabled>Choose Option</option>
                         <option
                           id="exist"
                           class=""
@@ -625,7 +629,7 @@
           tabindex="-1"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-lg">
+          <div class="modal-dialog modal-md">
             <div class="modal-content">
               <div class="modal-header">
                 <h2
@@ -650,14 +654,9 @@
           tabindex="-1"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-lg">
+          <div class="modal-dialog modal-md">
             <div class="modal-content">
               <div class="modal-header">
-                <h2
-                  class="text-2xl font-bold text-center text-indigo-900 mb-6 text-primary"
-                >
-                  Details
-                </h2>
                 <button
                   class="btn-close shadow-none"
                   data-bs-dismiss="modal"
@@ -675,7 +674,7 @@
           tabindex="-1"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-lg">
+          <div class="modal-dialog modal-md">
             <div class="modal-content">
               <div class="modal-header">
                 <h2
@@ -973,9 +972,9 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Address</th>
                 <th>Purchase</th>
                 <th>Percents</th>
+                <th>Investment</th>
                 <th>Agreement Data</th>
                 <th>Action</th>
                 <th></th>
