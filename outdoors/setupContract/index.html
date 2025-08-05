@@ -376,7 +376,9 @@
                         class="form-select shadow-none"
                         id="purchase-Method"
                       >
-                        <option selected disabled>Choose Option</option>
+                        <option value="" selected disabled>
+                          Choose Option
+                        </option>
                         <option
                           id="exist"
                           class=""
@@ -632,11 +634,6 @@
           <div class="modal-dialog modal-md">
             <div class="modal-content">
               <div class="modal-header">
-                <h2
-                  class="text-2xl font-bold text-center text-indigo-900 mb-6 text-primary"
-                >
-                  Contract Summary
-                </h2>
                 <button
                   class="btn-close shadow-none"
                   data-bs-dismiss="modal"
@@ -677,11 +674,6 @@
           <div class="modal-dialog modal-md">
             <div class="modal-content">
               <div class="modal-header">
-                <h2
-                  class="text-2xl font-bold text-center text-indigo-900 mb-6 text-primary"
-                >
-                  Details
-                </h2>
                 <button
                   class="btn-close shadow-none"
                   data-bs-dismiss="modal"
@@ -708,7 +700,7 @@
                 <h2
                   class="text-2xl font-bold text-center text-indigo-900 mb-6 text-primary"
                 >
-                  On Editing Issued Share
+                  On Editing
                 </h2>
                 <button
                   class="btn-close shadow-none"
@@ -732,6 +724,25 @@
                                 id="contract-number"
                                 class="form-control"
                               />
+                              <span
+                                id="edit-contract-number-err"
+                                class="error-field"
+                              ></span>
+                            </div>
+                            <div class="col-6 mb-3">
+                              <label for="uploadPhoto" class="form-label"
+                                >Profile Photo URL</label
+                              >
+                              <input
+                                type="file"
+                                class="form-control"
+                                id="uploadPhoto"
+                                placeholder="https://example.com/photo.jpg"
+                              />
+                              <span
+                                id="edit-profile-err"
+                                class="error-field"
+                              ></span>
                             </div>
                             <div class="col-md-6 mb-3">
                               <input type="text" id="edit-index" hidden />
@@ -743,6 +754,10 @@
                                 class="form-control"
                                 id="firstName"
                               />
+                              <span
+                                id="edit-first-name-err"
+                                class="error-field"
+                              ></span>
                             </div>
                             <div class="col-md-6 mb-3">
                               <label for="lastName" class="form-label"
@@ -753,6 +768,10 @@
                                 class="form-control"
                                 id="lastName"
                               />
+                              <span
+                                id="edit-last-name-err"
+                                class="error-field"
+                              ></span>
                             </div>
                             <div class="col-6">
                               <label for="email" class="form-label"
@@ -763,6 +782,10 @@
                                 class="form-control"
                                 id="email"
                               />
+                              <span
+                                id="edit-email-err"
+                                class="error-field"
+                              ></span>
                             </div>
                             <div class="col-6">
                               <label for="idPassport" class="form-label"
@@ -773,6 +796,7 @@
                                 class="form-control"
                                 id="idPassport"
                               />
+                              <span id="edit-id-err" class="error-field"></span>
                             </div>
                             <div class="col-6 mb-3">
                               <label for="signature" class="form-label"
@@ -783,17 +807,6 @@
                                 class="form-control"
                                 id="signature"
                                 placeholder="Optional"
-                              />
-                            </div>
-                            <div class="col-6 mb-3">
-                              <label for="uploadPhoto" class="form-label"
-                                >Profile Photo URL</label
-                              >
-                              <input
-                                type="file"
-                                class="form-control"
-                                id="uploadPhoto"
-                                placeholder="https://example.com/photo.jpg"
                               />
                             </div>
                           </div>
@@ -812,6 +825,10 @@
                                 class="form-control"
                                 id="commune"
                               />
+                              <span
+                                id="edit-commune-err"
+                                class="error-field"
+                              ></span>
                             </div>
                             <div class="col-md-6 mb-3">
                               <label for="district" class="form-label"
@@ -822,6 +839,10 @@
                                 class="form-control"
                                 id="district"
                               />
+                              <span
+                                id="edit-district-err"
+                                class="error-field"
+                              ></span>
                             </div>
                           </div>
                           <div class="row">
@@ -834,6 +855,10 @@
                                 class="form-control"
                                 id="province"
                               />
+                              <span
+                                id="edit-provice-err"
+                                class="error-field"
+                              ></span>
                             </div>
                             <div class="col-md-6 mb-3">
                               <label for="country" class="form-label"
@@ -844,6 +869,10 @@
                                 class="form-control"
                                 id="country"
                               />
+                              <span
+                                id="edit-country-err"
+                                class="error-field"
+                              ></span>
                             </div>
                           </div>
                         </div>
@@ -859,8 +888,12 @@
                               <input
                                 type="date"
                                 class="form-control"
-                                id="startAgreementDate"
+                                id="start-agreement-date"
                               />
+                              <span
+                                id="edit-start-date-err"
+                                class="error-field"
+                              ></span>
                             </div>
                             <div class="col-md-6 mb-3">
                               <label for="endAgreementDate" class="form-label"
@@ -869,8 +902,12 @@
                               <input
                                 type="date"
                                 class="form-control"
-                                id="endAgreementDate"
+                                id="end-agreement-date"
                               />
+                              <span
+                                id="edit-end-date-err"
+                                class="error-field"
+                              ></span>
                             </div>
                           </div>
                         </div>

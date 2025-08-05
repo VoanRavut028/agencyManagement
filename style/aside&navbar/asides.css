@@ -10,7 +10,7 @@
   background-color: var(--bg-aside);
   width: 220px;
   height: 100vh;
-  font-size: 16px;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-color);
   transition: all 0.3s ease;
@@ -21,7 +21,7 @@
   display: none;
 }
 .humbergur-bar i {
-  font-size: 24px;
+  font-size: 0.9rem;
   color: white;
   margin-left: 20px;
   margin-top: 15px;
@@ -60,7 +60,7 @@
 
 .navbar-nav .nav-link i {
   margin-right: 10px;
-  font-size: 18px;
+  font-size: 0.9rem;
 }
 
 .navbar-nav .nav-item.active .nav-link {

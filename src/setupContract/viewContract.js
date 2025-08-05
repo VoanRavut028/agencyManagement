@@ -7,7 +7,7 @@ export function veiwDetailIssued(index) {
   let viewObj = issuedContractDatas[indexFounded];
   new bootstrap.Modal(document.getElementById("viewDdetail-issued")).show();
   let summary = `
-         <div class="row g-4">
+<div class="row g-4">
   <div class="col-6 col-md-5 text-center">
     <img
       src="${viewObj.photo}"
@@ -85,7 +85,7 @@ export function veiwDetailIssued(index) {
     </div>
 
     <div class="d-flex justify-content-end">
-      <button data-bs-dismiss="modal" class="btn btn-danger">Close</button>
+      <button data-bs-dismiss="modal" class="btn btn-danger">Ok</button>
     </div>
   </div>
 </div>
@@ -188,7 +188,7 @@ export function veiwDetailExistPartner(index) {
   </div>
 </div>
 <div class="d-flex justify-content-end">
-  <button data-bs-dismiss="modal" class="btn btn-danger">Close</button>
+  <button data-bs-dismiss="modal" class="btn btn-danger">Ok</button>
 </div>
             `;
   document.getElementById("show-view-contract-exist-partner").innerHTML =

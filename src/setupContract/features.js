@@ -664,7 +664,7 @@ function updateDataOnEachMethod(index, purchaseUpdate) {
                >Issued Amount</label
              >
              <input
-               type="number"
+               type="text"
                class="form-control"
                id="IAmountContract"
              />
@@ -674,7 +674,7 @@ function updateDataOnEachMethod(index, purchaseUpdate) {
                >Total After Issue</label
              >
              <input
-               type="number"
+               type="text"
                class="form-control"
                id="ITotalContract"
              />
@@ -684,7 +684,7 @@ function updateDataOnEachMethod(index, purchaseUpdate) {
                >Investment Amount ($)</label
              >
              <input
-               type="number"
+               type="text"
                class="form-control"
                id="IInvestmentContract"
              />
@@ -729,7 +729,7 @@ function updateDataOnEachMethod(index, purchaseUpdate) {
   } else {
     html = `
      <div id="existingPartnerOptions" class="purchase-options mb-4">
-         <h5 class="text-success mb-3">
+         <h5 class="text-primary mb-3">
            Existing Partner Details
          </h5>
          <div class="mb-3">
@@ -741,6 +741,7 @@ function updateDataOnEachMethod(index, purchaseUpdate) {
              class="form-control"
              id="pExname"
            />
+           <span id="edit-partner-err" class="error-field"></span>
          </div>
          <div class="mb-3">
            <label for="pExIdPassport" class="form-label"
@@ -758,7 +759,7 @@ function updateDataOnEachMethod(index, purchaseUpdate) {
                >Current %</label
              >
              <input
-               type="number"
+               type="text"
                class="form-control"
                id="pExCurrentPercent"
              />
@@ -768,7 +769,7 @@ function updateDataOnEachMethod(index, purchaseUpdate) {
                >Transfer %</label
              >
              <input
-               type="number"
+               type="text"
                class="form-control"
                id="pExTransferPercent"
              />
@@ -778,7 +779,7 @@ function updateDataOnEachMethod(index, purchaseUpdate) {
                >Paid Amount ($)</label
              >
              <input
-               type="number"
+               type="text"
                class="form-control"
                id="pExPaidAmount"
              />

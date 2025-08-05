@@ -109,70 +109,99 @@ function handleDataContract() {
             document.getElementById("previewFormContract")
           ).show();
           let summary = `
-          <div class="row g-4">
-              <div class="col-md-5 text-center">
-                 <img id="summaryImage" alt="Profile" class="img-fluid rounded-3 mb-3 shadow-sm profile-img">
-                 <p class="h5 fw-semibold text-dark">
-                   ${firstName.value} ${lastName.value}
-                 </p>
-                 <p class="text-muted small">ID / Passport: ${
-                   idPassport.value
-                 }</p>
-                 <p class="text-muted small">
-                   Signature: ${signature.value || "—"}
-                 </p>
-              </div>
-              <div class="col-md-7">
-                <h3 class="section-title">Details</h3>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    <span class="text-primary">Email:</span>
-                    <span>${email.value}</span>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="text-primary">Address:</span>
-                    <span>${commune.value}, ${district.value},<br />${
-            province.value
-          }, ${country.value}</span>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="text-primary">Agreement:</span>
-                    <span>${startAgreementDate.value} → ${
-            endAgreementDate.value
-          }</span>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="text-primary">Purchase Method:</span>
-                    <span >${getPurchaseVal}</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="mt-4">
-              <h3 class="section-title">Partner Information</h3>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <div class ="d-flex flex-column">
-                   <p><span>Partner Name:</span> ${getPExname} </p>
-                  <p><span class="text-primary">ID/Passport:</span> ${getPExIdPassport}</p>
-                  <p><span class="text-primary">Current (%):</span> ${getPExCurrentPercent}%</p>
-                  <p><span class="text-primary">Transfer (%):</span> ${getPExTransferPercent}%</p>
-                  <p><span class="text-primary">Paid (USA):</span> $${getPExPaidAmount}</p>
-                  <p><span class="text-primary">Notes :</span> $${getPExNote}</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-             <div class="d-flex justify-content-end gap-2">
-                  <button class="btn btn-primary">Edit</button>
-                  <button
-                    class="btn btn-success save-contract-toTable"
-                    data-bs-dismiss="modal"      
-                  >
-                    Save
-                  </button>
-                </div>
-            `;
+    <div class="row g-4">
+     <div class="col-6 col-md-5 text-center">
+     <img
+      src="${uploadPhoto}"
+      id="summaryImage"
+      alt="Profile"
+      class="img-fluid rounded-circle mb-3 shadow-sm"
+      style="width: 80px; height: 80px"
+    />
+    <p class="h5 fw-semibold text-dark">
+      ${firstName.value} ${lastName.value}
+    </p>
+    <p class="text-muted small">ID / Passport: ${idPassport.value}</p>
+    <p class="text-muted small">Signature: ${signature.value || "—"}</p>
+  </div>
+  <div class="col-6 text-nowrap d-flex flex-column align-items-end">
+    <h3 class="fw-bold">Contract Details</h3>
+    <p>Contract Number: ${contractNumber.value}</p>
+    <p>${startAgreementDate.value}</p>
+  </div>
+
+  <div class="col-12 d-flex flex-column align-items-stretch justify-content-between">
+    <div class="d-flex justify-content-between flex-column">
+      <hr />
+      <div class="d-flex justify-content-between text-center">
+        <div class="text-primary">Email:</div>
+        <div>${email.value}</div>
+      </div>
+      <hr />
+      <div class="d-flex justify-content-between text-center">
+        <div class="text-primary">Address:</div>
+        <div>
+          ${commune.value}, ${district.value},<br />${province.value}, ${
+            country.value
+          }
+        </div>
+      </div>
+      <hr />
+      <div class="d-flex justify-content-between text-center">
+        <div class="text-primary">Agreement:</div>
+        <div>${startAgreementDate.value} → ${endAgreementDate.value}</div>
+      </div>
+      <hr />
+      <div class="d-flex justify-content-between text-center">
+        <div class="text-primary">Purchase Method:</div>
+        <div>${getPurchaseVal}</div>
+      </div>
+      <hr />
+    </div>
+
+  <div class="mt-4">
+    <h3 class="section-title">Partner Information</h3>
+    <hr />
+    <div class="d-flex justify-content-between text-center">
+      <div class="text-primary">Partner Name:</div>
+      <div>${getPExname}</div>
+    </div>
+    <hr />
+    <div class="d-flex justify-content-between text-center">
+      <div class="text-primary">ID/Passport:</div>
+      <div>${getPExIdPassport}</div>
+    </div>
+    <hr />
+    <div class="d-flex justify-content-between text-center">
+      <div class="text-primary">Current (%):</div>
+      <div>${getPExCurrentPercent}%</div>
+    </div>
+    <hr />
+    <div class="d-flex justify-content-between text-center">
+      <div class="text-primary">Transfer (%):</div>
+      <div>${getPExTransferPercent}%</div>
+    </div>
+    <hr />
+    <div class="d-flex justify-content-between text-center">
+      <div class="text-primary">Paid (USA):</div>
+      <div>$${getPExPaidAmount}</div>
+    </div>
+    <hr />
+    <div class="d-flex justify-content-between text-center">
+      <div class="text-primary">Notes:</div>
+      <div>$${getPExNote}</div>
+    </div>
+    <hr />
+  </div>
+
+  <div class="d-flex justify-content-end gap-2">
+    <button class="btn btn-primary">Edit</button>
+    <button class="btn btn-success save-contract-toTable" data-bs-dismiss="modal">
+      Save
+    </button>
+  </div>
+`;
+
           document.getElementById("show-preView-contract").innerHTML = summary;
         } else {
           new bootstrap.Modal(
@@ -222,44 +251,54 @@ function handleDataContract() {
           ).show();
           let summary = `
           <div class="row g-4">
-              <div class="col-md-5 text-center">
-                 <img id="summaryImage" alt="Profile" class="img-fluid rounded-3 mb-3 shadow-sm profile-img">
-                 <p class="h5 fw-semibold text-dark">
-                   ${firstName.value} ${lastName.value}
-                 </p>
-                 <p class="text-muted small">ID / Passport: ${
-                   idPassport.value
-                 }</p>
-                 <p class="text-muted small">
-                   Signature: ${signature.value || "—"}
-                 </p>
-              </div>
-              <div class="col-md-7">
-                <h3 class="section-title">Details</h3>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    <span class="text-primary">Email:</span>
-                    <span>${email.value}</span>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="text-primary">Address:</span>
-                    <span>${commune.value}, ${district.value},<br />${
-            province.value
-          }, ${country.value}</span>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="text-primary">Agreement:</span>
-                    <span>${startAgreementDate.value} → ${
-            endAgreementDate.value
-          }</span>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="text-primary">Purchase Method:</span>
-                    <span>${getPurchaseVal}</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+               <div class="col-6 col-md-5 text-center">
+     <img
+      src="${uploadPhoto}"
+      id="summaryImage"
+      alt="Profile"
+      class="img-fluid rounded-circle mb-3 shadow-sm"
+      style="width: 80px; height: 80px"
+    />
+    <p class="h5 fw-semibold text-dark">
+      ${firstName.value} ${lastName.value}
+    </p>
+    <p class="text-muted small">ID / Passport: ${idPassport.value}</p>
+    <p class="text-muted small">Signature: ${signature.value || "—"}</p>
+  </div>
+  <div class="col-6 text-nowrap d-flex flex-column align-items-end">
+      <h3 class="fw-bold">Contract Summary</h3>
+    <p>Contract Number: ${contractNumber.value}</p>
+    <p>${startAgreementDate.value}</p>
+  </div>
+
+  <div class="col-12 d-flex flex-column align-items-stretch justify-content-between">
+    <div class="d-flex justify-content-between flex-column">
+      <hr />
+      <div class="d-flex justify-content-between text-center">
+        <div class="text-primary">Email:</div>
+        <div>${email.value}</div>
+      </div>
+      <hr />
+      <div class="d-flex justify-content-between text-center">
+        <div class="text-primary">Address:</div>
+        <div>
+          ${commune.value}, ${district.value},<br />${province.value}, ${
+            country.value
+          }
+        </div>
+      </div>
+      <hr />
+      <div class="d-flex justify-content-between text-center">
+        <div class="text-primary">Agreement:</div>
+        <div>${startAgreementDate.value} → ${endAgreementDate.value}</div>
+      </div>
+      <hr />
+      <div class="d-flex justify-content-between text-center">
+        <div class="text-primary">Purchase Method:</div>
+        <div>${getPurchaseVal}</div>
+      </div>
+      <hr />
+    </div>
             <div class="mt-4">
               <h3 class="section-title">Share Issuance</h3>
               <ul class="list-group list-group-flush">
@@ -304,11 +343,127 @@ function handleDataContract() {
 
 document.querySelectorAll(".save-edit-to-table").forEach((edit) => {
   edit.addEventListener("click", () => {
-    saveData();
+    debugger;
+    let getPurchaseMethod = document.getElementById("purchaseMethod").value;
+    let getFistName = document.getElementById("firstName").value;
+    let getFirstNameErr = document.getElementById("edit-first-name-err");
+    let valideEdit = true;
+    const editContractNumber = checkValidation(
+      regex.patternContractNum,
+      document.getElementById("contract-number").value,
+      document.getElementById("edit-contract-number-err"),
+      document.getElementById("contract-number"),
+      valideEdit
+    );
+    // const photoEdit = checkValidation(
+    //   regex.
+    //   document.getElementById("uploadPhoto").value,
+
+    // );
+    const editFirstName = checkValidation(
+      regex.patternName,
+      getFistName,
+      getFirstNameErr,
+      document.getElementById("firstName"),
+      valideEdit
+    );
+    const editLastName = checkValidation(
+      regex.patternName,
+      document.getElementById("lastName").value,
+      document.getElementById("edit-last-name-err").value,
+      document.getElementById("lastName"),
+      valideEdit
+    );
+    const editEmail = checkValidation(
+      regex.patternEmail,
+      document.getElementById("email").value,
+      document.getElementById("edit-email-err"),
+      document.getElementById("email"),
+      valideEdit
+    );
+    const editID = checkValidation(
+      regex.patternID,
+      document.getElementById("idPassport").value,
+      document.getElementById("edit-id-err"),
+      document.getElementById("idPassport"),
+      valideEdit
+    );
+    const editCommune = checkValidation(
+      regex.patternAddress,
+      document.getElementById("commune").value,
+      document.getElementById("edit-commune-err"),
+      document.getElementById("commune"),
+      valideEdit
+    );
+    const editDistrict = checkValidation(
+      regex.patternAddress,
+      document.getElementById("district").value,
+      document.getElementById("edit-district-err"),
+      document.getElementById("edit-district-err"),
+      valideEdit
+    );
+    const editProvice = checkValidation(
+      regex.patternAddress,
+      document.getElementById("province").value,
+      document.getElementById("edit-provice-err"),
+      document.getElementById("province"),
+      valideEdit
+    );
+    const editCountry = checkValidation(
+      regex.patternAddress,
+      document.getElementById("country").value,
+      document.getElementById("edit-country-err"),
+      document.getElementById("country"),
+      valideEdit
+    );
+    // const editStartDate = document.getElementById("start-agreement-date");
+    // const editStartErr = document.getElementById("start-agreement-date");
+    // if (editStartDate.value === isNaN && editStartDate.value !== "") {
+    //   editStartErr.innerHTML = inValidError;
+    //   valideEdit = false;
+    //   startAgreementDate.classList.add("error-form");
+    //   startAgreementDate.classList.remove("valid-form");
+    // } else if (getStartAgreement === "") {
+    //   editStartErr.innerHTML = emptyRequired;
+    //   valideEdit = false;
+    //   startAgreementDate.classList.add("error-form");
+    // } else {
+    //   editStartErr.innerHTML = "";
+    //   startAgreementDate.classList.remove("error-form");
+    //   startAgreementDate.classList.add("valid-form");
+    // }
+
+    // if (getEndAgreement === isNaN ) {
+    //   endAgreementErr.innerHTML = inValidError;
+    //   valideEdit = false;
+    //   endAgreementDate.classList.add("error-form");
+    //   endAgreementDate.classList.remove("valid-form");
+    // } else if (getEndAgreement === "") {
+    //   endAgreementErr.innerHTML = emptyRequired;
+    //   valideEdit = false;
+    // } else {
+    //   endAgreementErr.innerHTML = "";
+    //   endAgreementDate.classList.remove("error-form");
+    //   endAgreementDate.classList.add("valid-form");
+    // }
+    if (getPurchaseMethod === "Buy from Existing Partner") {
+      if (editFirstName) {
+        saveData();
+      } else {
+        new bootstrap.Modal(
+          document.getElementById("modal-edit-issued-share")
+        ).show();
+      }
+    } else {
+      new bootstrap.Modal(
+        document.getElementById("modal-edit-issued-share")
+      ).show();
+    }
   });
 });
 
 export function saveData() {
+  debugger;
   let getPurChaseMethod =
     purchaseMethod.value || document.getElementById("purchaseMethod").value;
   if (getPurChaseMethod === "Buy from Existing Partner") {
@@ -330,7 +485,7 @@ export function saveData() {
           commune: document.getElementById("commune").value,
         },
         startAgreementDate: document.getElementById("startAgreementDate").value,
-        endAgreementDate: document.getElementById("endAgreementDate").value,
+        endAgreementDate: document.getElementById("end-agreement-date").value,
         photo: uploadPhoto.value,
         partnerName: document.getElementById("pExname").value,
         pExIdPassport: document.getElementById("pExIdPassport").value,
@@ -371,6 +526,7 @@ export function saveData() {
     }
   } else {
     let activeIndex = currentIndex.value;
+
     if (activeIndex !== "") {
       issuedContractDatas[activeIndex] = {
         contactNumber: contractNumber.value,
@@ -386,7 +542,8 @@ export function saveData() {
           district: document.getElementById("district").value,
           commune: document.getElementById("commune").value,
         },
-        startAgreementDate: document.getElementById("startAgreementDate").value,
+        startAgreementDate: document.getElementById("start-agreement-date")
+          .value,
         endAgreementDate: document.getElementById("endAgreementDate").value,
         photo: uploadPhoto.value,
         issuedAmount: document.getElementById("IAmountContract").value,
